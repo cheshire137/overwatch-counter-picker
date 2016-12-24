@@ -1,0 +1,26 @@
+.overwatch-hero {
+  border-width: 1px;
+  border-style: solid;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.overwatch-hero.pick {
+  border-color: #c5fd36;
+}
+
+.overwatch-hero.enemy {
+  border-color: #ed1228;
+}
+
+.overwatch-hero.ally {
+  border-color: #43c0f9;
+}
+
+.overwatch-hero-portrait {
+
+}
+
+.overwatch-hero-name {
+
+}
