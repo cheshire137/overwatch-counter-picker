@@ -24,12 +24,33 @@
   </header>
   <section class="section">
     <div class="container">
+      {% if player_ok %}
+        <div class="player-choice-ok-container has-text-centered content">
+          <p class="instruction">Your choice of</p>
+          <div class="overwatch-hero pick {{ player }}">
+            <h3 class="overwatch-hero-name subtitle">{{ hero_names[player] }}</h3>
+            <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=player + '.png') }}" alt="{{ player }}">
+          </div>
+          <p class="instruction">is a-okay.</p>
+        </div>
+
+        <hr>
+      {% endif %}
+
       <div class="picks-container has-text-centered content">
         <p class="instruction">
-          {% if num_picks == 1 %}
-            You should play
+          {% if player_ok %}
+            {% if num_picks == 1 %}
+              You could also play
+            {% else %}
+              You could also play one of
+            {% endif %}
           {% else %}
-            Choose one of
+            {% if num_picks == 1 %}
+              You should play
+            {% else %}
+              Choose one of
+            {% endif %}
           {% endif %}
         </p>
 
