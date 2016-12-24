@@ -12,10 +12,13 @@ class Team:
     if hero not in self.positions or position < self.positions[hero]:
       self.positions[hero] = position
 
+    self.heroes = sorted(self.heroes, key=self.positions.get)
+
   def num_in_role(self, pool):
     count = 0
+    valid_heroes = [hero for hero in self.heroes if hero != 'unknown']
     for hero in pool:
-      if hero in self.heroes:
+      if hero in valid_heroes:
         count += 1
     return count
 
@@ -40,6 +43,7 @@ class Team:
   def any_tanks(self):
     return self.num_tanks() > 0
 
+  # Returns the size of the team based on selected heroes.
   def size(self):
     return len([hero for hero in self.heroes if hero != 'unknown'])
 
@@ -48,9 +52,11 @@ class Team:
   def fully_detected(self):
     return len(self.heroes) == 6
 
+  # Returns true if no one has picked a hero yet.
   def empty(self):
     return self.size() < 1
 
+  # Returns true if every slot on the team has been filled.
   def full(self):
     return self.size() == 6
 
