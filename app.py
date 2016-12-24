@@ -31,6 +31,9 @@ class HeroDetector:
     loc = np.where(res >= self.threshold)
     return zip(*loc[::-1])
 
+  def is_red_team(self, point):
+    return point < self.mid_height
+
 class TeamDetector:
   # TODO: symmetra, hanzo, sombra, pharah, mei, winston
   heroes = ['ana', 'bastion', 'dva', 'genji', 'junkrat', 'lucio', 'mccree',
@@ -49,7 +52,7 @@ class TeamDetector:
       points = self.hero_detector.detect(template)
 
       for point1 in points:
-        if point1[1] < self.hero_detector.mid_height:
+        if self.hero_detector.is_red_team(point1[1]):
           self.red_team.add(hero)
         else:
           self.blue_team.add(hero)
