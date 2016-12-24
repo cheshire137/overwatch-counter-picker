@@ -3,9 +3,9 @@ import os
 from hero_detector import HeroDetector
 
 class TeamDetector:
-  # TODO: hanzo, mei
-  heroes = ['ana', 'bastion', 'dva', 'genji', 'junkrat', 'lucio', 'mccree',
-            'mercy', 'pharah', 'reaper', 'reinhardt', 'roadhog',
+  # TODO: mei
+  heroes = ['ana', 'bastion', 'dva', 'genji', 'hanzo', 'junkrat', 'lucio',
+            'mccree', 'mercy', 'pharah', 'reaper', 'reinhardt', 'roadhog',
             'soldier-76', 'sombra', 'symmetra', 'torbjorn', 'tracer',
             'widowmaker', 'winston', 'zarya', 'zenyatta']
 
