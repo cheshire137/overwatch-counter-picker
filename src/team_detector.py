@@ -3,10 +3,11 @@ import os
 from hero_detector import HeroDetector
 
 class TeamDetector:
-  # TODO: symmetra, hanzo, sombra, pharah, mei, winston
+  # TODO: hanzo, mei
   heroes = ['ana', 'bastion', 'dva', 'genji', 'junkrat', 'lucio', 'mccree',
-            'mercy', 'reaper', 'reinhardt', 'roadhog', 'soldier-76',
-            'torbjorn', 'tracer', 'widowmaker', 'zarya', 'zenyatta']
+            'mercy', 'pharah', 'reaper', 'reinhardt', 'roadhog',
+            'soldier-76', 'sombra', 'symmetra', 'torbjorn', 'tracer',
+            'widowmaker', 'winston', 'zarya', 'zenyatta']
 
   def __init__(self, original):
     self.red_team = set()
