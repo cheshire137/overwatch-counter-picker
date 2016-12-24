@@ -26,11 +26,39 @@ class HeroPicker:
     'zenyatta': ['hanzo', 'tracer', 'widowmaker']
   }
 
+  # If you have X on your team, one of Y would pair well
+  synergies = {
+    'ana': [],
+    'bastion': ['reinhardt', 'mercy'],
+    'dva': ['mercy', 'ana'],
+    'genji': ['lucio'],
+    'hanzo': [],
+    'junkrat': [],
+    'lucio': [],
+    'mccree': ['lucio'],
+    'mei': ['roadhog'],
+    'mercy': ['zarya', 'pharah', 'dva'],
+    'pharah': ['mercy'],
+    'reaper': [],
+    'reinhardt': [],
+    'roadhog': ['mei'],
+    'soldier-76': ['mercy'],
+    'sombra': [],
+    'symmetra': ['torbjorn'],
+    'torbjorn': ['symmetra'],
+    'tracer': ['lucio'],
+    'widowmaker': ['winston', 'mercy'],
+    'winston': [],
+    'zarya': [],
+    'zenyatta': []
+  }
+
   healers = ['mercy', 'zenyatta', 'lucio', 'ana']
 
   tanks = ['reinhardt', 'dva', 'zarya', 'winston', 'roadhog']
 
-  dps = ['genji', 'mccree', 'pharah', 'reaper', 'soldier-76', 'sombra', 'tracer']
+  offense = ['genji', 'mccree', 'pharah', 'reaper', 'soldier-76', 'sombra',
+             'tracer']
 
   def __init__(self, red_team, blue_team):
     self.red_team = red_team
@@ -42,8 +70,8 @@ class HeroPicker:
         return True
     return False
 
-  def any_dps(self):
-    return self.any_in_role(self.__class__.dps)
+  def any_offense(self):
+    return self.any_in_role(self.__class__.offense)
 
   def any_healers(self):
     return self.any_in_role(self.__class__.healers)
@@ -55,15 +83,22 @@ class HeroPicker:
     hero_points = {}
     for hero in pool:
       hero_points[hero] = 0
+
       counters = self.__class__.counters[hero]
       for enemy in self.red_team:
         if enemy in counters:
           hero_points[hero] -= 1
+
+      synergies = self.__class__.synergies[hero]
+      for ally in self.blue_team:
+        if ally in synergies:
+          hero_points[hero] += 1
+
     max_score = max(hero_points.values())
     return [k for k,v in hero_points.iteritems() if v == max_score]
 
-  def best_dps(self):
-    return self.best_in_role(self.__class__.dps)
+  def best_offense(self):
+    return self.best_in_role(self.__class__.offense)
 
   def best_healers(self):
     return self.best_in_role(self.__class__.healers)
@@ -73,10 +108,15 @@ class HeroPicker:
 
   def pick(self):
     blue_slots_filled = len(self.blue_team)
+
+    if blue_slots_filled < 4:
+      all_heroes = counters.keys()
+      return all_heroes # just play anyone
+
     if blue_slots_filled == 5:
       if not self.any_healers():
         return self.best_healers()
       if not self.any_tanks():
         return self.best_tanks()
-      if not self.any_dps():
-        return self.best_dps()
+      if not self.any_offense():
+        return self.best_offense()
