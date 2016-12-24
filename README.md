@@ -5,15 +5,29 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 ## How to Run
 
-You will need Python and OpenCV installed.
+You will need Python and OpenCV installed. See detailed instructions below for
+OpenCV installation on macOS.
 
-Run the app with `python src/cli.py`. It currently just detects which heroes are
-on each team. You can pass it the name of an image in the sample-screenshots/
-folder, e.g., `python src/cli.py hero-selection-not-full.jpg`.
+```bash
+pip install Flask
+```
+
+### Server
+
+The server will run at [127.0.0.1:5000](http://127.0.0.1:5000/) and let you
+upload an Overwatch screenshot for determining which hero to pick. Run with
+`python src/server.py`.
+
+### Command-Line Script
+
+The command-line script will allow you to pass an Overwatch screenshot and
+determine which hero you should pick. Run with `python src/cli.py`. You can pass
+it the name of an image in the sample-screenshots/ folder, e.g.,
+`python src/cli.py hero-selection-not-full.jpg`.
 
 ### How to Install OpenCV
 
-Here's how I did it in macOS using Homebrew. Basically follow
+Here's how I did it in macOS Sierra using Homebrew. Basically follow
 [this macOS OpenCV installation guide](http://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/),
 namely:
 
