@@ -9,8 +9,7 @@ if len(sys.argv) > 1:
 else:
   print 'You can pass a file name from sample-screenshots/'
   print 'Example:'
-  print 'python', sys.argv[0], 'name_of_sample_screenshot_here'
-  print ''
+  print 'python', sys.argv[0], 'name_of_sample_screenshot_here\n'
   print 'Using default screenshot', original_name
 
 original = cv2.imread('sample-screenshots/' + original_name)
@@ -23,7 +22,7 @@ original_w = np.size(original, 1)
 original_h = np.size(original, 0)
 print 'Screenshot is', original_w, 'x', original_h
 mid_height = original_h / 2
-print 'Midpoint is', mid_height
+print 'Vertical midpoint is', mid_height, '\n'
 cv2.rectangle(original, (0, mid_height), (original_w, mid_height), (255, 0, 0), 2)
 
 for hero in heroes:
@@ -46,4 +45,4 @@ for hero in heroes:
 
 output_path = 'res.png'
 cv2.imwrite(output_path, original)
-print 'Look at', output_path, 'to see Overwatch hero detection'
+print '\nLook at', output_path, 'to see Overwatch hero detection'
