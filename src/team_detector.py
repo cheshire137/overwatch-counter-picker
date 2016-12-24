@@ -1,6 +1,7 @@
 import cv2
 import os
 from hero_detector import HeroDetector
+from team import Team
 
 class TeamDetector:
   # TODO: mei
@@ -10,8 +11,8 @@ class TeamDetector:
             'widowmaker', 'winston', 'zarya', 'zenyatta']
 
   def __init__(self, original):
-    self.red_team = set()
-    self.blue_team = set()
+    self.red_team = Team([])
+    self.blue_team = Team([])
     self.original = original
     self.thickness = 2
     self.color = (255, 0, 0)
