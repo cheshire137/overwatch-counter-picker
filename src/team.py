@@ -1,6 +1,33 @@
+# -*- coding: utf-8 -*-
 from roles import Roles
 
 class Team:
+  hero_names = {
+    'ana': 'Ana',
+    'bastion': 'Bastion',
+    'dva': 'D.Va',
+    'genji': 'Genji',
+    'hanzo': 'Hanzo',
+    'junkrat': 'Junkrat',
+    'lucio': 'Lúcio',
+    'mccree': 'McCree',
+    'mei': 'Mei',
+    'mercy': 'Mercy',
+    'pharah': 'Pharah',
+    'reaper': 'Reaper',
+    'reinhardt': 'Reinhardt',
+    'roadhog': 'Roadhog',
+    'soldier-76': 'Soldier 76',
+    'sombra': 'Sombra',
+    'symmetra': 'Symmetra',
+    'torbjorn': 'Torbjörn',
+    'tracer': 'Tracer',
+    'widowmaker': 'Widowmaker',
+    'winston': 'Winston',
+    'zarya': 'Zarya',
+    'zenyatta': 'Zenyatta'
+  }
+
   def __init__(self, heroes):
     self.heroes = heroes
     self.positions = {}

@@ -24,7 +24,7 @@
   </header>
   <section class="section">
     <div class="container">
-      <div class="picks-container has-text-centered">
+      <div class="picks-container has-text-centered content">
         <p class="instruction">
           {% if num_picks == 1 %}
             You should play
@@ -36,7 +36,7 @@
         <ul class="picks-list">
           {% for hero in picks %}
             <li class="overwatch-hero pick {{ hero }}">
-              <h3 class="overwatch-hero-name subtitle">{{ hero }}</h3>
+              <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
               <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
             </li>
           {% endfor %}
@@ -46,13 +46,13 @@
       {% if any_allies %}
         <hr>
 
-        <div class="allies-container">
+        <div class="allies-container has-text-centered content">
           <p class="team-intro">Your team has</p>
 
           <ul class="allies-list">
             {% for hero in allies %}
               <li class="overwatch-hero ally {{ hero }}">
-                <h3 class="overwatch-hero-name subtitle">{{ hero }}</h3>
+                <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
                 <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               </li>
             {% endfor %}
@@ -63,13 +63,13 @@
       {% if any_enemies %}
         <hr>
 
-        <div class="enemies-container">
+        <div class="enemies-container has-text-centered content">
           <p>The red team has</p>
 
           <ul class="enemies-list">
             {% for hero in enemies %}
               <li class="overwatch-hero enemy {{ hero }}">
-                <h3 class="overwatch-hero-name subtitle">{{ hero }}</h3>
+                <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
                 <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               </li>
             {% endfor %}

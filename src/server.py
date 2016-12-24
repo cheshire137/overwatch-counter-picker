@@ -3,6 +3,7 @@ import cv2
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime
+from team import Team
 from team_detector import TeamDetector
 from hero_picker import HeroPicker
 
@@ -43,7 +44,8 @@ def upload():
     any_enemies = len(enemies) > 0
     return render_template('result.html', picks=picks, num_picks=len(picks), \
                            allies=allies, enemies=enemies, \
-                           any_allies=any_allies, any_enemies=any_enemies)
+                           any_allies=any_allies, any_enemies=any_enemies, \
+                           hero_names=Team.hero_names)
 
   return redirect(request.url)
 
