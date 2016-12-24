@@ -2,11 +2,12 @@ from roles import Roles
 
 class Team:
   def __init__(self, heroes):
-    self.heroes = set(heroes)
+    self.heroes = heroes
     self.positions = {}
 
   def add(self, hero, position):
-    self.heroes.add(hero)
+    if hero == 'unknown' or hero not in self.heroes:
+      self.heroes.append(hero)
 
     if hero not in self.positions or position < self.positions[hero]:
       self.positions[hero] = position
@@ -40,7 +41,7 @@ class Team:
     return self.num_tanks() > 0
 
   def size(self):
-    return len(self.heroes)
+    return len([hero for hero in self.heroes if hero != 'unknown'])
 
   def empty(self):
     return self.size() < 1
