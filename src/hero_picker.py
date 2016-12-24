@@ -80,18 +80,30 @@ class HeroPicker:
     if self.blue_team.size() < 4 and self.red_team.empty():
       return all_heroes # just play anyone
 
-    if not self.blue_team.any_healers():
+    any_healers = self.blue_team.any_healers()
+    any_tanks = self.blue_team.any_tanks()
+    any_offense = self.blue_team.any_offense()
+
+    if not any_healers and not any_tanks and not any_offense:
+      return self.pick_from_pool(Roles.healers + Roles.tanks + Roles.offense)
+    elif not any_healers and not any_tanks:
+      return self.pick_from_pool(Roles.healers + Roles.tanks)
+    elif not any_healers and not any_offense:
+      return self.pick_from_pool(Roles.healers + Roles.offense)
+    elif not any_tanks and not any_offense:
+      return self.pick_from_pool(Roles.tanks + Roles.offense)
+    elif not any_healers:
       return self.best_healers()
-
-    if not self.blue_team.any_tanks():
+    elif not any_tanks:
       return self.best_tanks()
-
-    if not self.blue_team.any_offense():
+    elif not any_offense:
       return self.best_offense()
 
+    # Try to have two healers.
     if self.blue_team.num_healers() < 2:
       return self.best_healers()
 
+    # Try to have at least two tanks.
     if self.blue_team.num_tanks() < 2:
       return self.best_tanks()
 
@@ -116,6 +128,8 @@ class HeroPicker:
     hero_points = {}
     num_support = self.blue_team.num_support()
     num_offense = self.blue_team.num_offense()
+    num_defense = self.blue_team.num_defense()
+    allies = self.blue_team.allies()
 
     for hero in pool:
       hero_points[hero] = 0
@@ -146,10 +160,13 @@ class HeroPicker:
         hero_points[hero] -= 1
 
       # Heavily discourage duplicates.
-      if hero in self.blue_team.heroes:
+      if hero in allies:
         hero_points[hero] -= 3
 
+      # Discourage more than 3 offense + defense heroes.
+      if (hero in Roles.offense or hero in Roles.defense) and num_offense + num_defense >= 3:
+        hero_points[hero] -= 1
+
     sorted_hero_points = sorted(hero_points.items(), key=operator.itemgetter(1))
-    good_picks = sorted_hero_points[-3:]
-    best_score = max(dict(good_picks).values())
-    return [hero for hero, score in good_picks if score == best_score]
+    best_score = max(dict(sorted_hero_points).values())
+    return [hero for hero, score in sorted_hero_points if score == best_score]
