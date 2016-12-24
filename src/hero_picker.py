@@ -109,12 +109,13 @@ class HeroPicker:
   def best_tanks(self):
     return self.pick_from_pool(Roles.tanks)
 
-  # Given a list of heroes to choose from, pick the best one for you to
+  # Given a list of heroes to choose from, pick the best one(s) for you to
   # play, based on who is on your team and who is on the red team, if any
   # enemies are known.
   def pick_from_pool(self, pool):
     hero_points = {}
     num_support = self.blue_team.num_support()
+    num_offense = self.blue_team.num_offense()
 
     for hero in pool:
       hero_points[hero] = 0
@@ -140,7 +141,15 @@ class HeroPicker:
       if hero in Roles.support and num_support >= 2:
         hero_points[hero] -= 1
 
+      # Discourage more than 3 offense heroes.
+      if hero in Roles.offense and num_offense >= 3:
+        hero_points[hero] -= 1
+
+      # Heavily discourage duplicates.
+      if hero in self.blue_team.heroes:
+        hero_points[hero] -= 3
+
     sorted_hero_points = sorted(hero_points.items(), key=operator.itemgetter(1))
     good_picks = sorted_hero_points[-3:]
-    max_score = max(dict(good_picks).values())
-    return [hero for hero, score in good_picks if score == max_score]
+    best_score = max(dict(good_picks).values())
+    return [hero for hero, score in good_picks if score == best_score]
