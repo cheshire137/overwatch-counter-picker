@@ -46,6 +46,10 @@ for hero in heroes:
     print '\t', hero, 'detected'
 
   for point1 in points:
+    if point1[1] < mid_height:
+      print '\t\ton red team'
+    else:
+      print '\t\ton blue team'
     point2 = (point1[0] + w, point1[1] + h)
     cv2.rectangle(original, point1, point2, color, thickness)
 
