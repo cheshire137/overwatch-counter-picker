@@ -43,6 +43,11 @@ class Team:
   def size(self):
     return len([hero for hero in self.heroes if hero != 'unknown'])
 
+  # Returns true if the whole team was detected, even if that includes some
+  # unselected slots.
+  def fully_detected(self):
+    return len(self.heroes) == 6
+
   def empty(self):
     return self.size() < 1
 

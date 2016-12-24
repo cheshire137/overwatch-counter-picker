@@ -2,7 +2,7 @@ from team import Team
 
 class BlueTeam(Team):
   def player(self):
-    if not self.full():
+    if not self.fully_detected():
       return None
 
     return min(self.positions, key=self.positions.get)
