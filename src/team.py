@@ -34,3 +34,6 @@ class Team:
 
   def size(self):
     return len(self.heroes)
+
+  def empty(self):
+    return self.size() < 1

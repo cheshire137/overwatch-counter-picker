@@ -66,49 +66,17 @@ class HeroPicker:
     if self.map_type == 'control':
       self.attacking = True
 
+  # Returns true if we are defending this round. Always false on control
+  # maps like Nepal.
   def defending(self):
     return self.attacking != None and not self.attacking
 
-  def best_in_role(self, pool):
-    hero_points = {}
-    num_support = self.blue_team.num_support()
-
-    for hero in pool:
-      hero_points[hero] = 0
-
-      counters = self.__class__.counters[hero]
-      for enemy in self.red_team.heroes:
-        if enemy in counters:
-          hero_points[hero] -= 1
-
-      synergies = self.__class__.synergies[hero]
-      for ally in self.blue_team.heroes:
-        if ally in synergies:
-          hero_points[hero] += 1
-
-      if self.defending():
-        if hero in Roles.defense:
-          hero_points[hero] += 1
-
-      if hero in Roles.support and num_support >= 2:
-        hero_points[hero] -= 1
-
-    max_score = max(hero_points.values())
-    return [k for k,v in hero_points.iteritems() if v == max_score]
-
-  def best_offense(self):
-    return self.best_in_role(Roles.offense)
-
-  def best_healers(self):
-    return self.best_in_role(Roles.healers)
-
-  def best_tanks(self):
-    return self.best_in_role(Roles.tanks)
-
+  # Pick the best hero for you to play, based on who is on your team and
+  # who is on the red team, if any enemies are known.
   def pick(self):
     all_heroes = self.counters.keys()
 
-    if self.blue_team.size() < 4:
+    if self.blue_team.size() < 4 and self.red_team.empty():
       return all_heroes # just play anyone
 
     if not self.blue_team.any_healers():
@@ -126,4 +94,50 @@ class HeroPicker:
     if self.blue_team.num_tanks() < 2:
       return self.best_tanks()
 
-    return self.best_in_role(all_heroes)
+    return self.pick_from_pool(all_heroes)
+
+  # Pick the best offense hero to play.
+  def best_offense(self):
+    return self.pick_from_pool(Roles.offense)
+
+  # Pick the best healer to play.
+  def best_healers(self):
+    return self.pick_from_pool(Roles.healers)
+
+  # Pick the best tank to play.
+  def best_tanks(self):
+    return self.pick_from_pool(Roles.tanks)
+
+  # Given a list of heroes to choose from, pick the best one for you to
+  # play, based on who is on your team and who is on the red team, if any
+  # enemies are known.
+  def pick_from_pool(self, pool):
+    hero_points = {}
+    num_support = self.blue_team.num_support()
+
+    for hero in pool:
+      hero_points[hero] = 0
+
+      # Avoid heroes that will be countered by the enemy team.
+      counters = self.__class__.counters[hero]
+      for enemy in self.red_team.heroes:
+        if enemy in counters:
+          hero_points[hero] -= 1
+
+      # Which heroes work well with others on our team?
+      synergies = self.__class__.synergies[hero]
+      for ally in self.blue_team.heroes:
+        if ally in synergies:
+          hero_points[hero] += 1
+
+      # Defense heroes are good when we're defending.
+      if self.defending():
+        if hero in Roles.defense:
+          hero_points[hero] += 1
+
+      # Discourage more than 2 support heroes.
+      if hero in Roles.support and num_support >= 2:
+        hero_points[hero] -= 1
+
+    max_score = max(hero_points.values())
+    return [k for k,v in hero_points.iteritems() if v == max_score]
