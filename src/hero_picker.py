@@ -60,9 +60,16 @@ class HeroPicker:
   offense = ['genji', 'mccree', 'pharah', 'reaper', 'soldier-76', 'sombra',
              'tracer']
 
-  def __init__(self, red_team, blue_team):
+  map_types = ['control', 'assault', 'escort', 'hybrid']
+
+  def __init__(self, red_team, blue_team, map_type=None, offense=None):
     self.red_team = red_team
     self.blue_team = blue_team
+    self.map_type = map_type
+    self.offense = offense
+
+    if self.map_type == 'control'
+      self.offense = True
 
   def any_in_role(self, pool):
     for hero in pool:
@@ -107,10 +114,11 @@ class HeroPicker:
     return self.best_in_role(self.__class__.tanks)
 
   def pick(self):
+    red_slots_filled = len(self.red_team)
     blue_slots_filled = len(self.blue_team)
+    all_heroes = counters.keys()
 
     if blue_slots_filled < 4:
-      all_heroes = counters.keys()
       return all_heroes # just play anyone
 
     if blue_slots_filled == 5:
@@ -120,3 +128,5 @@ class HeroPicker:
         return self.best_tanks()
       if not self.any_offense():
         return self.best_offense()
+      if red_slots_filled > 0:
+        return self.best_in_role(all_heroes)
