@@ -28,6 +28,8 @@ class HeroPicker:
 
   healers = ['mercy', 'zenyatta', 'lucio', 'ana']
 
+  tanks = ['reinhardt', 'dva', 'zarya', 'winston', 'roadhog']
+
   def __init__(self, red_team, blue_team):
     self.red_team = red_team
     self.blue_team = blue_team
@@ -38,18 +40,33 @@ class HeroPicker:
         return True
     return False
 
-  def best_healers(self):
-    healer_points = {}
-    for healer in self.__class__.healers:
-      healer_points[healer] = 0
-      counters = self.__class__.counters[healer]
+  def any_tanks(self):
+    for tank in self.__class__.tanks:
+      if tank in self.blue_team:
+        return True
+    return False
+
+  def best_in_role(self, pool):
+    hero_points = {}
+    for hero in pool:
+      hero_points[hero] = 0
+      counters = self.__class__.counters[hero]
       for enemy in self.red_team:
         if enemy in counters:
-          healer_points[healer] -= 1
-    max_score = max(healer_points.values())
-    return [k for k,v in healer_points.iteritems() if v == max_score]
+          hero_points[hero] -= 1
+    max_score = max(hero_points.values())
+    return [k for k,v in hero_points.iteritems() if v == max_score]
+
+  def best_healers(self):
+    return self.best_in_role(self.__class__.healers)
+
+  def best_tanks(self):
+    return self.best_in_role(self.__class__.tanks)
 
   def pick(self):
     blue_slots_filled = len(self.blue_team)
-    if blue_slots_filled == 5 and not self.any_healers():
-      return self.best_healers()
+    if blue_slots_filled == 5:
+      if not self.any_healers():
+        return self.best_healers()
+      if not self.any_tanks():
+        return self.best_tanks()
