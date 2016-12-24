@@ -115,4 +115,10 @@ class HeroPicker:
     if not self.blue_team.any_offense():
       return self.best_offense()
 
+    if self.blue_team.num_healers() < 2:
+      return self.best_healers()
+
+    if self.blue_team.num_tanks() < 2:
+      return self.best_tanks()
+
     return self.best_in_role(all_heroes)
