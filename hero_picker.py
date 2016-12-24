@@ -30,21 +30,26 @@ class HeroPicker:
 
   tanks = ['reinhardt', 'dva', 'zarya', 'winston', 'roadhog']
 
+  dps = ['genji', 'mccree', 'pharah', 'reaper', 'soldier-76', 'sombra', 'tracer']
+
   def __init__(self, red_team, blue_team):
     self.red_team = red_team
     self.blue_team = blue_team
 
-  def any_healers(self):
-    for healer in self.__class__.healers:
-      if healer in self.blue_team:
+  def any_in_role(self, pool):
+    for hero in pool:
+      if hero in self.blue_team:
         return True
     return False
 
+  def any_dps(self):
+    return self.any_in_role(self.__class__.dps)
+
+  def any_healers(self):
+    return self.any_in_role(self.__class__.healers)
+
   def any_tanks(self):
-    for tank in self.__class__.tanks:
-      if tank in self.blue_team:
-        return True
-    return False
+    return self.any_in_role(self.__class__.tanks)
 
   def best_in_role(self, pool):
     hero_points = {}
@@ -56,6 +61,9 @@ class HeroPicker:
           hero_points[hero] -= 1
     max_score = max(hero_points.values())
     return [k for k,v in hero_points.iteritems() if v == max_score]
+
+  def best_dps(self):
+    return self.best_in_role(self.__class__.dps)
 
   def best_healers(self):
     return self.best_in_role(self.__class__.healers)
@@ -70,3 +78,5 @@ class HeroPicker:
         return self.best_healers()
       if not self.any_tanks():
         return self.best_tanks()
+      if not self.any_dps():
+        return self.best_dps()

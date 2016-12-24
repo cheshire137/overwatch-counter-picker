@@ -48,3 +48,15 @@ if len(heroes) == 1:
   print 'play', heroes[0]
 else:
   print 'play one of', heroes
+
+fake_red_team = ['hanzo', 'lucio', 'reaper', 'genji', 'mei', 'reinhardt']
+fake_blue_team = ['mercy', 'reinhardt', 'hanzo', 'widowmaker', 'bastion']
+
+print '\nif red team is', fake_red_team
+print 'and blue team is', fake_blue_team
+hero_picker = HeroPicker(fake_red_team, fake_blue_team)
+heroes = hero_picker.pick()
+if len(heroes) == 1:
+  print 'play', heroes[0]
+else:
+  print 'play one of', heroes
