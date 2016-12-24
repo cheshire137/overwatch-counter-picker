@@ -22,7 +22,9 @@ team_detector.detect()
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
 
-print 'Player is', team_detector.blue_team.player()
+player = team_detector.blue_team.player()
+if player is not None:
+  print 'Player is', player
 
 output_path = 'res.png'
 cv2.imwrite(output_path, screenshot)

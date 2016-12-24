@@ -5,14 +5,11 @@ class Team:
     self.heroes = set(heroes)
     self.positions = {}
 
-  def add(self, hero, position=None):
+  def add(self, hero, position):
     self.heroes.add(hero)
-    if position:
-      if hero in self.positions:
-        if position < self.positions[hero]:
-          self.positions[hero] = position
-      else:
-        self.positions[hero] = position
+
+    if hero not in self.positions or position < self.positions[hero]:
+      self.positions[hero] = position
 
   def num_in_role(self, pool):
     count = 0
@@ -47,6 +44,9 @@ class Team:
 
   def empty(self):
     return self.size() < 1
+
+  def full(self):
+    return self.size() == 6
 
   def __str__(self):
     return ", ".join(self.heroes)
