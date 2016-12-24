@@ -26,8 +26,30 @@ class HeroPicker:
     'zenyatta': ['hanzo', 'tracer', 'widowmaker']
   }
 
+  healers = ['mercy', 'zenyatta', 'lucio', 'ana']
+
   def __init__(self, red_team, blue_team):
     self.red_team = red_team
     self.blue_team = blue_team
 
-#  def pick(self):
+  def any_healers(self):
+    for healer in self.__class__.healers:
+      if healer in self.blue_team:
+        return True
+    return False
+
+  def best_healers(self):
+    healer_points = {}
+    for healer in self.__class__.healers:
+      healer_points[healer] = 0
+      counters = self.__class__.counters[healer]
+      for enemy in self.red_team:
+        if enemy in counters:
+          healer_points[healer] -= 1
+    max_score = max(healer_points.values())
+    return [k for k,v in healer_points.iteritems() if v == max_score]
+
+  def pick(self):
+    blue_slots_filled = len(self.blue_team)
+    if blue_slots_filled == 5 and not self.any_healers():
+      return self.best_healers()
