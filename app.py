@@ -26,44 +26,50 @@ class HeroDetector:
     loc = np.where(res >= self.threshold)
     return zip(*loc[::-1])
 
-original = cv2.imread('sample-screenshots/' + original_name)
-detector = HeroDetector(original)
+class TeamDetector:
+  # TODO: symmetra, hanzo, sombra, pharah, mei, winston
+  heroes = ['ana', 'bastion', 'dva', 'genji', 'junkrat', 'lucio', 'mccree',
+            'mercy', 'reaper', 'reinhardt', 'roadhog', 'soldier-76',
+            'torbjorn', 'tracer', 'widowmaker', 'zarya', 'zenyatta']
 
-# TODO: symmetra, hanzo, sombra, pharah, mei, winston
-heroes = ['ana', 'bastion', 'dva', 'genji', 'junkrat', 'lucio', 'mccree',
-          'mercy', 'reaper', 'reinhardt', 'roadhog', 'soldier-76',
-          'torbjorn', 'tracer', 'widowmaker', 'zarya', 'zenyatta']
+  def __init__(self, hero_detector):
+    self.red_team = set()
+    self.blue_team = set()
+    self.hero_detector = hero_detector
+
+  def detect(self, color):
+    for hero in self.__class__.heroes:
+      template = cv2.imread('heroes/' + hero + '.png', 0)
+      w, h = template.shape[::-1]
+      points = self.hero_detector.detect(template)
+
+      for point1 in points:
+        if point1[1] < self.hero_detector.mid_height:
+          self.red_team.add(hero)
+        else:
+          self.blue_team.add(hero)
+        point2 = (point1[0] + w, point1[1] + h)
+        cv2.rectangle(self.hero_detector.original, point1, point2, color, thickness)
+
+original = cv2.imread('sample-screenshots/' + original_name)
+hero_detector = HeroDetector(original)
+team_detector = TeamDetector(hero_detector)
 
 thickness = 2
 blue = (255, 0, 0)
 red = (0, 0, 255)
 
-print 'Screenshot is', detector.original_w, 'x', detector.original_h
-print 'Vertical midpoint is', detector.mid_height, '\n'
-cv2.rectangle(original, (0, detector.mid_height), (detector.original_w, detector.mid_height), blue, 2)
+print 'Screenshot is', hero_detector.original_w, 'x', hero_detector.original_h
+print 'Vertical midpoint is', hero_detector.mid_height, '\n'
 
-blue_team = set()
-red_team = set()
+point1 = (0, hero_detector.mid_height)
+point2 = (hero_detector.original_w, hero_detector.mid_height)
+cv2.rectangle(original, point1, point2, blue, 2)
 
-for hero in heroes:
-  print 'Detecting', hero + '...'
-  template = cv2.imread('heroes/' + hero + '.png', 0)
-  w, h = template.shape[::-1]
-  points = detector.detect(template)
+team_detector.detect(red)
 
-  if len(points) > 0:
-    print '\tfound'
-
-  for point1 in points:
-    if point1[1] < detector.mid_height:
-      red_team.add(hero)
-    else:
-      blue_team.add(hero)
-    point2 = (point1[0] + w, point1[1] + h)
-    cv2.rectangle(original, point1, point2, red, thickness)
-
-print '\nBlue team:', blue_team
-print 'Red team:', red_team
+print '\nRed team:', team_detector.red_team
+print 'Blue team:', team_detector.blue_team
 
 output_path = 'res.png'
 cv2.imwrite(output_path, original)
