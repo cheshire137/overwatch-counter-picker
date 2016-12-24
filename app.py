@@ -43,10 +43,8 @@ for hero in heroes:
   color = (0, 0, 255)
 
   points = zip(*loc[::-1])
-  if len(points) < 1:
-    print '\t', hero, 'not detected'
-  else:
-    print '\t', hero, 'detected'
+  if len(points) > 0:
+    print '\tfound'
 
   for point1 in points:
     if point1[1] < mid_height:
