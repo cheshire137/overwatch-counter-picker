@@ -3,6 +3,7 @@
   border-style: solid;
   padding: 15px;
   border-radius: 5px;
+  display: inline-block;
 }
 
 .overwatch-hero.pick {
@@ -17,10 +18,29 @@
   border-color: #43c0f9;
 }
 
-.overwatch-hero-portrait {
+.overwatch-hero.pick .overwatch-hero-portrait {
+  width: 180px;
+  height: 180px;
+}
 
+.overwatch-hero.enemy .overwatch-hero-portrait,
+.overwatch-hero.ally .overwatch-hero-portrait {
+  width: 100px;
+  height: 100px;
 }
 
 .overwatch-hero-name {
+
+}
+
+.allies-container {
+
+}
+
+.picks-container {
+
+}
+
+.enemies-container {
 
 }
