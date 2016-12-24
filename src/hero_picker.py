@@ -128,7 +128,7 @@ class HeroPicker:
 
       # Which heroes work well with others on our team?
       synergies = self.__class__.synergies[hero]
-      for ally in self.blue_team.heroes:
+      for ally in self.blue_team.allies():
         if ally in synergies:
           hero_points[hero] += 1
 

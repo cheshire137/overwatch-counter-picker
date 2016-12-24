@@ -12,6 +12,7 @@ class Team:
     if hero not in self.positions or position < self.positions[hero]:
       self.positions[hero] = position
 
+    # Sort heroes left to right
     self.heroes = sorted(self.heroes, key=self.positions.get)
 
   def num_in_role(self, pool):
