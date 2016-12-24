@@ -24,6 +24,7 @@ def index():
 def upload():
   if 'file' not in request.files:
     return redirect(request.url)
+
   file = request.files['file']
   if file and file.filename != '' and allowed_file(file.filename):
     the_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
@@ -36,7 +37,9 @@ def upload():
     team_detector.detect()
     hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
     picks = hero_picker.pick()
-  return redirect(request.url + '#picks=' + ','.join(picks))
+    return render_template('result.html', picks=', '.join(picks))
+
+  return redirect(request.url)
 
 if __name__ == '__main__':
   app.run(debug=True, use_reloader=True)

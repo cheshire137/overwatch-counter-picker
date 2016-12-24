@@ -12,7 +12,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          <a href="/">Overwatch Counter Picker</a>
+          <a href="/">&larr; Overwatch Counter Picker</a>
         </h1>
         <p class="subtitle">
           Upload a screenshot of your Overwatch team composition to figure
@@ -25,13 +25,7 @@
     <div class="container">
       <div class="columns">
         <div class="column is-half">
-          <form method="post" enctype="multipart/form-data">
-            <label for="file" class="label">Overwatch screenshot:</label>
-            <div class="control">
-              <input type="file" class="input" id="file" name="file">
-            </div>
-            <button type="submit" class="is-large button is-primary">Upload</button>
-          </form>
+          <p>You should play: {{picks}}</p>
         </div>
       </div>
     </div>
