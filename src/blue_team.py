@@ -9,6 +9,7 @@ class BlueTeam(Team):
 
   def allies(self):
     player = self.player()
+    known_heroes = [hero for hero in self.heroes if hero != 'unknown']
     if player is not None:
-      return [hero for hero in self.heroes if hero != player]
-    return self.heroes
+      return [hero for hero in known_heroes if hero != player]
+    return known_heroes
