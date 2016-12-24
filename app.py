@@ -39,9 +39,14 @@ for hero in heroes:
   thickness = 2
   color = (0, 0, 255)
 
-  for pt in zip(*loc[::-1]):
-    point1 = pt
-    point2 = (pt[0] + w, pt[1] + h)
+  points = zip(*loc[::-1])
+  if len(points) < 1:
+    print '\t', hero, 'not detected'
+  else:
+    print '\t', hero, 'detected'
+
+  for point1 in points:
+    point2 = (point1[0] + w, point1[1] + h)
     cv2.rectangle(original, point1, point2, color, thickness)
 
 output_path = 'res.png'
