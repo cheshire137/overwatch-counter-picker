@@ -37,7 +37,13 @@ def upload():
     team_detector.detect()
     hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
     picks = hero_picker.pick()
-    return render_template('result.html', picks=', '.join(picks))
+    allies = team_detector.blue_team.allies()
+    any_allies = len(allies) > 0
+    enemies = team_detector.red_team.heroes
+    any_enemies = len(enemies) > 0
+    return render_template('result.html', picks=picks, num_picks=len(picks), \
+                           allies=allies, enemies=enemies, \
+                           any_allies=any_allies, any_enemies=any_enemies)
 
   return redirect(request.url)
 

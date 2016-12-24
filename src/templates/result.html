@@ -25,7 +25,33 @@
     <div class="container">
       <div class="columns">
         <div class="column is-half">
-          <p>You should play: {{picks}}</p>
+          {% if num_picks == 1 %}
+            <p>You should play</p>
+          {% else %}
+            <p>Choose one of</p>
+          {% endif %}
+
+          {% for hero in picks %}
+            - {{ hero }}<br>
+          {% endfor %}
+
+          {% if any_allies %}
+            <hr>
+            <p>Your team has</p>
+
+            {% for hero in allies %}
+              - {{ hero }}<br>
+            {% endfor %}
+          {% endif %}
+
+          {% if any_enemies %}
+            <hr>
+            <p>The red team has</p>
+
+            {% for hero in enemies %}
+              - {{ hero }}<br>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
