@@ -62,14 +62,17 @@ class HeroPicker:
 
   map_types = ['control', 'assault', 'escort', 'hybrid']
 
-  def __init__(self, red_team, blue_team, map_type=None, offense=None):
+  def __init__(self, red_team, blue_team, map_type=None, attacking=None):
     self.red_team = red_team
     self.blue_team = blue_team
     self.map_type = map_type
-    self.offense = offense
 
-    if self.map_type == 'control'
-      self.offense = True
+    self.attacking = attacking
+    if self.map_type == 'control':
+      self.attacking = True
+
+  def defending(self):
+    return self.attacking != None and not self.attacking
 
   def any_in_role(self, pool):
     for hero in pool:
@@ -116,7 +119,7 @@ class HeroPicker:
   def pick(self):
     red_slots_filled = len(self.red_team)
     blue_slots_filled = len(self.blue_team)
-    all_heroes = counters.keys()
+    all_heroes = self.counters.keys()
 
     if blue_slots_filled < 4:
       return all_heroes # just play anyone
