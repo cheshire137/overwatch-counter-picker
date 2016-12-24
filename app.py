@@ -15,8 +15,9 @@ else:
 original = cv2.imread('sample-screenshots/' + original_name)
 original_gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
 
-heroes = ['dva', 'genji', 'lucio', 'mercy', 'reaper', 'reinhardt',
-          'roadhog', 'tracer', 'zarya', 'zenyatta']
+heroes = ['dva', 'genji', 'junkrat', 'lucio', 'mercy', 'reaper',
+          'reinhardt', 'roadhog', 'torbjorn', 'tracer', 'widowmaker',
+          'zarya', 'zenyatta']
 
 original_w = np.size(original, 1)
 original_h = np.size(original, 0)
