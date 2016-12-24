@@ -21,6 +21,11 @@ class HeroDetector:
     self.mid_height = self.original_h / 2
     self.threshold = 0.8
 
+  def draw_divider(self, color, thickness):
+    point1 = (0, self.mid_height)
+    point2 = (self.original_w, self.mid_height)
+    cv2.rectangle(self.original, point1, point2, color, thickness)
+
   def detect(self, template):
     res = cv2.matchTemplate(self.original_gray, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(res >= self.threshold)
@@ -37,7 +42,7 @@ class TeamDetector:
     self.blue_team = set()
     self.hero_detector = hero_detector
 
-  def detect(self, color):
+  def detect(self, color, thickness):
     for hero in self.__class__.heroes:
       template = cv2.imread('heroes/' + hero + '.png', 0)
       w, h = template.shape[::-1]
@@ -62,13 +67,10 @@ red = (0, 0, 255)
 print 'Screenshot is', hero_detector.original_w, 'x', hero_detector.original_h
 print 'Vertical midpoint is', hero_detector.mid_height, '\n'
 
-point1 = (0, hero_detector.mid_height)
-point2 = (hero_detector.original_w, hero_detector.mid_height)
-cv2.rectangle(original, point1, point2, blue, 2)
+hero_detector.draw_divider(blue, thickness)
+team_detector.detect(red, thickness)
 
-team_detector.detect(red)
-
-print '\nRed team:', team_detector.red_team
+print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
 
 output_path = 'res.png'
