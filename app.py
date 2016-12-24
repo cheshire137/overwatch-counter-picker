@@ -26,6 +26,9 @@ mid_height = original_h / 2
 print 'Vertical midpoint is', mid_height, '\n'
 cv2.rectangle(original, (0, mid_height), (original_w, mid_height), (255, 0, 0), 2)
 
+blue_team = set()
+red_team = set()
+
 for hero in heroes:
   print 'Detecting', hero + '...'
   template = cv2.imread('heroes/' + hero + '.png', 0)
@@ -47,11 +50,14 @@ for hero in heroes:
 
   for point1 in points:
     if point1[1] < mid_height:
-      print '\t\ton red team'
+      red_team.add(hero)
     else:
-      print '\t\ton blue team'
+      blue_team.add(hero)
     point2 = (point1[0] + w, point1[1] + h)
     cv2.rectangle(original, point1, point2, color, thickness)
+
+print '\nBlue team:', blue_team
+print 'Red team:', red_team
 
 output_path = 'res.png'
 cv2.imwrite(output_path, original)
