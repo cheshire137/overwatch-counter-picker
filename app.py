@@ -19,6 +19,13 @@ original_gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
 heroes = ['dva', 'genji', 'lucio', 'mercy', 'reaper', 'reinhardt',
           'roadhog', 'tracer', 'zarya', 'zenyatta']
 
+original_w = np.size(original, 1)
+original_h = np.size(original, 0)
+print 'Screenshot is', original_w, 'x', original_h
+mid_height = original_h / 2
+print 'Midpoint is', mid_height
+cv2.rectangle(original, (0, mid_height), (original_w, mid_height), (255, 0, 0), 2)
+
 for hero in heroes:
   print 'Detecting', hero + '...'
   template = cv2.imread('heroes/' + hero + '.png', 0)
