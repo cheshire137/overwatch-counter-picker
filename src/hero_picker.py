@@ -1,3 +1,5 @@
+from roles import Roles
+
 class HeroPicker:
   # If there's an X, go one of Y
   counters = {
@@ -53,13 +55,6 @@ class HeroPicker:
     'zenyatta': []
   }
 
-  healers = ['mercy', 'zenyatta', 'lucio', 'ana']
-
-  tanks = ['reinhardt', 'dva', 'zarya', 'winston', 'roadhog']
-
-  offense = ['genji', 'mccree', 'pharah', 'reaper', 'soldier-76', 'sombra',
-             'tracer']
-
   map_types = ['control', 'assault', 'escort', 'hybrid']
 
   def __init__(self, red_team, blue_team, map_type=None, attacking=None):
@@ -74,62 +69,50 @@ class HeroPicker:
   def defending(self):
     return self.attacking != None and not self.attacking
 
-  def any_in_role(self, pool):
-    for hero in pool:
-      if hero in self.blue_team:
-        return True
-    return False
-
-  def any_offense(self):
-    return self.any_in_role(self.__class__.offense)
-
-  def any_healers(self):
-    return self.any_in_role(self.__class__.healers)
-
-  def any_tanks(self):
-    return self.any_in_role(self.__class__.tanks)
-
   def best_in_role(self, pool):
     hero_points = {}
     for hero in pool:
       hero_points[hero] = 0
 
       counters = self.__class__.counters[hero]
-      for enemy in self.red_team:
+      for enemy in self.red_team.heroes:
         if enemy in counters:
           hero_points[hero] -= 1
 
       synergies = self.__class__.synergies[hero]
-      for ally in self.blue_team:
+      for ally in self.blue_team.heroes:
         if ally in synergies:
+          hero_points[hero] += 1
+
+      if self.defending():
+        if hero in Roles.defense:
           hero_points[hero] += 1
 
     max_score = max(hero_points.values())
     return [k for k,v in hero_points.iteritems() if v == max_score]
 
   def best_offense(self):
-    return self.best_in_role(self.__class__.offense)
+    return self.best_in_role(Roles.offense)
 
   def best_healers(self):
-    return self.best_in_role(self.__class__.healers)
+    return self.best_in_role(Roles.healers)
 
   def best_tanks(self):
-    return self.best_in_role(self.__class__.tanks)
+    return self.best_in_role(Roles.tanks)
 
   def pick(self):
-    red_slots_filled = len(self.red_team)
-    blue_slots_filled = len(self.blue_team)
     all_heroes = self.counters.keys()
 
-    if blue_slots_filled < 4:
+    if self.blue_team.size() < 4:
       return all_heroes # just play anyone
 
-    if blue_slots_filled == 5:
-      if not self.any_healers():
-        return self.best_healers()
-      if not self.any_tanks():
-        return self.best_tanks()
-      if not self.any_offense():
-        return self.best_offense()
-      if red_slots_filled > 0:
-        return self.best_in_role(all_heroes)
+    if not self.blue_team.any_healers():
+      return self.best_healers()
+
+    if not self.blue_team.any_tanks():
+      return self.best_tanks()
+
+    if not self.blue_team.any_offense():
+      return self.best_offense()
+
+    return self.best_in_role(all_heroes)
