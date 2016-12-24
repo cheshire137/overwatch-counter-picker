@@ -26,32 +26,55 @@
     <div class="container">
       <div class="columns">
         <div class="column is-half">
-          {% if num_picks == 1 %}
-            <p>You should play</p>
-          {% else %}
-            <p>Choose one of</p>
-          {% endif %}
+          <p class="instruction">
+            {% if num_picks == 1 %}
+              You should play
+            {% else %}
+              Choose one of
+            {% endif %}
+          </p>
 
-          {% for hero in picks %}
-            - {{ hero }}<br>
-          {% endfor %}
+          <ul class="picks-list">
+            {% for hero in picks %}
+              <li class="overwatch-hero pick {{ hero }}">
+                <h3 class="overwatch-hero-name subtitle">{{ hero }}</h3>
+                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+              </li>
+            {% endfor %}
+          </ul>
 
           {% if any_allies %}
             <hr>
-            <p>Your team has</p>
 
-            {% for hero in allies %}
-              - {{ hero }}<br>
-            {% endfor %}
+            <div class="allies-container">
+              <p class="team-intro">Your team has</p>
+
+              <ul class="allies-list">
+                {% for hero in allies %}
+                  <li class="overwatch-hero ally {{ hero }}">
+                    <h3 class="overwatch-hero-name subtitle">{{ hero }}</h3>
+                    <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
           {% endif %}
 
           {% if any_enemies %}
             <hr>
-            <p>The red team has</p>
 
-            {% for hero in enemies %}
-              - {{ hero }}<br>
-            {% endfor %}
+            <div class="enemies-container">
+              <p>The red team has</p>
+
+              <ul class="enemies-list">
+                {% for hero in enemies %}
+                  <li class="overwatch-hero enemy {{ hero }}">
+                    <h3 class="overwatch-hero-name subtitle">{{ hero }}</h3>
+                    <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
           {% endif %}
         </div>
       </div>
