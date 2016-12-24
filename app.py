@@ -1,7 +1,19 @@
 import cv2
 import numpy as np
+import sys
 
-original = cv2.imread('sample-screenshots/full-teams.jpg')
+original_name = 'full-teams.jpg'
+if len(sys.argv) > 1:
+  original_name = sys.argv[1]
+  print 'Using screenshot', original_name
+else:
+  print 'You can pass a file name from sample-screenshots/'
+  print 'Example:'
+  print 'python', sys.argv[0], 'name_of_sample_screenshot_here'
+  print ''
+  print 'Using default screenshot', original_name
+
+original = cv2.imread('sample-screenshots/' + original_name)
 original_gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
 
 heroes = ['dva', 'genji', 'lucio', 'mercy', 'reaper', 'reinhardt',
