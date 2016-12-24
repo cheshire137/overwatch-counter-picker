@@ -1,7 +1,8 @@
 import cv2
 import os
 from hero_detector import HeroDetector
-from team import Team
+from red_team import RedTeam
+from blue_team import BlueTeam
 
 class TeamDetector:
   # TODO: mei
@@ -11,8 +12,8 @@ class TeamDetector:
             'widowmaker', 'winston', 'zarya', 'zenyatta']
 
   def __init__(self, original):
-    self.red_team = Team([])
-    self.blue_team = Team([])
+    self.red_team = RedTeam([])
+    self.blue_team = BlueTeam([])
     self.original = original
     self.thickness = 2
     self.color = (255, 0, 0)
@@ -28,9 +29,9 @@ class TeamDetector:
       points = self.hero_detector.detect(template)
 
       for point1 in points:
-        if self.hero_detector.is_red_team(point1[1]):
-          self.red_team.add(hero)
-        else:
-          self.blue_team.add(hero)
         point2 = (point1[0] + w, point1[1] + h)
+        if self.hero_detector.is_red_team(point1[1]):
+          self.red_team.add(hero, point1[0])
+        else:
+          self.blue_team.add(hero, point1[0])
         cv2.rectangle(self.original, point1, point2, self.color, self.thickness)

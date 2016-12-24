@@ -3,9 +3,16 @@ from roles import Roles
 class Team:
   def __init__(self, heroes):
     self.heroes = set(heroes)
+    self.positions = {}
 
-  def add(self, hero):
+  def add(self, hero, position=None):
     self.heroes.add(hero)
+    if position:
+      if hero in self.positions:
+        if position < self.positions[hero]:
+          self.positions[hero] = position
+      else:
+        self.positions[hero] = position
 
   def num_in_role(self, pool):
     count = 0

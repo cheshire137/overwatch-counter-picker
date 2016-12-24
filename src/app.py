@@ -22,6 +22,8 @@ team_detector.detect()
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
 
+print 'Player is', team_detector.blue_team.player()
+
 output_path = 'res.png'
 cv2.imwrite(output_path, screenshot)
 print '\nLook at', output_path, 'to see Overwatch hero detection\n'
@@ -31,4 +33,4 @@ picks = hero_picker.pick()
 if len(picks) < 2:
   print 'Play', picks[0]
 else:
-  print 'Play one of', ', '.join(picks)
+  print 'Play one of:', ', '.join(picks)
