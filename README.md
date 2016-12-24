@@ -7,8 +7,9 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 You will need Python and OpenCV installed.
 
-Run the app with `python src/app.py`. It currently just detects which heroes are
-on each team.
+Run the app with `python src/cli.py`. It currently just detects which heroes are
+on each team. You can pass it the name of an image in the sample-screenshots/
+folder, e.g., `python src/cli.py hero-selection-not-full.jpg`.
 
 ### How to Install OpenCV
 
