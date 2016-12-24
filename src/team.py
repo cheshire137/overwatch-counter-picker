@@ -14,6 +14,9 @@ class Team:
   def num_healers(self):
     return self.num_in_role(Roles.healers)
 
+  def num_support(self):
+    return self.num_in_role(Roles.support)
+
   def num_offense(self):
     return self.num_in_role(Roles.offense)
 

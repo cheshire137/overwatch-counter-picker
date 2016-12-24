@@ -71,6 +71,8 @@ class HeroPicker:
 
   def best_in_role(self, pool):
     hero_points = {}
+    num_support = self.blue_team.num_support()
+
     for hero in pool:
       hero_points[hero] = 0
 
@@ -87,6 +89,9 @@ class HeroPicker:
       if self.defending():
         if hero in Roles.defense:
           hero_points[hero] += 1
+
+      if hero in Roles.support and num_support >= 2:
+        hero_points[hero] -= 1
 
     max_score = max(hero_points.values())
     return [k for k,v in hero_points.iteritems() if v == max_score]

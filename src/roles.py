@@ -7,3 +7,5 @@ class Roles:
              'tracer']
 
   defense = ['bastion', 'torbjorn', 'widowmaker', 'hanzo', 'mei', 'junkrat']
+
+  support = ['mercy', 'zenyatta', 'lucio', 'ana', 'symmetra']
