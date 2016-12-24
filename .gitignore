@@ -4,3 +4,5 @@ res.png
 __pycache__/
 *.py[cod]
 *$py.class
+
+src/uploads/*
