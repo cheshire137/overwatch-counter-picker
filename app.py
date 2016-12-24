@@ -15,6 +15,7 @@ else:
 original = cv2.imread('sample-screenshots/' + original_name)
 original_gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
 
+# TODO: symmetra, hanzo, sombra, pharah, mei, winston
 heroes = ['ana', 'bastion', 'dva', 'genji', 'junkrat', 'lucio', 'mccree',
           'mercy', 'reaper', 'reinhardt', 'roadhog', 'soldier-76',
           'torbjorn', 'tracer', 'widowmaker', 'zarya', 'zenyatta']
