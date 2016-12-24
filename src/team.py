@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from roles import Roles
 
 class Team:
@@ -9,7 +8,7 @@ class Team:
     'genji': 'Genji',
     'hanzo': 'Hanzo',
     'junkrat': 'Junkrat',
-    'lucio': 'Lúcio',
+    'lucio': 'Lucio',
     'mccree': 'McCree',
     'mei': 'Mei',
     'mercy': 'Mercy',
@@ -20,7 +19,7 @@ class Team:
     'soldier-76': 'Soldier 76',
     'sombra': 'Sombra',
     'symmetra': 'Symmetra',
-    'torbjorn': 'Torbjörn',
+    'torbjorn': 'Torbjorn',
     'tracer': 'Tracer',
     'widowmaker': 'Widowmaker',
     'winston': 'Winston',
