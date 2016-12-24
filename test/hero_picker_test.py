@@ -1,6 +1,7 @@
 import unittest
 from src.hero_picker import HeroPicker
 from src.team import Team
+from src.roles import Roles
 
 class HeroPickerTest(unittest.TestCase):
   def test_defending(self):
@@ -39,10 +40,12 @@ class HeroPickerTest(unittest.TestCase):
 
   def test_suggests_defense_on_defense(self):
     red_team = Team([])
-    blue_team = Team(['genji', 'mercy', 'roadhog', 'zenyatta', 'dva'])
+    blue_team = Team(['ana', 'mercy', 'roadhog', 'dva', 'soldier-76'])
     hero_picker = HeroPicker(red_team, blue_team)
-    print hero_picker.pick()
-    # self.assertEqual(['mercy'], hero_picker.pick())
+    picks = hero_picker.pick()
+    self.assertNotEqual(0, len(picks))
+    for hero in picks:
+      self.assertTrue(hero in Roles.defense)
 
 if __name__ == "__main__":
   unittest.main()
