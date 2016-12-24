@@ -1,3 +1,4 @@
+import operator
 from roles import Roles
 
 class HeroPicker:
@@ -139,5 +140,7 @@ class HeroPicker:
       if hero in Roles.support and num_support >= 2:
         hero_points[hero] -= 1
 
-    max_score = max(hero_points.values())
-    return [k for k,v in hero_points.iteritems() if v == max_score]
+    sorted_hero_points = sorted(hero_points.items(), key=operator.itemgetter(1))
+    good_picks = sorted_hero_points[-3:]
+    max_score = max(dict(good_picks).values())
+    return [hero for hero, score in good_picks if score == max_score]
