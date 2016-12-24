@@ -7,8 +7,8 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 You will need Python and OpenCV installed.
 
-Run the app with `python app.py`. Currently it just detects Mercy's face
-in a screenshot of the team composition from an Overwatch game.
+Run the app with `python src/app.py`. It currently just detects which heroes are
+on each team.
 
 ### How to Install OpenCV
 
@@ -26,3 +26,7 @@ echo /usr/local/opt/opencv3/lib/python2.7/site-packages >> /usr/local/lib/python
 mv /usr/local/opt/opencv3/lib/python3.5/site-packages/cv2.cpython-35m-darwin.so /usr/local/opt/opencv3/lib/python3.5/site-packages/cv2.so
 echo /usr/local/opt/opencv3/lib/python3.5/site-packages >> /usr/local/lib/python3.5/site-packages/opencv3.pth
 ```
+
+## How to Test
+
+`python -m unittest test.hero_picker_test`

@@ -1,4 +1,5 @@
 import cv2
+import os
 from hero_detector import HeroDetector
 
 class TeamDetector:
@@ -19,7 +20,8 @@ class TeamDetector:
     self.hero_detector.draw_divider()
 
     for hero in self.__class__.heroes:
-      template = cv2.imread('heroes/' + hero + '.png', 0)
+      path = os.path.abspath('src/heroes/' + hero + '.png')
+      template = cv2.imread(path, 0)
       w, h = template.shape[::-1]
       points = self.hero_detector.detect(template)
 
