@@ -118,5 +118,13 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
 
+  def test_detect_finds_same_hero_on_each_team(self):
+    detector = HeroDetector(self.__class__.full_teams)
+    template = cv2.imread('src/heroes/dva.png')
+    points = detector.detect(template)
+    self.assertEqual(2, len(points))
+    self.assertNotEqual(points[0][1], points[1][1], \
+                        'D.Va should be found once on each team')
+
 if __name__ == '__main__':
   unittest.main()
