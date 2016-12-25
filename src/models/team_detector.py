@@ -35,7 +35,8 @@ class TeamDetector:
     if points is None:
       return
 
-    for top_left_point in points:
+    valid_points = [point for point in points if self.valid_position(point)]
+    for top_left_point in valid_points:
       if self.have_seen_position(top_left_point):
         return
 
@@ -55,3 +56,9 @@ class TeamDetector:
 
     self.seen_positions.append(point)
     return False
+
+  # Returns true if the given point represents a valid location where we expect
+  # a hero portrait to be in the team composition screen.
+  def valid_position(self, point):
+    # Needs to be beyond 500px from the left in a 2560x1440 screenshot.
+    return point[0] > 500
