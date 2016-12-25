@@ -48,3 +48,12 @@
 .player-choice-ok-container .overwatch-hero {
   margin-bottom: 1em;
 }
+
+.list-inline li {
+  list-style: none;
+  display: inline-block;
+}
+
+.list-inline li + li {
+  margin-left: 1em;
+}
