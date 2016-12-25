@@ -34,8 +34,10 @@ def save_upload(file):
 def render_result(red_team, blue_team):
   hero_picker = HeroPicker(red_team, blue_team)
   picks = hero_picker.pick()
+
   allies = blue_team.allies()
   enemies = red_team.heroes
+
   player = blue_team.player()
   player_ok = False
   if player is not None:
