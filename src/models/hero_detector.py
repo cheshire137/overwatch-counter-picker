@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import imutils
+import math
 
 class HeroDetector:
   def __init__(self, original):
@@ -20,9 +21,13 @@ class HeroDetector:
     loc = np.where(res >= self.threshold)
     points = zip(*loc[::-1])
     if len(points) > 0:
-      return points
+      rounded_points = [(self.round(point[0]), self.round(point[1])) for point in points]
+      return set(rounded_points)
     return None
 
   # Returns true if the given y-axis position represents a hero on the red team.
   def is_red_team(self, point):
     return point < self.mid_height
+
+  def round(self, num):
+    return int(math.ceil(num / 40.0)) * 40

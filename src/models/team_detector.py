@@ -1,6 +1,5 @@
 import cv2
 import os
-import math
 
 from src.models.hero_detector import HeroDetector
 from src.models.red_team import RedTeam
@@ -52,13 +51,8 @@ class TeamDetector:
                       self.color, self.thickness)
 
   def have_seen_position(self, point):
-    round_point = (self.round(point[0]), self.round(point[1]))
-
-    if round_point in self.seen_positions:
+    if point in self.seen_positions:
       return True
 
-    self.seen_positions.append(round_point)
+    self.seen_positions.append(point)
     return False
-
-  def round(self, num):
-    return int(math.ceil(num / 40.0)) * 40
