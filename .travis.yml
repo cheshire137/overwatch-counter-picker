@@ -1,3 +1,4 @@
+sudo: required
 language: python
 notifications:
   email: false
@@ -7,5 +8,7 @@ before_install:
  - sudo apt-get update
  - sudo apt-get install python-opencv
  - sudo dpkg -L python-opencv
-install: "pip install -r requirements.txt && pip install coverage"
+install:
+ - pip install -r requirements.txt
+ - pip install coverage
 script: "python -c 'import cv2' && ./run-tests.sh"
