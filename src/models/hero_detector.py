@@ -22,7 +22,7 @@ class HeroDetector:
     points = zip(*loc[::-1])
     if len(points) > 0:
       rounded_points = [(self.round(point[0]), self.round(point[1])) for point in points]
-      return set(rounded_points)
+      return list(set(rounded_points))
     return None
 
   # Returns true if the given y-axis position represents a hero on the red team.
