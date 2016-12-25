@@ -6,7 +6,7 @@ class HeroDetector:
   def __init__(self, original):
     self.original = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
     (self.original_h, self.original_w) = self.original.shape[:2]
-    if self.original_w < 2560:
+    if self.original_w != 2560:
       self.original = imutils.resize(self.original, width=2560)
     self.mid_height = self.original_h / 2
     self.threshold = 0.8
