@@ -29,17 +29,15 @@ class Team:
 
   def __init__(self, heroes):
     self.heroes = heroes
-    self.positions = {}
+    self.positions = dict([i, self.heroes[i]] for i in range(0, len(self.heroes)))
 
   def add(self, hero, position):
     if hero == 'unknown' or hero not in self.heroes:
-      self.heroes.append(hero)
-
-    if hero not in self.positions or position < self.positions[hero]:
-      self.positions[hero] = position
+      self.positions[position] = hero
 
     # Sort heroes left to right
-    self.heroes = sorted(self.heroes, key=self.positions.get)
+    left_to_right = sorted(self.positions)
+    self.heroes = [self.positions[position] for position in left_to_right]
 
   def num_in_role(self, pool):
     count = 0
