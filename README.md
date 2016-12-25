@@ -55,4 +55,5 @@ heroku login
 heroku create your_app_name
 heroku buildpacks:set https://github.com/diogojc/heroku-buildpack-python-opencv-scipy
 git push heroku master
+heroku config:set SITE_ENV=production
 ```
