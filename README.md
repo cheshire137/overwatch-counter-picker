@@ -7,7 +7,7 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 ## How to Run
 
-You will need Python and OpenCV installed. See detailed instructions below for
+You will need Python 2.7 and OpenCV installed. See detailed instructions below for
 OpenCV installation on macOS.
 
 ```bash
