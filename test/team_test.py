@@ -70,3 +70,15 @@ class TeamTest(unittest.TestCase):
     team.add('lucio', 1)
     team.add('lucio', 2)
     self.assertEqual(['unknown', 'lucio'], team.heroes)
+
+  def test_empty_returns_true_when_all_unknown(self):
+    team = Team(['unknown', 'unknown', 'unknown'])
+    self.assertTrue(team.empty())
+
+  def test_empty_returns_true_when_empty(self):
+    team = Team([])
+    self.assertTrue(team.empty())
+
+  def test_empty_returns_false_when_not_all_unknown(self):
+    team = Team(['unknown', 'genji'])
+    self.assertFalse(team.empty())
