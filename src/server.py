@@ -44,11 +44,11 @@ def upload():
     any_enemies = len(enemies) > 0
     player = team_detector.blue_team.player()
     player_ok = False
-
     if player is not None:
       player_ok = player in picks
       if player_ok:
         picks.remove(player)
+    any_picks = len(picks) > 0
 
     os.remove(path)
 
@@ -56,7 +56,7 @@ def upload():
                            allies=allies, enemies=enemies, \
                            any_allies=any_allies, any_enemies=any_enemies, \
                            hero_names=Team.hero_names, player=player,
-                           player_ok=player_ok)
+                           player_ok=player_ok, any_picks=any_picks)
 
   return redirect(request.url)
 
