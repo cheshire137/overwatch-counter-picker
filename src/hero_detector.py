@@ -12,6 +12,7 @@ class HeroDetector:
     self.threshold = 0.8
 
   def detect(self, template):
+    template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
     res = cv2.matchTemplate(self.original, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(res >= self.threshold)
     return zip(*loc[::-1])
