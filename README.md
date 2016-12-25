@@ -50,7 +50,7 @@ echo /usr/local/opt/opencv3/lib/python3.5/site-packages >> /usr/local/lib/python
 
 ```bash
 pip install -r requirements.txt
-python -m unittest test.hero_picker_test
+./run-tests.sh
 ```
 
 ## How to Deploy to Heroku
