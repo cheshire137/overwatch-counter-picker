@@ -60,3 +60,8 @@ heroku buildpacks:set https://github.com/diogojc/heroku-buildpack-python-opencv-
 git push heroku master
 heroku config:set SITE_ENV=production
 ```
+
+## Thanks
+
+Thanks to Blizzard for Overwatch. The hero portraits and names are all theirs,
+I'm just a fan.
