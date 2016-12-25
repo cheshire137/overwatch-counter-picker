@@ -16,5 +16,6 @@ class HeroDetector:
     loc = np.where(res >= self.threshold)
     return zip(*loc[::-1])
 
+  # Returns true if the given y-axis position represents a hero on the red team.
   def is_red_team(self, point):
     return point < self.mid_height

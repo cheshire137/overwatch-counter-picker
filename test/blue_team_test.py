@@ -1,5 +1,6 @@
 import unittest
 from src.blue_team import BlueTeam
+from src.roles import Roles
 
 class BlueTeamTest(unittest.TestCase):
   def test_player_returns_none_when_not_fully_detected(self):
@@ -21,3 +22,22 @@ class BlueTeamTest(unittest.TestCase):
     team.add('bastion', 400)
     team.add('roadhog', 392)
     self.assertEqual('widowmaker', team.player())
+
+  def test_num_in_role_excludes_player(self):
+    team = BlueTeam([])
+    team.add('mercy', 300)
+    team.add('widowmaker', 130) # player, defense
+    team.add('hanzo', 150) # defense
+    team.add('symmetra', 314)
+    team.add('bastion', 400) # defense
+    team.add('roadhog', 392)
+    self.assertEqual(2, team.num_in_role(Roles.defense))
+
+  def test_num_in_role_does_not_exclude_anyone_when_not_full(self):
+    team = BlueTeam([])
+    team.add('mercy', 300)
+    team.add('widowmaker', 130) # defense
+    team.add('hanzo', 150) # defense
+    team.add('symmetra', 314)
+    team.add('bastion', 400) # defense
+    self.assertEqual(3, team.num_in_role(Roles.defense))
