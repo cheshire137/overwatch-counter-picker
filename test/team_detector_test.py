@@ -17,3 +17,6 @@ class TeamDetectorTest(unittest.TestCase):
                       'zenyatta'], detector.red_team.heroes)
     self.assertEqual(['zenyatta', 'mercy', 'dva', 'soldier-76', 'torbjorn', \
                       'reinhardt'], detector.blue_team.heroes)
+
+if __name__ == '__main__':
+  unittest.main()

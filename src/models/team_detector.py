@@ -15,10 +15,9 @@ class TeamDetector:
   def __init__(self, original):
     self.red_team = RedTeam([])
     self.blue_team = BlueTeam([])
-    self.original = original
     self.thickness = 2
     self.color = (255, 0, 0)
-    self.hero_detector = HeroDetector(self.original)
+    self.hero_detector = HeroDetector(original)
     self.seen_positions = []
 
   # Look in the original image for each Overwatch hero.
@@ -47,8 +46,8 @@ class TeamDetector:
 
       if draw_boxes:
         bottom_right_point = (top_left_point[0] + width, top_left_point[1] + height)
-        cv2.rectangle(self.original, top_left_point, bottom_right_point, \
-                      self.color, self.thickness)
+        cv2.rectangle(self.hero_detector.original, top_left_point, \
+                      bottom_right_point, self.color, self.thickness)
 
   def have_seen_position(self, point):
     if point in self.seen_positions:

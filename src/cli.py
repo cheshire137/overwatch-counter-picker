@@ -15,8 +15,7 @@ else:
   print 'Using default screenshot', file_name, '\n'
 
 path = os.path.abspath('sample-screenshots/' + file_name)
-screenshot = cv2.imread(path)
-team_detector = TeamDetector(screenshot)
+team_detector = TeamDetector(cv2.imread(path))
 team_detector.detect(draw_boxes=True)
 
 print 'Red team:', team_detector.red_team
@@ -27,7 +26,7 @@ if player is not None:
   print 'Player is', player
 
 output_path = 'res.png'
-cv2.imwrite(output_path, screenshot)
+cv2.imwrite(output_path, team_detector.hero_detector.original)
 print '\nLook at', output_path, 'to see Overwatch hero detection\n'
 
 hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
