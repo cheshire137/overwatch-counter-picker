@@ -99,9 +99,10 @@ class HeroPicker:
     elif not any_offense:
       return self.best_offense()
 
-    # Try to have two healers.
-    if self.blue_team.num_healers() < 2:
-      return self.best_healers()
+    if not self.defending():
+      # Try to have two healers.
+      if self.blue_team.num_healers() < 2:
+        return self.best_healers()
 
     # Try to have at least two tanks.
     if self.blue_team.num_tanks() < 2:
