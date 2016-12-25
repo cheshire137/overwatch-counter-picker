@@ -56,6 +56,12 @@ pip install coverage
 
 Tests will be run and a test coverage report will appear afterward.
 
+You can run an individual test using its class and method name, like so:
+
+```bash
+python -m test.hero_detector_test HeroDetectorTest.test_detect_finds_lucio_when_present
+```
+
 ## How to Deploy to Heroku
 
 ```bash
