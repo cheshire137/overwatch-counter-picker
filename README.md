@@ -7,7 +7,7 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 ## How to Run
 
-You will need Python 2.7 and OpenCV installed. See detailed instructions below for
+You will need Python 2.7, pip, and OpenCV installed. See detailed instructions below for
 OpenCV installation on macOS.
 
 ```bash
@@ -46,7 +46,10 @@ echo /usr/local/opt/opencv3/lib/python3.5/site-packages >> /usr/local/lib/python
 
 ## How to Test
 
-`python -m unittest test.hero_picker_test`
+```bash
+pip install -r requirements.txt
+python -m unittest test.hero_picker_test
+```
 
 ## How to Deploy to Heroku
 
