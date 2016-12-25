@@ -27,7 +27,7 @@ def get_teams(screenshot_path):
 def save_upload(file):
   timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
   filename = secure_filename(timestamp + '-' + file.filename)
-  path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+  path = os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename))
   file.save(path)
   return path
 
