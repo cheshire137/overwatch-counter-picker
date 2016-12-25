@@ -63,6 +63,6 @@ if __name__ == '__main__':
   port = int(os.environ.get('PORT', 5000))
   site_env = os.getenv('SITE_ENV', 'development')
   if site_env == 'production':
-    app.run(debug=False, use_reloader=False, port=port)
+    app.run(host='0.0.0.0', debug=False, use_reloader=False, port=port)
   else:
     app.run(debug=True, use_reloader=True, port=port)
