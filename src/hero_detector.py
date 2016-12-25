@@ -12,11 +12,6 @@ class HeroDetector:
     self.thickness = 2
     self.color = (0, 0, 255)
 
-  def draw_divider(self):
-    point1 = (0, self.mid_height)
-    point2 = (self.original_w, self.mid_height)
-    cv2.rectangle(self.original, point1, point2, self.color, self.thickness)
-
   def detect(self, template):
     res = cv2.matchTemplate(self.original_gray, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(res >= self.threshold)
