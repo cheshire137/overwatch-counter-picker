@@ -9,7 +9,7 @@ from src.models.hero_picker import HeroPicker
 from src.models.team import Team
 from src.models.team_detector import TeamDetector
 
-UPLOAD_FOLDER = 'src/web/uploads'
+UPLOAD_FOLDER = os.path.abspath('src/web/uploads')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def get_teams(screenshot_path):
 def save_upload(file):
   timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
   filename = secure_filename(timestamp + '-' + file.filename)
-  path = os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+  path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
   file.save(path)
   return path
 
