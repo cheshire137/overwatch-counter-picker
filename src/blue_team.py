@@ -1,4 +1,4 @@
-from team import Team
+from src.team import Team
 
 class BlueTeam(Team):
   def player(self):

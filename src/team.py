@@ -1,4 +1,4 @@
-from roles import Roles
+from src.roles import Roles
 
 class Team:
   hero_names = {

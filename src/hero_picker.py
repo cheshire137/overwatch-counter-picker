@@ -1,5 +1,5 @@
 import operator
-from roles import Roles
+from src.roles import Roles
 
 class HeroPicker:
   # If there's an X, go one of Y
