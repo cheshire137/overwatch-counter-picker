@@ -11,11 +11,17 @@ class HeroDetector:
     self.mid_height = self.original_h / 2
     self.threshold = 0.8
 
+  # Returns a tuple with x,y coordinates for the top left of where the given
+  # template appears in the original image. Returns None if the template was not
+  # detected.
   def detect(self, template):
     template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
     res = cv2.matchTemplate(self.original, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(res >= self.threshold)
-    return zip(*loc[::-1])
+    points = zip(*loc[::-1])
+    if len(points) > 0:
+      return points[0]
+    return None
 
   # Returns true if the given y-axis position represents a hero on the red team.
   def is_red_team(self, point):

@@ -22,25 +22,30 @@ class TeamDetector:
     self.hero_detector = HeroDetector(self.original)
     self.seen_positions = []
 
+  # Look in the original image for each Overwatch hero.
   def detect(self, draw_boxes=False):
     for hero in self.__class__.heroes:
-      path = os.path.abspath('src/heroes/' + hero + '.png')
-      template = cv2.imread(path)
-      (h, w) = template.shape[:2]
-      points = self.hero_detector.detect(template)
+      self.detect_hero(hero, draw_boxes=draw_boxes)
 
-      for point1 in points:
-        if self.have_seen_position(point1):
-          continue
+  # Look for the given hero in the original image.
+  def detect_hero(self, hero, draw_boxes=False):
+    path = os.path.abspath('src/heroes/' + hero + '.png')
+    template = cv2.imread(path)
+    (height, width) = template.shape[:2]
+    top_left_point = self.hero_detector.detect(template)
 
-        if self.hero_detector.is_red_team(point1[1]):
-          self.red_team.add(hero, point1[0])
-        else:
-          self.blue_team.add(hero, point1[0])
+    if not top_left_point or self.have_seen_position(top_left_point):
+      return
 
-        if draw_boxes:
-          point2 = (point1[0] + w, point1[1] + h)
-          cv2.rectangle(self.original, point1, point2, self.color, self.thickness)
+    if self.hero_detector.is_red_team(top_left_point[1]):
+      self.red_team.add(hero, top_left_point[0])
+    else:
+      self.blue_team.add(hero, top_left_point[0])
+
+    if draw_boxes:
+      bottom_right_point = (top_left_point[0] + width, top_left_point[1] + height)
+      cv2.rectangle(self.original, top_left_point, bottom_right_point, \
+                    self.color, self.thickness)
 
   def have_seen_position(self, point):
     round_point = (self.round(point[0]), self.round(point[1]))
