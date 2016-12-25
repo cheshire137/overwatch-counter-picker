@@ -5,5 +5,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-src/uploads/*
+src/web/uploads/*
 .coverage

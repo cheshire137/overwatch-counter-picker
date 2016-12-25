@@ -1,4 +1,4 @@
-from src.roles import Roles
+from src.models.roles import Roles
 
 class Team:
   hero_names = {
@@ -33,6 +33,7 @@ class Team:
 
   def add(self, hero, position):
     if hero == 'unknown' or hero not in self.heroes:
+      print hero, position
       self.positions[position] = hero
 
     # Sort heroes left to right

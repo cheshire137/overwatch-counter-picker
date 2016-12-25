@@ -1,4 +1,4 @@
-from src.team import Team
+from src.models.team import Team
 
 class RedTeam(Team):
   def player(self):

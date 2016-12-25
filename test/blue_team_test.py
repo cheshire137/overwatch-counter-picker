@@ -1,6 +1,7 @@
 import unittest
-from src.blue_team import BlueTeam
-from src.roles import Roles
+
+from src.models.blue_team import BlueTeam
+from src.models.roles import Roles
 
 class BlueTeamTest(unittest.TestCase):
   def test_player_returns_none_when_not_fully_detected(self):

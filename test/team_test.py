@@ -1,5 +1,6 @@
 import unittest
-from src.team import Team
+
+from src.models.team import Team
 
 class TeamTest(unittest.TestCase):
   def test_num_healers(self):

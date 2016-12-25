@@ -2,8 +2,8 @@ import cv2
 import sys
 import os
 
-from src.team_detector import TeamDetector
-from src.hero_picker import HeroPicker
+from src.models.hero_picker import HeroPicker
+from src.models.team_detector import TeamDetector
 
 file_name = 'full-teams.jpg'
 if len(sys.argv) > 1:

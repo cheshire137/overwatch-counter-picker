@@ -1,6 +1,7 @@
 import unittest
 import cv2
-from src.hero_detector import HeroDetector
+
+from src.models.hero_detector import HeroDetector
 
 class HeroDetectorTest(unittest.TestCase):
   @classmethod

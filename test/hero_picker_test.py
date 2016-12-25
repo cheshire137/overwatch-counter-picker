@@ -1,8 +1,9 @@
 import unittest
-from src.hero_picker import HeroPicker
-from src.red_team import RedTeam
-from src.blue_team import BlueTeam
-from src.roles import Roles
+
+from src.models.hero_picker import HeroPicker
+from src.models.red_team import RedTeam
+from src.models.blue_team import BlueTeam
+from src.models.roles import Roles
 
 class HeroPickerTest(unittest.TestCase):
   def test_defending(self):

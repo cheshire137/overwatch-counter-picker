@@ -1,5 +1,6 @@
 import unittest
-from src.red_team import RedTeam
+
+from src.models.red_team import RedTeam
 
 class RedTeamTest(unittest.TestCase):
   def test_player_returns_none(self):
