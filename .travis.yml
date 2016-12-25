@@ -1,14 +1,19 @@
 sudo: required
+dist: trusty
 language: python
 notifications:
   email: false
+cache:
+  directories:
+    - "$HOME/.cache/pip"
 python:
-  - "2.7"
+  - "2.7_with_system_site_packages"
+virtualenv:
+  system_site_packages: true
 before_install:
- - sudo apt-get update
- - sudo apt-get install python-opencv
- - sudo dpkg -L python-opencv
+  - sudo apt-get update
 install:
- - pip install -r requirements.txt
- - pip install coverage
+  - sudo apt-get install python-dev python-opencv -y
+  - pip install -r requirements.txt
+  - pip install coverage
 script: "python -c 'import cv2' && ./run-tests.sh"
