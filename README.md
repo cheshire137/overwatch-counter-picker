@@ -1,5 +1,7 @@
 # Overwatch Counter Picker
 
+[![Build status](https://travis-ci.org/cheshire137/overwatch-counter-picker.svg?branch=master)](https://travis-ci.org/cheshire137/overwatch-counter-picker)
+
 This is a work in progress to tell you the best hero to pick in Overwatch to
 counter the enemy team, based on a provided screenshot of your team composition.
 
