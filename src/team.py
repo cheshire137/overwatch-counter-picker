@@ -86,9 +86,5 @@ class Team:
   def empty(self):
     return self.size() < 1
 
-  # Returns true if every slot on the team has been filled.
-  def full(self):
-    return self.size() == 6
-
   def __str__(self):
     return ", ".join(self.heroes)
