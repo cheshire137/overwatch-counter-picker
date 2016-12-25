@@ -9,7 +9,7 @@ You will need Python and OpenCV installed. See detailed instructions below for
 OpenCV installation on macOS.
 
 ```bash
-pip install Flask
+pip install -r requirements.txt
 ```
 
 ### Server
