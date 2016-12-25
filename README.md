@@ -45,3 +45,12 @@ echo /usr/local/opt/opencv3/lib/python3.5/site-packages >> /usr/local/lib/python
 ## How to Test
 
 `python -m unittest test.hero_picker_test`
+
+## How to Deploy to Heroku
+
+```bash
+heroku login
+heroku create your_app_name
+heroku buildpacks:set https://github.com/slobdell/heroku-buildpack-python-opencv-scipy
+git push heroku master
+```
