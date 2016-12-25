@@ -53,6 +53,6 @@ echo /usr/local/opt/opencv3/lib/python3.5/site-packages >> /usr/local/lib/python
 ```bash
 heroku login
 heroku create your_app_name
-heroku buildpacks:set https://github.com/slobdell/heroku-buildpack-python-opencv-scipy
+heroku buildpacks:set https://github.com/diogojc/heroku-buildpack-python-opencv-scipy
 git push heroku master
 ```
