@@ -23,8 +23,6 @@ class TeamDetector:
     self.seen_positions = []
 
   def detect(self):
-    self.hero_detector.draw_divider()
-
     for hero in self.__class__.heroes:
       path = os.path.abspath('src/heroes/' + hero + '.png')
       template = cv2.imread(path)
