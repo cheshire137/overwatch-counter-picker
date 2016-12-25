@@ -41,3 +41,24 @@ class BlueTeamTest(unittest.TestCase):
     team.add('symmetra', 314)
     team.add('bastion', 400) # defense
     self.assertEqual(3, team.num_in_role(Roles.defense))
+
+  def test_allies_excludes_player_when_fully_detected(self):
+    team = BlueTeam([])
+    team.add('mercy', 300)
+    team.add('widowmaker', 130) # player
+    team.add('hanzo', 150)
+    team.add('symmetra', 314)
+    team.add('bastion', 400)
+    team.add('roadhog', 392)
+    expected = ['hanzo', 'mercy', 'symmetra', 'roadhog', 'bastion']
+    self.assertEqual(expected, team.allies())
+
+  def test_allies_excludes_unknowns(self):
+    team = BlueTeam([])
+    team.add('mercy', 300)
+    team.add('widowmaker', 130)
+    team.add('hanzo', 150)
+    team.add('unknown', 314)
+    team.add('bastion', 400)
+    expected = ['widowmaker', 'hanzo', 'mercy', 'bastion']
+    self.assertEqual(expected, team.allies())
