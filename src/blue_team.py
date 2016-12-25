@@ -4,8 +4,7 @@ class BlueTeam(Team):
   def player(self):
     if not self.fully_detected():
       return None
-
-    return min(self.positions, key=self.positions.get)
+    return self.heroes[0]
 
   def num_in_role(self, pool):
     count = 0
