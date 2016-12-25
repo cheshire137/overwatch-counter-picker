@@ -2,9 +2,9 @@ import cv2
 import os
 import math
 
-from hero_detector import HeroDetector
-from red_team import RedTeam
-from blue_team import BlueTeam
+from src.hero_detector import HeroDetector
+from src.red_team import RedTeam
+from src.blue_team import BlueTeam
 
 class TeamDetector:
   # TODO: mei
