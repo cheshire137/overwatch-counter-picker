@@ -25,9 +25,9 @@ upload an Overwatch screenshot for determining which hero to pick. Run with
 ### Command-Line Script
 
 The command-line script will allow you to pass an Overwatch screenshot and
-determine which hero you should pick. Run with `python src/cli.py`. You can pass
+determine which hero you should pick. Run with `python -m src.cli`. You can pass
 it the name of an image in the sample-screenshots/ folder, e.g.,
-`python src/cli.py hero-selection-not-full.jpg`.
+`python -m src.cli hero-selection-not-full.jpg`.
 
 ### How to Install OpenCV
 
