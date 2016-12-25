@@ -47,7 +47,8 @@ def upload():
 
     if player is not None:
       player_ok = player in picks
-      picks.remove(player)
+      if player_ok:
+        picks.remove(player)
 
     os.remove(path)
 
