@@ -18,6 +18,10 @@
   border-color: #43c0f9;
 }
 
+.overwatch-hero-portrait {
+  display: block;
+}
+
 .overwatch-hero.pick .overwatch-hero-portrait {
   width: 180px;
   height: 180px;
@@ -27,6 +31,18 @@
 .overwatch-hero.ally .overwatch-hero-portrait {
   width: 100px;
   height: 100px;
+}
+
+.overwatch-hero.player {
+  padding: 0;
+  border-color: #999;
+  border-radius: 2px;
+}
+
+.overwatch-hero.player .overwatch-hero-portrait {
+  width: 100px;
+  height: 100px;
+  border-radius: 2px;
 }
 
 .overwatch-hero-name {
@@ -47,6 +63,17 @@
 
 .player-choice-ok-container .overwatch-hero {
   margin-bottom: 1em;
+}
+
+.player-choice-ok-container .overwatch-hero.player,
+.player-choice-ok-container .instruction {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.player-choice-ok-container .instruction {
+  margin-left: 1em;
+  margin-top: 5px;
 }
 
 .list-inline li {

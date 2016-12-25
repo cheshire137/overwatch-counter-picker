@@ -26,12 +26,12 @@
     <div class="container">
       {% if player_ok %}
         <div class="player-choice-ok-container has-text-centered content">
-          <p class="instruction">Your choice of</p>
-          <div class="overwatch-hero pick {{ player }}">
-            <h3 class="overwatch-hero-name subtitle">{{ hero_names[player] }}</h3>
+          <div class="overwatch-hero player {{ player }}">
             <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=player + '.png') }}" alt="{{ player }}">
           </div>
-          <p class="instruction">is a-okay.</p>
+          <p class="instruction subtitle">
+            Your choice of <strong>{{ hero_names[player] }}</strong> is fine.
+          </p>
         </div>
 
         <hr>
