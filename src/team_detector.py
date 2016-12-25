@@ -22,7 +22,7 @@ class TeamDetector:
     self.hero_detector = HeroDetector(self.original)
     self.seen_positions = []
 
-  def detect(self):
+  def detect(self, draw_boxes=False):
     for hero in self.__class__.heroes:
       path = os.path.abspath('src/heroes/' + hero + '.png')
       template = cv2.imread(path)
@@ -39,8 +39,9 @@ class TeamDetector:
         else:
           self.blue_team.add(hero, point1[0])
 
-        point2 = (point1[0] + w, point1[1] + h)
-        cv2.rectangle(self.original, point1, point2, self.color, self.thickness)
+        if draw_boxes:
+          point2 = (point1[0] + w, point1[1] + h)
+          cv2.rectangle(self.original, point1, point2, self.color, self.thickness)
 
   def have_seen_position(self, point):
     round_point = (self.round(point[0]), self.round(point[1]))

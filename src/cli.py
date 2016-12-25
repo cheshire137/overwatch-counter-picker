@@ -17,7 +17,7 @@ else:
 path = os.path.abspath('sample-screenshots/' + file_name)
 screenshot = cv2.imread(path)
 team_detector = TeamDetector(screenshot)
-team_detector.detect()
+team_detector.detect(draw_boxes=True)
 
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
@@ -33,6 +33,9 @@ print '\nLook at', output_path, 'to see Overwatch hero detection\n'
 hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
 picks = hero_picker.pick()
 if len(picks) < 2:
-  print 'Play', picks[0]
+  if player is not None and player == picks[0]:
+    print 'Your choice of', player, 'is spot on!'
+  else:
+    print 'Play', picks[0]
 else:
   print 'Play one of:', ', '.join(picks)
