@@ -27,8 +27,9 @@ class TeamDetector:
 
     for hero in self.__class__.heroes:
       path = os.path.abspath('src/heroes/' + hero + '.png')
-      template = cv2.imread(path, 0)
-      w, h = template.shape[::-1]
+      template = cv2.imread(path)
+      template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
+      h, w = template.shape[:2]
       points = self.hero_detector.detect(template)
 
       for point1 in points:
