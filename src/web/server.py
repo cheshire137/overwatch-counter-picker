@@ -48,8 +48,8 @@ def render_result(red_team, blue_team):
 
   return render_template('result.html', picks=picks, num_picks=len(picks), \
     allies=allies, enemies=enemies, any_allies=len(allies) > 0, \
-    any_enemies=len(enemies) > 0, hero_names=Team.hero_names, player=player, \
-    player_ok=player_ok, any_picks=any_picks)
+    any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
+    player=player, player_ok=player_ok, any_picks=any_picks)
 
 @app.route('/', methods=['GET'])
 def index():
