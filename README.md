@@ -50,8 +50,11 @@ echo /usr/local/opt/opencv3/lib/python3.5/site-packages >> /usr/local/lib/python
 
 ```bash
 pip install -r requirements.txt
+pip install coverage
 ./run-tests.sh
 ```
+
+Tests will be run and a test coverage report will appear afterward.
 
 ## How to Deploy to Heroku
 
