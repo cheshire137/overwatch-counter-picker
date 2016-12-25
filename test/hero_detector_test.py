@@ -15,3 +15,11 @@ class HeroDetectorTest(unittest.TestCase):
     detector = HeroDetector(original)
     self.assertTrue(detector.is_red_team(400))
     self.assertFalse(detector.is_red_team(900))
+
+  def test_detect_finds_ana_when_present(self):
+    original = cv2.imread('sample-screenshots/fire-and-death.jpg')
+    detector = HeroDetector(original)
+    template = cv2.imread('src/heroes/ana.png')
+    points = detector.detect(template)
+    self.assertFalse(len(points) < 1)
+    self.assertTrue(detector.is_red_team(points[0][1]))
