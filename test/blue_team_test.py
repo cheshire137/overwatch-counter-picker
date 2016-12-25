@@ -62,3 +62,6 @@ class BlueTeamTest(unittest.TestCase):
     team.add('bastion', 400)
     expected = ['widowmaker', 'hanzo', 'mercy', 'bastion']
     self.assertEqual(expected, team.allies())
+
+if __name__ == '__main__':
+  unittest.main()

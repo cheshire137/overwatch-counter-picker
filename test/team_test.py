@@ -82,3 +82,6 @@ class TeamTest(unittest.TestCase):
   def test_empty_returns_false_when_not_all_unknown(self):
     team = Team(['unknown', 'genji'])
     self.assertFalse(team.empty())
+
+if __name__ == '__main__':
+  unittest.main()

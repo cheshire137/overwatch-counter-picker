@@ -14,3 +14,6 @@ class RedTeamTest(unittest.TestCase):
     team.add('bastion', 400)
     team.add('roadhog', 392)
     self.assertEqual(None, team.player())
+
+if __name__ == '__main__':
+  unittest.main()
