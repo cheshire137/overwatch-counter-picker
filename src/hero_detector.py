@@ -9,8 +9,6 @@ class HeroDetector:
     self.original_h = np.size(self.original, 0)
     self.mid_height = self.original_h / 2
     self.threshold = 0.8
-    self.thickness = 2
-    self.color = (0, 0, 255)
 
   def detect(self, template):
     res = cv2.matchTemplate(self.original_gray, template, cv2.TM_CCOEFF_NORMED)
