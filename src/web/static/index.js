@@ -5,8 +5,27 @@
   const previewContainer = document.getElementById('screenshot-preview-container')
   const preview = document.getElementById('screenshot-preview')
   const button = document.getElementById('submit-button')
+  const allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
 
-  function fileSelected(file, event) {
+  function isFileTypeValid(fileName) {
+    const fileNameParts = fileName.split('.')
+    if (fileNameParts.length < 1) {
+      return false
+    }
+    const extension = fileNameParts.pop().toLowerCase()
+    return allowedExtensions.indexOf(extension) > -1
+  }
+
+  function fileSelected(file) {
+    button.disabled = true
+
+    fileLabel.setAttribute('data-original', fileLabel.textContent.trim())
+    fileLabel.textContent = file.name
+
+    if (!isFileTypeValid(file.name)) {
+      return
+    }
+
     button.disabled = false
 
     const reader = new FileReader()
@@ -16,9 +35,6 @@
       previewContainer.style.display = 'block'
     })
     reader.readAsDataURL(file)
-
-    fileLabel.setAttribute('data-original', fileLabel.textContent.trim())
-    fileLabel.textContent = event.target.value.split('\\').pop()
   }
 
   function noFileSelected() {
@@ -28,9 +44,9 @@
     fileLabel.textContent = fileLabel.getAttribute('data-original')
   }
 
-  fileInput.addEventListener('change', function(event) {
+  fileInput.addEventListener('change', function() {
     if (this.files && this.files[0]) {
-      fileSelected(this.files[0], event)
+      fileSelected(this.files[0])
     } else {
       noFileSelected()
     }
@@ -38,6 +54,11 @@
 
   const form = document.getElementById('screenshot-upload-form')
   form.addEventListener('submit', function(event) {
+    if (button.disabled) {
+      event.preventDefault()
+      return
+    }
+
     button.disabled = true
     button.textContent = 'Uploading...'
   })
