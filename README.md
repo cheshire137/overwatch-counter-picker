@@ -9,11 +9,12 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 ## How to Run
 
-You will need Python 2.7, pip, and OpenCV installed. See detailed instructions below for
-OpenCV installation on macOS.
+You will need Python 2.7, pip, PostgreSQL, and OpenCV installed. See detailed
+instructions below for OpenCV installation on macOS.
 
 ```bash
 pip install -r requirements.txt
+createdb overwatch_counter_picker
 ```
 
 ### Server

@@ -4,16 +4,20 @@ import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
+from flask_sqlalchemy import SQLAlchemy
 
 from src.models.hero_picker import HeroPicker
 from src.models.team import Team
 from src.models.team_detector import TeamDetector
 
-UPLOAD_FOLDER = os.path.abspath('src/web/uploads')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+dev_db_url = 'postgresql://localhost/overwatch_counter_picker'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', dev_db_url)
+app.config['UPLOAD_FOLDER'] = os.path.abspath('src/web/uploads')
+
+db = SQLAlchemy(app)
 
 def allowed_file(filename):
   return '.' in filename and \
