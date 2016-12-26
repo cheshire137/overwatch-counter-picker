@@ -84,3 +84,60 @@
 .list-inline li + li {
   margin-left: 1em;
 }
+
+.file-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input + .label {
+  color: #3273dc;
+  background-color: #efefef;
+  border: 2px dashed #ddd;
+  border-right: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.file-input + .label:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.file-input:focus + .label,
+.file-input + .label:hover {
+  border-color: #3273dc;
+  background-color: #fff;
+}
+
+.file-input:focus + .label {
+  outline: 1px dotted #ffdd57;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.file-input + .label * {
+  pointer-events: none;
+}
+
+.label.is-large {
+  font-size: 22px;
+  height: 48px;
+  line-height: 48px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.control.has-addons .label.is-expanded {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.upload-form {
+  margin-bottom: 1em;
+}

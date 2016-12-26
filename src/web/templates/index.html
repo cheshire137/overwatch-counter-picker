@@ -23,20 +23,20 @@
     </div>
   </header>
   <section class="section">
-    <div class="container">
+    <div class="container has-text-centered content">
       <div class="columns">
-        <div class="column is-half">
-          <form method="post" id="screenshot-upload-form" enctype="multipart/form-data">
-            <label for="file" class="label">Overwatch screenshot:</label>
-            <div class="control">
-              <input type="file" class="input" id="file" name="file">
+        <div class="column is-half is-offset-one-quarter">
+          <form method="post" class="upload-form" id="screenshot-upload-form" enctype="multipart/form-data">
+            <div class="control has-addons">
+              <input type="file" class="file-input" id="file" name="file">
+              <label for="file" id="file-input-label" class="has-text-centered label is-large is-expanded">
+                Choose an Overwatch screenshot
+              </label>
+              <button type="submit" id="submit-button" class="is-large button is-primary">
+                Upload
+              </button>
             </div>
-            <button type="submit" id="submit-button" class="is-large button is-primary">
-              Upload
-            </button>
           </form>
-        </div>
-        <div class="column content">
           <div id="sample-screenshot-container">
             <p>Upload a screenshot like this:</p>
             <img class="sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
