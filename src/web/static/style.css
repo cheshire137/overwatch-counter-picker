@@ -108,7 +108,8 @@
 }
 
 .file-input:focus + .label,
-.file-input + .label:hover {
+.file-input + .label:hover,
+.file-input + .label.focus {
   border-color: #3273dc;
   background-color: #fff;
 }

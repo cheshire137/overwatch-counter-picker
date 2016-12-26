@@ -7,6 +7,7 @@
   const button = document.getElementById('submit-button')
   const allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
   const fileTypeWarning = document.getElementById('file-type-warning')
+  const form = document.getElementById('screenshot-upload-form')
 
   function isFileTypeValid(fileName) {
     const fileNameParts = fileName.split('.')
@@ -55,7 +56,6 @@
     }
   })
 
-  const form = document.getElementById('screenshot-upload-form')
   form.addEventListener('submit', function(event) {
     if (button.disabled) {
       event.preventDefault()
@@ -67,4 +67,28 @@
   })
 
   button.disabled = true
+
+  function dragHandler(event) {
+    if (event.dataTransfer.types.indexOf('Files') < 0) {
+      return
+    }
+    event.preventDefault()
+    event.stopPropagation()
+    const srcElement = event.srcElement ? event.srcElement : event.target
+    const isTarget = srcElement.id === 'file-input-label'
+    event.dataTransfer.dropEffect = isTarget ? 'copy' : 'none'
+    if (event.type === 'dragover') {
+      fileLabel.classList.add('focus')
+    } else if (event.type === 'drop') {
+      fileInput.files = event.dataTransfer.files
+      form.submit()
+    }
+    if (!isTarget) {
+      fileLabel.classList.remove('focus')
+    }
+  }
+
+  document.body.addEventListener('dragleave', dragHandler)
+  document.body.addEventListener('dragover', dragHandler)
+  document.body.addEventListener('drop', dragHandler)
 })()
