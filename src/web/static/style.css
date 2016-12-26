@@ -96,11 +96,19 @@
 
 .file-input + .label {
   color: #3273dc;
-  background-color: #efefef;
+  background-color: #eee;
   border: 2px dashed #ddd;
-  border-right: none;
   display: inline-block;
   cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.file-input + .label + .button {
+  border-left: 10px solid white;
 }
 
 .file-input + .label:not(:last-child) {
@@ -135,5 +143,5 @@
 }
 
 .upload-form {
-  margin-bottom: 1em;
+  margin-bottom: 60px;
 }
