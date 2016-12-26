@@ -23,8 +23,9 @@
   })
 
   const form = document.getElementById('screenshot-upload-form')
-  form.addEventListener('submit', function() {
+  form.addEventListener('submit', function(event) {
     button.disabled = true
+    button.textContent = 'Uploading...'
   })
 
   button.disabled = true
