@@ -81,7 +81,9 @@
       fileLabel.classList.add('focus')
     } else if (event.type === 'drop') {
       fileInput.files = event.dataTransfer.files
-      form.submit()
+      if (!button.disabled) {
+        form.submit()
+      }
     }
     if (!isTarget) {
       fileLabel.classList.remove('focus')
