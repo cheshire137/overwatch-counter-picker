@@ -18,4 +18,10 @@
       sampleScreenshot.style.display = 'block'
     }
   })
+
+  const form = document.getElementById('screenshot-upload-form')
+  form.addEventListener('submit', function() {
+    const button = document.getElementById('submit-button')
+    button.disabled = true
+  })
 })()
