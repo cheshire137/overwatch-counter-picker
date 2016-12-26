@@ -113,11 +113,6 @@
   background-color: #fff;
 }
 
-.file-input:focus + .label {
-  outline: 1px dotted #ffdd57;
-  outline: -webkit-focus-ring-color auto 5px;
-}
-
 .file-input + .label * {
   pointer-events: none;
 }
