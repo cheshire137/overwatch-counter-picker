@@ -6,6 +6,7 @@
   const preview = document.getElementById('screenshot-preview')
   const button = document.getElementById('submit-button')
   const allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
+  const fileTypeWarning = document.getElementById('file-type-warning')
 
   function isFileTypeValid(fileName) {
     const fileNameParts = fileName.split('.')
@@ -23,9 +24,11 @@
     fileLabel.textContent = file.name
 
     if (!isFileTypeValid(file.name)) {
+      fileTypeWarning.style.display = 'block'
       return
     }
 
+    fileTypeWarning.style.display = 'none'
     button.disabled = false
 
     const reader = new FileReader()
