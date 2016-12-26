@@ -6,10 +6,9 @@ from src.models.red_team import RedTeam
 from src.models.blue_team import BlueTeam
 
 class TeamDetector:
-  # TODO: mei
   heroes = ['ana', 'bastion', 'dva', 'genji', 'hanzo', 'junkrat', 'lucio',
-            'mccree', 'mercy', 'pharah', 'reaper', 'reinhardt', 'roadhog',
-            'soldier-76', 'sombra', 'symmetra', 'torbjorn', 'tracer',
+            'mccree', 'mei', 'mercy', 'pharah', 'reaper', 'reinhardt',
+            'roadhog', 'soldier-76', 'sombra', 'symmetra', 'torbjorn', 'tracer',
             'widowmaker', 'winston', 'zarya', 'zenyatta', 'unknown']
 
   def __init__(self, original):

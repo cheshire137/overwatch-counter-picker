@@ -8,6 +8,7 @@ class HeroDetectorTest(unittest.TestCase):
   def setUpClass(cls):
     cls.full_teams = cv2.imread('sample-screenshots/full-teams.jpg')
     cls.fire_and_death = cv2.imread('sample-screenshots/fire-and-death.jpg')
+    cls.eichenwalde_full = cv2.imread('sample-screenshots/eichenwalde-full.jpg')
 
   def test_constructor(self):
     detector = HeroDetector(self.__class__.full_teams)
@@ -117,6 +118,13 @@ class HeroDetectorTest(unittest.TestCase):
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
     self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
+  def test_detect_finds_mei_when_present(self):
+    detector = HeroDetector(self.__class__.eichenwalde_full)
+    template = cv2.imread('src/heroes/mei.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
 
   def test_detect_finds_same_hero_on_each_team(self):
     detector = HeroDetector(self.__class__.full_teams)
