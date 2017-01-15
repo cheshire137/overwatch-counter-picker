@@ -151,9 +151,11 @@
 }
 
 .pick-stats-table .overwatch-hero-portrait {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 2px;
+  padding: 2px;
+  background-color: #ddd;
 }
 
 .pick-stats-table .player-cell {
@@ -170,9 +172,17 @@
   display: inline-block;
 }
 
+.pick-stats-table .overwatch-hero-portrait.blue-hero {
+  background-color: #6cbef6;
+}
+
+.pick-stats-table .overwatch-hero-portrait.red-hero {
+  background-color: #eb6034;
+}
+
 .pick-stats-table .overwatch-hero-portrait.pick {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
 }
 
 .pick-stats-table .suggestions-1 .overwatch-hero-portrait.pick,
@@ -181,21 +191,13 @@
 .pick-stats-table .suggestions-4 .overwatch-hero-portrait.pick,
 .pick-stats-table .suggestions-5 .overwatch-hero-portrait.pick,
 .pick-stats-table .suggestions-6 .overwatch-hero-portrait.pick {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
 }
 
 .pick-stats-table .blue-team-cell,
 .pick-stats-table .red-team-cell {
-  width: 340px;
-}
-
-.pick-stats-table .blue-team-cell {
-  background-color: #5fbbf9;
-}
-
-.pick-stats-table .red-team-cell {
-  background-color: #ea352d;
+  max-width: 345px;
 }
 
 .stats-link {
