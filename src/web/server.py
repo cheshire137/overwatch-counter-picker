@@ -19,6 +19,11 @@ app.config['UPLOAD_FOLDER'] = os.path.abspath('src/web/uploads')
 
 db = SQLAlchemy(app)
 
+
+###########################################################################
+# Database tables #########################################################
+###########################################################################
+
 class Pick(db.Model):
   __tablename__ = 'picks'
   id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +41,11 @@ class Pick(db.Model):
     self.red_team = ','.join(red_team)
     self.picks = ','.join(picks)
     self.upload_time = datetime.utcnow()
+
+
+###########################################################################
+# Utility functions #######################################################
+###########################################################################
 
 def allowed_file(filename):
   return '.' in filename and \
@@ -69,6 +79,11 @@ def render_result(picks, red_team, blue_team):
     allies=allies, enemies=enemies, any_allies=len(allies) > 0, \
     any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
     player=player, player_ok=player_ok, any_picks=any_picks)
+
+
+###########################################################################
+# Routes ##################################################################
+###########################################################################
 
 @app.route('/', methods=['GET'])
 def index():
