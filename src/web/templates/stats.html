@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Overwatch Counter Picker</title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -50,6 +51,11 @@
             <td class="player-cell">
               {% if pick.player %}
                 <img class="overwatch-hero-portrait player" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
+                {% if pick.player_ok() %}
+                  <span title="Good pick" class="player-ok octicon octicon-check"></span>
+                {% else %}
+                  <span title="Bad pick" class="player-not-ok octicon octicon-x"></span>
+                {% endif %}
               {% endif %}
             </td>
             <td class="blue-team-cell">

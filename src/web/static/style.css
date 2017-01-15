@@ -160,10 +160,10 @@
 
 .pick-stats-table .player-cell {
   width: 70px;
+  position: relative;
 }
 
 .pick-stats-table .overwatch-hero-portrait.player {
-
 }
 
 .pick-stats-table .overwatch-hero-portrait.blue-hero,
@@ -174,6 +174,20 @@
 
 .pick-stats-table .overwatch-hero-portrait.blue-hero {
   background-color: #6cbef6;
+}
+
+.pick-stats-table .player-ok {
+  color: #2AC110;
+  position: absolute;
+  left: 55px;
+  top: 44px;
+}
+
+.pick-stats-table .player-not-ok {
+  color: #C13110;
+  position: absolute;
+  left: 55px;
+  top: 44px;
 }
 
 .pick-stats-table .overwatch-hero-portrait.red-hero {
