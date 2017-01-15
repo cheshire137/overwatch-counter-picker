@@ -11,8 +11,8 @@ class TeamCompositionTest(unittest.TestCase):
     self.assertEqual(None, team_comp.soldier76)
 
   def test_from_list(self):
-    team_comp = TeamComposition.from_list(['ana', 'mercy', 'zarya'])
-    self.assertEqual(1, team_comp.ana)
+    team_comp = TeamComposition.from_list(['ana', 'mercy', 'ana', 'zarya'])
+    self.assertEqual(2, team_comp.ana)
     self.assertEqual(1, team_comp.mercy)
     self.assertEqual(1, team_comp.zarya)
     self.assertEqual(None, team_comp.reaper)
