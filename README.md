@@ -9,11 +9,13 @@ counter the enemy team, based on a provided screenshot of your team composition.
 
 ## How to Run
 
-You will need Python 2.7, pip, and OpenCV installed. See detailed instructions below for
-OpenCV installation on macOS.
+You will need Python 2.7, pip, PostgreSQL, and OpenCV installed. See detailed
+instructions below for OpenCV installation on macOS.
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt # install required Python libraries
+createdb overwatch_counter_picker # create the database
+python -m src.db.create # create database tables
 ```
 
 ### Server
@@ -69,6 +71,8 @@ heroku login
 heroku create your_app_name
 heroku buildpacks:set https://github.com/diogojc/heroku-buildpack-python-opencv-scipy
 git push heroku master
+heroku addons:create heroku-postgresql:hobby-dev # create database
+heroku run python -m src.db.create # create tables
 ```
 
 ## Thanks

@@ -16,7 +16,7 @@ class Team:
     'reaper': 'Reaper',
     'reinhardt': 'Reinhardt',
     'roadhog': 'Roadhog',
-    'soldier-76': 'Soldier 76',
+    'soldier76': 'Soldier 76',
     'sombra': 'Sombra',
     'symmetra': 'Symmetra',
     'torbjorn': 'Torbjorn',

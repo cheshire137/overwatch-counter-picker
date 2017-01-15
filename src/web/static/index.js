@@ -82,6 +82,7 @@
     } else if (event.type === 'drop') {
       fileInput.files = event.dataTransfer.files
       if (!button.disabled) {
+        button.disabled = true
         form.submit()
       }
     }

@@ -44,11 +44,11 @@ class HeroPickerTest(unittest.TestCase):
     red_team = RedTeam([])
     blue_team = BlueTeam(['dva', 'zenyatta', 'mercy', 'roadhog', 'mei'])
     hero_picker = HeroPicker(red_team, blue_team)
-    self.assertEqual(['pharah', 'soldier-76'], hero_picker.pick())
+    self.assertEqual(['pharah', 'soldier76'], hero_picker.pick())
 
   def test_suggests_defense_on_defense(self):
     red_team = RedTeam([])
-    blue_team = BlueTeam(['pharah', 'mercy', 'roadhog', 'dva', 'soldier-76'])
+    blue_team = BlueTeam(['pharah', 'mercy', 'roadhog', 'dva', 'soldier76'])
     hero_picker = HeroPicker(red_team, blue_team, attacking=False)
     self.assertTrue(hero_picker.defending(), 'expected to be defending')
     picks = hero_picker.pick()

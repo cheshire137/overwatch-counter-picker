@@ -21,14 +21,14 @@ class TeamTest(unittest.TestCase):
     team = Team(['ana', 'dva', 'reinhardt'])
     self.assertEqual(0, team.num_offense())
 
-    team = Team(['torbjorn', 'mercy', 'lucio', 'soldier-76'])
+    team = Team(['torbjorn', 'mercy', 'lucio', 'soldier76'])
     self.assertEqual(1, team.num_offense())
 
   def test_num_tanks(self):
     team = Team(['ana', 'dva', 'reinhardt'])
     self.assertEqual(2, team.num_tanks())
 
-    team = Team(['torbjorn', 'mercy', 'lucio', 'soldier-76'])
+    team = Team(['torbjorn', 'mercy', 'lucio', 'soldier76'])
     self.assertEqual(0, team.num_tanks())
 
   def test_size(self):
