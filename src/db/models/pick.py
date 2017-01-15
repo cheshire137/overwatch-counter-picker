@@ -72,3 +72,10 @@ class Pick(db.Model):
     suggestions = [name for name in valid_names if name in self.__dict__ and self.__dict__[name]]
     suggestions.sort()
     return suggestions
+
+  # Returns True if the hero the user was playing is a suggested pick for the
+  # known team composition.
+  def player_ok(self):
+    if self.player is None:
+      return True
+    return self.player in self.heroes()
