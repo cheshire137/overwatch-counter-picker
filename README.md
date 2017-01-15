@@ -13,8 +13,9 @@ You will need Python 2.7, pip, PostgreSQL, and OpenCV installed. See detailed
 instructions below for OpenCV installation on macOS.
 
 ```bash
-pip install -r requirements.txt
-createdb overwatch_counter_picker
+pip install -r requirements.txt # install required Python libraries
+createdb overwatch_counter_picker # create the database
+python -m src.db.create # create database tables
 ```
 
 ### Server
