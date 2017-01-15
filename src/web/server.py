@@ -78,11 +78,17 @@ def render_result(picks, pick_record, team_detector):
 # Saves records to the database about the heroes that were detected and the
 # hero suggestion(s) for the user to play.
 def save_picks_to_database(picks, team_detector):
-  blue_team_record = TeamComposition.from_list(team_detector.blue_team.heroes)
-  db.session.add(blue_team_record)
+  blue_counts = TeamComposition.counts_from_list(team_detector.blue_team.heroes)
+  blue_team_record = TeamComposition.find_for_list(**blue_counts)
+  if blue_team_record is None:
+    blue_team_record = TeamComposition(**blue_counts)
+    db.session.add(blue_team_record)
 
-  red_team_record = TeamComposition.from_list(team_detector.red_team.heroes)
-  db.session.add(red_team_record)
+  red_counts = TeamComposition.counts_from_list(team_detector.red_team.heroes)
+  red_team_record = TeamComposition.find_for_list(**red_counts)
+  if red_team_record is None:
+    red_team_record = TeamComposition(**red_counts)
+    db.session.add(red_team_record)
 
   db.session.flush()
 
