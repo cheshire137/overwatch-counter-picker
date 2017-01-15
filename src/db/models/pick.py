@@ -83,6 +83,18 @@ class Pick(db.Model):
   def red_heroes_str(self):
     return ','.join(self.red_heroes())
 
+  # Returns a list of the other players on the blue team, excluding the player
+  # if the player is known.
+  def allies(self):
+    if self.player is None:
+      return self.blue_heroes()
+    result = []
+    hero_counts = self.blue_team.counts()
+    for hero, count in hero_counts.iteritems():
+      if (hero != self.player and count > 0) or (hero == self.player and count > 1):
+        result.append(hero)
+    return result
+
   @classmethod
   def find_on_date_with_attrs(cls, date, attrs):
     row = Pick.query.filter_by(**attrs).\
