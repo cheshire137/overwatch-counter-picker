@@ -37,6 +37,7 @@ class TeamComposition(db.Model):
   # counts, or None if it does not exist in the database.
   @classmethod
   def find_with_counts(cls, counts):
+    counts.pop('unknown', None)
     row = TeamComposition.query.filter_by(**counts).limit(1).first()
     if row:
       return row
