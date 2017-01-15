@@ -47,15 +47,20 @@ class Pick(db.Model):
 # Utility functions #######################################################
 ###########################################################################
 
+# Returns true if the given file name is an allowed file type.
 def allowed_file(filename):
   return '.' in filename and \
     filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Returns a TeamDetector instance, with heroes already detected, for the given
+# screenshot.
 def get_team_detector(screenshot_path):
   team_detector = TeamDetector(cv2.imread(screenshot_path))
   team_detector.detect()
   return team_detector
 
+# Saves the given file to the upload folder and returns the path where it is
+# saved.
 def save_upload(file):
   timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
   filename = secure_filename(timestamp + '-' + file.filename)
@@ -63,11 +68,13 @@ def save_upload(file):
   file.save(path)
   return path
 
-def render_result(picks, red_team, blue_team):
-  allies = blue_team.allies()
-  enemies = red_team.heroes
+# Render the result.html template with information about the heroes that were
+# detected and the hero(es) the user should play in this team composition.
+def render_result(picks, team_detector):
+  allies = team_detector.blue_team.allies()
+  enemies = team_detector.red_team.heroes
 
-  player = blue_team.player()
+  player = team_detector.blue_team.player()
   player_ok = False
   if player is not None:
     player_ok = player in picks
@@ -80,6 +87,8 @@ def render_result(picks, red_team, blue_team):
     any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
     player=player, player_ok=player_ok, any_picks=any_picks)
 
+# Saves a new record to the 'picks' table about the heroes that were detected
+# and the hero suggestion(s) for the user to play.
 def save_pick_record(picks, team_detector):
   width = team_detector.hero_detector.original_w
   height = team_detector.hero_detector.original_h
@@ -89,6 +98,16 @@ def save_pick_record(picks, team_detector):
   record = Pick(width, height, blue_heroes, red_heroes, picks)
   db.session.add(record)
   db.session.commit()
+
+# Returns a rendered page template showing the results of the hero selection,
+# based on the given Overwatch screenshot file path.
+def get_picks_from_screenshot(screenshot_path):
+  team_detector = get_team_detector(screenshot_path)
+  hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
+  picks = hero_picker.pick()
+  save_pick_record(picks, team_detector)
+  return render_result(picks, team_detector)
+
 
 ###########################################################################
 # Routes ##################################################################
@@ -106,14 +125,7 @@ def upload():
   file = request.files['file']
   if file and file.filename != '' and allowed_file(file.filename):
     screenshot_path = save_upload(file)
-    team_detector = get_team_detector(screenshot_path)
-
-    hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
-    picks = hero_picker.pick()
-
-    save_pick_record(picks, team_detector)
-
-    template = render_result(picks, team_detector.red_team, team_detector.blue_team)
+    template = get_picks_from_screenshot(screenshot_path)
     os.remove(screenshot_path)
     return template
 
