@@ -95,6 +95,27 @@ class Pick(db.Model):
         result.append(hero)
     return result
 
+  # Returns a string to be used to uniquely represent this Pick in a URL.
+  def slug(self):
+    return self.player + '.' + str(self.id) + '.' + self.uploaded_at.strftime('%Y%m%d')
+
+  # Given a slug like ana.1.20170115, this will return the Pick record that matches,
+  # or None if it does not exist.
+  @classmethod
+  def find_by_slug(cls, slug):
+    parts = slug.split('.')
+    if len(parts) != 3:
+      return None
+    player = parts[0]
+    id = int(parts[1])
+    date_str = parts[2]
+    row = Pick.query.filter_by(id=id).limit(1).first()
+    if row and row.player == player:
+      expected_date_str = row.uploaded_at.strftime('%Y%m%d')
+      if date_str == expected_date_str:
+        return row
+    return None
+
   @classmethod
   def find_on_date_with_attrs(cls, date, attrs):
     row = Pick.query.filter_by(**attrs).\
