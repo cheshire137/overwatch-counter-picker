@@ -39,10 +39,10 @@ def allowed_file(filename):
   return '.' in filename and \
     filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def get_teams(screenshot_path):
+def get_team_detector(screenshot_path):
   team_detector = TeamDetector(cv2.imread(screenshot_path))
   team_detector.detect()
-  return (team_detector.blue_team, team_detector.red_team)
+  return team_detector
 
 def save_upload(file):
   timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
@@ -51,10 +51,7 @@ def save_upload(file):
   file.save(path)
   return path
 
-def render_result(red_team, blue_team):
-  hero_picker = HeroPicker(red_team, blue_team)
-  picks = hero_picker.pick()
-
+def render_result(picks, red_team, blue_team):
   allies = blue_team.allies()
   enemies = red_team.heroes
 
@@ -83,8 +80,23 @@ def upload():
   file = request.files['file']
   if file and file.filename != '' and allowed_file(file.filename):
     screenshot_path = save_upload(file)
-    (blue_team, red_team) = get_teams(screenshot_path)
-    template = render_result(red_team, blue_team)
+    team_detector = get_team_detector(screenshot_path)
+    red_team = team_detector.red_team
+    blue_team = team_detector.blue_team
+
+    hero_picker = HeroPicker(red_team, blue_team)
+    picks = hero_picker.pick()
+
+    width = team_detector.hero_detector.original_w
+    height = team_detector.hero_detector.original_h
+    blue_heroes = blue_team.heroes
+    red_heroes = red_team.heroes
+
+    pick_record = Pick(width, height, blue_heroes, red_heroes, picks)
+    db.session.add(pick_record)
+    db.session.commit()
+
+    template = render_result(picks, red_team, blue_team)
     os.remove(screenshot_path)
     return template
 
