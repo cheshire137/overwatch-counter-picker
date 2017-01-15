@@ -21,3 +21,8 @@ class PickTest(unittest.TestCase):
     self.assertTrue(pick.mercy)
     self.assertTrue(pick.zenyatta)
     self.assertFalse(pick.sombra)
+
+  def test_heroes(self):
+    pick_attrs = {hero: True for hero in ['mercy', 'zenyatta']}
+    pick = Pick(**pick_attrs)
+    self.assertEqual(['mercy', 'zenyatta'], pick.heroes())

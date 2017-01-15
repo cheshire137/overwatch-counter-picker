@@ -2,6 +2,7 @@ from datetime import datetime
 
 from src.db.models.shared import db
 from src.db.models.team_composition import TeamComposition
+from src.models.team import Team
 
 class Pick(db.Model):
   __tablename__ = 'picks'
@@ -48,3 +49,10 @@ class Pick(db.Model):
   def __init__(self, **kwargs):
     self.uploaded_at = datetime.utcnow()
     self.__dict__.update(kwargs)
+
+  # Returns a list of the names of the heroes suggested for the user to pick.
+  def heroes(self):
+    valid_names = Team.hero_names.keys()
+    suggestions = [name for name in valid_names if name in self.__dict__ and self.__dict__[name]]
+    suggestions.sort()
+    return suggestions
