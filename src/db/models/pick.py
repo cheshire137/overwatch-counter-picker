@@ -1,4 +1,5 @@
 from datetime import datetime
+from sqlalchemy import Date, cast
 
 from src.db.models.shared import db
 from src.db.models.team_composition import TeamComposition
@@ -81,6 +82,14 @@ class Pick(db.Model):
 
   def red_heroes_str(self):
     return ','.join(self.red_heroes())
+
+  @classmethod
+  def find_on_date_with_attrs(cls, date, attrs):
+    row = Pick.query.filter_by(**attrs).\
+      filter(cast(Pick.uploaded_at, Date) == date).limit(1).first()
+    if row:
+      return row
+    return None
 
   # Returns True if the hero the user was playing is a suggested pick for the
   # known team composition.

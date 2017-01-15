@@ -33,14 +33,13 @@ class TeamComposition(db.Model):
   def __init__(self, **kwargs):
     self.__dict__.update(kwargs)
 
-  # Returns an existing TeamComposition record for the given list of heroes,
-  # or None if it does not exist in the database.
+  # Returns an existing TeamComposition record for the given dictionary of hero
+  # counts, or None if it does not exist in the database.
   @classmethod
-  def find_for_list(cls, heroes):
-    counts = counts_from_list(heroes)
-    query = TeamComposition.query.filter_by(**counts)
-    if query.exists():
-      return query.first()
+  def find_with_counts(cls, counts):
+    row = TeamComposition.query.filter_by(**counts).limit(1).first()
+    if row:
+      return row
     return None
 
   # Returns a dictionary for the given heroes list representing how many times

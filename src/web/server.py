@@ -2,7 +2,7 @@ import cv2
 import os
 import math
 
-from datetime import datetime
+from datetime import datetime, date
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
@@ -79,13 +79,13 @@ def render_result(picks, pick_record, team_detector):
 # hero suggestion(s) for the user to play.
 def save_picks_to_database(picks, team_detector):
   blue_counts = TeamComposition.counts_from_list(team_detector.blue_team.heroes)
-  blue_team_record = TeamComposition.find_for_list(**blue_counts)
+  blue_team_record = TeamComposition.find_with_counts(blue_counts)
   if blue_team_record is None:
     blue_team_record = TeamComposition(**blue_counts)
     db.session.add(blue_team_record)
 
   red_counts = TeamComposition.counts_from_list(team_detector.red_team.heroes)
-  red_team_record = TeamComposition.find_for_list(**red_counts)
+  red_team_record = TeamComposition.find_with_counts(red_counts)
   if red_team_record is None:
     red_team_record = TeamComposition(**red_counts)
     db.session.add(red_team_record)
@@ -100,8 +100,11 @@ def save_picks_to_database(picks, team_detector):
     'red_team_id': red_team_record.id
   }
   pick_attrs.update({hero: True for hero in picks})
-  pick_record = Pick(**pick_attrs)
-  db.session.add(pick_record)
+
+  pick_record = Pick.find_on_date_with_attrs(date.today(), pick_attrs)
+  if pick_record is None:
+    pick_record = Pick(**pick_attrs)
+    db.session.add(pick_record)
 
   db.session.commit()
 
