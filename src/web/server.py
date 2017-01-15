@@ -19,6 +19,22 @@ app.config['UPLOAD_FOLDER'] = os.path.abspath('src/web/uploads')
 
 db = SQLAlchemy(app)
 
+class Pick(db.Model):
+  __tablename__ = 'picks'
+  id = db.Column(db.Integer, primary_key=True)
+  screenshot_width = db.Column(db.Integer)
+  screenshot_height = db.Column(db.Integer)
+  blue_team = db.Column(db.String(80))
+  red_team = db.Column(db.String(80))
+  picks = db.Column(db.String(80))
+
+  def __init__(self, width=None, height=None, blue_team=[], red_team=[], picks=[]):
+    self.screenshot_width = width
+    self.screenshot_height = height
+    self.blue_team = ','.join(blue_team)
+    self.red_team = ','.join(red_team)
+    self.picks= ','.join(picks)
+
 def allowed_file(filename):
   return '.' in filename and \
     filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
