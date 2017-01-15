@@ -10,7 +10,7 @@ class HeroDetectorTest(unittest.TestCase):
     cls.fire_and_death = cv2.imread('sample-screenshots/fire-and-death.jpg')
     cls.eichenwalde_full = cv2.imread('sample-screenshots/eichenwalde-full.jpg')
 
-  def test_constructor(self):
+  def test_constructor_detects_dimensions(self):
     detector = HeroDetector(self.__class__.full_teams)
     self.assertEqual(2560, detector.original_w)
     self.assertEqual(1440, detector.original_h)
