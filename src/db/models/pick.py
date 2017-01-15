@@ -50,6 +50,16 @@ class Pick(db.Model):
     self.uploaded_at = datetime.utcnow()
     self.__dict__.update(kwargs)
 
+  def blue_heroes(self):
+    if self.blue_team:
+      return self.blue_team.heroes()
+    return []
+
+  def red_heroes(self):
+    if self.red_team:
+      return self.red_team.heroes()
+    return []
+
   # Returns a list of the names of the heroes suggested for the user to pick.
   def heroes(self):
     valid_names = Team.hero_names.keys()
