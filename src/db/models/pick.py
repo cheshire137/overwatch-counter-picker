@@ -60,6 +60,12 @@ class Pick(db.Model):
       return self.red_team.heroes()
     return []
 
+  # Returns the count of how many heroes were suggested to the user.
+  def num_suggestions(self):
+    valid_names = Team.hero_names.keys()
+    suggestions = [name for name in valid_names if name in self.__dict__ and self.__dict__[name]]
+    return len(suggestions)
+
   # Returns a list of the names of the heroes suggested for the user to pick.
   def heroes(self):
     valid_names = Team.hero_names.keys()

@@ -26,3 +26,8 @@ class PickTest(unittest.TestCase):
     pick_attrs = {hero: True for hero in ['mercy', 'zenyatta']}
     pick = Pick(**pick_attrs)
     self.assertEqual(['mercy', 'zenyatta'], pick.heroes())
+
+  def test_num_suggestions(self):
+    pick_attrs = {hero: True for hero in ['mercy', 'zenyatta']}
+    pick = Pick(**pick_attrs)
+    self.assertEqual(2, pick.num_suggestions())
