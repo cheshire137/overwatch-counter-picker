@@ -54,7 +54,7 @@ def save_upload(file):
 
 # Render the result.html template with information about the heroes that were
 # detected and the hero(es) the user should play in this team composition.
-def render_result(picks, team_detector):
+def render_result(picks, pick_record, team_detector):
   blue_team = team_detector.blue_team
   red_team = team_detector.red_team
 
@@ -72,7 +72,8 @@ def render_result(picks, team_detector):
   return render_template('result.html', picks=picks, num_picks=len(picks), \
     allies=allies, enemies=enemies, any_allies=len(allies) > 0, \
     any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
-    player=player, player_ok=player_ok, any_picks=any_picks)
+    player=player, player_ok=player_ok, any_picks=any_picks, \
+    pick=pick_record)
 
 # Saves records to the database about the heroes that were detected and the
 # hero suggestion(s) for the user to play.
@@ -93,9 +94,12 @@ def save_picks_to_database(picks, team_detector):
     'red_team_id': red_team_record.id
   }
   pick_attrs.update({hero: True for hero in picks})
-  db.session.add(Pick(**pick_attrs))
+  pick_record = Pick(**pick_attrs)
+  db.session.add(pick_record)
 
   db.session.commit()
+
+  return pick_record
 
 # Returns a rendered page template showing the results of the hero selection,
 # based on the given Overwatch screenshot file path.
@@ -103,8 +107,8 @@ def get_picks_from_screenshot(screenshot_path):
   team_detector = get_team_detector(screenshot_path)
   hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
   picks = hero_picker.pick()
-  save_picks_to_database(picks, team_detector)
-  return render_result(picks, team_detector)
+  pick_record = save_picks_to_database(picks, team_detector)
+  return render_result(picks, pick_record, team_detector)
 
 # Returns a list of Pick instances from the database, ordered most recent first.
 # Paginated based on the given page and STATS_PER_PAGE.

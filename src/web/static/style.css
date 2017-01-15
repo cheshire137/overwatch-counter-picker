@@ -60,7 +60,7 @@
 }
 
 .picks-container {
-
+  position: relative;
 }
 
 .enemies-container {
@@ -233,4 +233,11 @@
 .stats-link:focus {
   color: #fff;
   text-decoration: underline;
+}
+
+.content a.disagree-link:not(.button) {
+  position: absolute;
+  right: 0;
+  font-size: 13px;
+  border-bottom: 0;
 }
