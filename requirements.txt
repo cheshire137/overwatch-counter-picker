@@ -2,3 +2,4 @@ Flask
 imutils
 numpy
 Flask-SQLAlchemy
+psycopg2
