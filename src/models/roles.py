@@ -3,7 +3,7 @@ class Roles:
 
   tanks = ['reinhardt', 'dva', 'zarya', 'winston', 'roadhog']
 
-  offense = ['genji', 'mccree', 'pharah', 'reaper', 'soldier-76', 'sombra',
+  offense = ['genji', 'mccree', 'pharah', 'reaper', 'soldier76', 'sombra',
              'tracer']
 
   defense = ['bastion', 'torbjorn', 'widowmaker', 'hanzo', 'mei', 'junkrat']

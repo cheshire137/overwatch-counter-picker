@@ -8,7 +8,7 @@ from src.models.blue_team import BlueTeam
 class TeamDetector:
   heroes = ['ana', 'bastion', 'dva', 'genji', 'hanzo', 'junkrat', 'lucio',
             'mccree', 'mei', 'mercy', 'pharah', 'reaper', 'reinhardt',
-            'roadhog', 'soldier-76', 'sombra', 'symmetra', 'torbjorn', 'tracer',
+            'roadhog', 'soldier76', 'sombra', 'symmetra', 'torbjorn', 'tracer',
             'widowmaker', 'winston', 'zarya', 'zenyatta', 'unknown']
 
   def __init__(self, original):

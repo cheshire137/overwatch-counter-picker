@@ -72,7 +72,7 @@ class HeroDetectorTest(unittest.TestCase):
 
   def test_detect_finds_soldier_76_when_present(self):
     detector = HeroDetector(self.__class__.fire_and_death)
-    template = cv2.imread('src/heroes/soldier-76.png')
+    template = cv2.imread('src/heroes/soldier76.png')
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
     self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
