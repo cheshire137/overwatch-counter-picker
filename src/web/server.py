@@ -137,10 +137,13 @@ def save_upload(file):
 # Render the result.html template with information about the heroes that were
 # detected and the hero(es) the user should play in this team composition.
 def render_result(picks, team_detector):
-  allies = team_detector.blue_team.allies()
-  enemies = team_detector.red_team.heroes
+  blue_team = team_detector.blue_team
+  red_team = team_detector.red_team
 
-  player = team_detector.blue_team.player()
+  allies = blue_team.allies()
+  enemies = red_team.heroes
+
+  player = blue_team.player()
   player_ok = False
   if player is not None:
     player_ok = player in picks
