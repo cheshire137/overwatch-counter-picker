@@ -38,18 +38,26 @@ class Pick(db.Model):
   winston = db.Column(db.Boolean, default=False, nullable=False)
   zarya = db.Column(db.Boolean, default=False, nullable=False)
   zenyatta = db.Column(db.Boolean, default=False, nullable=False)
+
   uploaded_at = db.Column(db.DateTime, nullable=False)
 
   blue_team = db.relationship('TeamComposition', foreign_keys=blue_team_id)
   red_team = db.relationship('TeamComposition', foreign_keys=red_team_id)
 
-  def __init__(self, screenshot_width=None, screenshot_height=None, blue_team_id=None, red_team_id=None, player=None, ana=None, bastion=None, dva=None, genji=None, hanzo=None, junkrat=None, lucio=None, mccree=None, mei=None, mercy=None, pharah=None, reaper=None, reinhardt=None, roadhog=None, soldier76=None, sombra=None, symmetra=None, torbjorn=None, tracer=None, widowmaker=None, winston=None, zarya=None, zenyatta=None):
+  def __init__(self, screenshot_width=None, screenshot_height=None, \
+               blue_team_id=None, red_team_id=None, player=None, ana=None, \
+               bastion=None, dva=None, genji=None, hanzo=None, junkrat=None, \
+               lucio=None, mccree=None, mei=None, mercy=None, pharah=None, \
+               reaper=None, reinhardt=None, roadhog=None, soldier76=None, \
+               sombra=None, symmetra=None, torbjorn=None, tracer=None, \
+               widowmaker=None, winston=None, zarya=None, zenyatta=None):
     self.screenshot_width = screenshot_width
     self.screenshot_height = screenshot_height
     self.blue_team_id = blue_team_id
     self.red_team_id = red_team_id
     self.player = player
     self.uploaded_at = datetime.utcnow()
+
     self.ana = ana
     self.bastion = bastion
     self.dva = dva

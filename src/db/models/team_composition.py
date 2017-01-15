@@ -29,7 +29,12 @@ class TeamComposition(db.Model):
   zarya = db.Column(db.Integer, default=0, nullable=False)
   zenyatta = db.Column(db.Integer, default=0, nullable=False)
 
-  def __init__(self, ana=None, bastion=None, dva=None, genji=None, hanzo=None, junkrat=None, lucio=None, mccree=None, mei=None, mercy=None, pharah=None, reaper=None, reinhardt=None, roadhog=None, soldier76=None, sombra=None, symmetra=None, torbjorn=None, tracer=None, widowmaker=None, winston=None, zarya=None, zenyatta=None):
+  def __init__(self, ana=None, bastion=None, dva=None, genji=None, hanzo=None, \
+               junkrat=None, lucio=None, mccree=None, mei=None, mercy=None, \
+               pharah=None, reaper=None, reinhardt=None, roadhog=None, \
+               soldier76=None, sombra=None, symmetra=None, torbjorn=None, \
+               tracer=None, widowmaker=None, winston=None, zarya=None, \
+               zenyatta=None):
     self.ana = ana
     self.bastion = bastion
     self.dva = dva
