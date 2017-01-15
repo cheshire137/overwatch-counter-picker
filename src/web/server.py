@@ -53,9 +53,40 @@ class Team(db.Model):
   zarya = db.Column(db.Integer, default=0, nullable=False)
   zenyatta = db.Column(db.Integer, default=0, nullable=False)
 
-  def __init__(self, heroes=[]):
+  def __init__(self, ana=None, bastion=None, dva=None, genji=None, hanzo=None, junkrat=None, lucio=None, mccree=None, mei=None, mercy=None, pharah=None, reaper=None, reinhardt=None, roadhog=None, soldier76=None, sombra=None, symmetra=None, torbjorn=None, tracer=None, widowmaker=None, winston=None, zarya=None, zenyatta=None):
+    self.ana = ana
+    self.bastion = bastion
+    self.dva = dva
+    self.genji = genji
+    self.hanzo = hanzo
+    self.junkrat = junkrat
+    self.lucio = lucio
+    self.mccree = mccree
+    self.mei = mei
+    self.mercy = mercy
+    self.pharah = pharah
+    self.reaper = reaper
+    self.reinhardt = reinhardt
+    self.roadhog = roadhog
+    self.soldier76 = soldier76
+    self.sombra = sombra
+    self.symmetra = symmetra
+    self.torbjorn = torbjorn
+    self.tracer = tracer
+    self.widowmaker = widowmaker
+    self.winston = winston
+    self.zarya = zarya
+    self.zenyatta = zenyatta
+
+  # Returns a new instance of Team initialized with the given list of heroes.
+  @classmethod
+  def from_list(cls, heroes):
+    counts = {}
     for hero in heroes:
-      self[hero] = self[hero] + 1
+      if hero not in counts:
+        counts[hero] = 0
+      counts[hero] = counts[hero] + 1
+    return Team(**counts)
 
 class Pick(db.Model):
   __tablename__ = 'picks'
@@ -98,15 +129,36 @@ class Pick(db.Model):
   blue_team = db.relationship('Team', foreign_keys=blue_team_id)
   red_team = db.relationship('Team', foreign_keys=red_team_id)
 
-  def __init__(self, attrs={}):
-    self.screenshot_width = attrs['width']
-    self.screenshot_height = attrs['height']
-    self.blue_team_id = attrs['blue_team_id']
-    self.red_team_id = attrs['red_team_id']
-    self.player = attrs['player']
-    for pick in attrs['picks']:
-      self[pick] = True
+  def __init__(self, screenshot_width=None, screenshot_height=None, blue_team_id=None, red_team_id=None, player=None, ana=None, bastion=None, dva=None, genji=None, hanzo=None, junkrat=None, lucio=None, mccree=None, mei=None, mercy=None, pharah=None, reaper=None, reinhardt=None, roadhog=None, soldier76=None, sombra=None, symmetra=None, torbjorn=None, tracer=None, widowmaker=None, winston=None, zarya=None, zenyatta=None):
+    self.screenshot_width = screenshot_width
+    self.screenshot_height = screenshot_height
+    self.blue_team_id = blue_team_id
+    self.red_team_id = red_team_id
+    self.player = player
     self.uploaded_at = datetime.utcnow()
+    self.ana = ana
+    self.bastion = bastion
+    self.dva = dva
+    self.genji = genji
+    self.hanzo = hanzo
+    self.junkrat = junkrat
+    self.lucio = lucio
+    self.mccree = mccree
+    self.mei = mei
+    self.mercy = mercy
+    self.pharah = pharah
+    self.reaper = reaper
+    self.reinhardt = reinhardt
+    self.roadhog = roadhog
+    self.soldier76 = soldier76
+    self.sombra = sombra
+    self.symmetra = symmetra
+    self.torbjorn = torbjorn
+    self.tracer = tracer
+    self.widowmaker = widowmaker
+    self.winston = winston
+    self.zarya = zarya
+    self.zenyatta = zenyatta
 
 
 ###########################################################################
@@ -159,23 +211,23 @@ def render_result(picks, team_detector):
 # Saves a new record to the 'picks' table about the heroes that were detected
 # and the hero suggestion(s) for the user to play.
 def save_pick_record(picks, team_detector):
-  blue_team_record = Team(team_detector.blue_team.heroes)
+  blue_team_record = Team.from_list(team_detector.blue_team.heroes)
   db.session.add(blue_team_record)
 
-  red_team_record = Team(team_detector.red_team.heroes)
+  red_team_record = Team.from_list(team_detector.red_team.heroes)
   db.session.add(red_team_record)
 
   db.session.flush()
 
   pick_attrs = {
-    'width': team_detector.hero_detector.original_w,
-    'height': team_detector.hero_detector.original_h,
-    'picks': picks,
+    'screenshot_width': team_detector.hero_detector.original_w,
+    'screenshot_height': team_detector.hero_detector.original_h,
     'player': team_detector.blue_team.player(),
     'blue_team_id': blue_team_record.id,
     'red_team_id': red_team_record.id
   }
-  db.session.add(Pick(pick_attrs))
+  pick_attrs.update({hero: True for hero in picks})
+  db.session.add(Pick(**pick_attrs))
 
   db.session.commit()
 
