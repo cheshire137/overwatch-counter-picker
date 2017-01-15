@@ -235,9 +235,17 @@
   text-decoration: underline;
 }
 
+.content a.permalink:not(.button),
 .content a.disagree-link:not(.button) {
   position: absolute;
-  right: 0;
   font-size: 13px;
   border-bottom: 0;
+}
+
+.content a.disagree-link:not(.button) {
+  right: 0;
+}
+
+.content a.permalink:not(.button) {
+  left: 0;
 }

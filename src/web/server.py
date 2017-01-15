@@ -67,12 +67,11 @@ def render_result(picks, pick_record, team_detector):
     player_ok = player in picks
     if player_ok:
       picks.remove(player)
-  any_picks = len(picks) > 0
 
   return render_template('result.html', picks=picks, num_picks=len(picks), \
     allies=allies, enemies=enemies, any_allies=len(allies) > 0, \
     any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
-    player=player, player_ok=player_ok, any_picks=any_picks, \
+    player=player, player_ok=player_ok, any_picks=len(picks) > 0, \
     pick=pick_record)
 
 # Saves records to the database about the heroes that were detected and the
@@ -142,6 +141,26 @@ def get_pick_page_count():
 @app.route('/', methods=['GET'])
 def index():
   return render_template('index.html')
+
+@app.route('/pick/<slug>', methods=['GET'])
+def pick(slug):
+  pick_record = Pick.find_by_slug(slug)
+  if pick_record is None:
+    return render_template('404.html')
+  player = pick_record.player
+  picks = pick_record.heroes()
+  player_ok = False
+  if player is not None:
+    player_ok = player in picks
+    if player_ok:
+      picks.remove(player)
+  allies = pick_record.allies()
+  enemies = pick_record.red_heroes()
+  return render_template('pick.html', pick=pick_record, picks=picks, \
+    num_picks=len(picks), allies=allies, enemies=enemies, \
+    any_allies=len(allies) > 0, any_enemies=len(enemies) > 0, \
+    hero_names=Team.hero_names, player=player, player_ok=player_ok, \
+    any_picks=len(picks) > 0)
 
 @app.route('/stats', methods=['GET'])
 def stats():
