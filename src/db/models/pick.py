@@ -45,40 +45,6 @@ class Pick(db.Model):
   blue_team = db.relationship('TeamComposition', foreign_keys=blue_team_id)
   red_team = db.relationship('TeamComposition', foreign_keys=red_team_id)
 
-  def __init__(self, screenshot_width=None, screenshot_height=None, \
-               blue_team_id=None, red_team_id=None, player=None, ana=None, \
-               bastion=None, dva=None, genji=None, hanzo=None, junkrat=None, \
-               lucio=None, mccree=None, mei=None, mercy=None, pharah=None, \
-               reaper=None, reinhardt=None, roadhog=None, soldier76=None, \
-               sombra=None, symmetra=None, torbjorn=None, tracer=None, \
-               widowmaker=None, winston=None, zarya=None, zenyatta=None):
-    self.screenshot_width = screenshot_width
-    self.screenshot_height = screenshot_height
-    self.blue_team_id = blue_team_id
-    self.red_team_id = red_team_id
-    self.player = player
+  def __init__(self, **kwargs):
     self.uploaded_at = datetime.utcnow()
-
-    self.ana = ana
-    self.bastion = bastion
-    self.dva = dva
-    self.genji = genji
-    self.hanzo = hanzo
-    self.junkrat = junkrat
-    self.lucio = lucio
-    self.mccree = mccree
-    self.mei = mei
-    self.mercy = mercy
-    self.pharah = pharah
-    self.reaper = reaper
-    self.reinhardt = reinhardt
-    self.roadhog = roadhog
-    self.soldier76 = soldier76
-    self.sombra = sombra
-    self.symmetra = symmetra
-    self.torbjorn = torbjorn
-    self.tracer = tracer
-    self.widowmaker = widowmaker
-    self.winston = winston
-    self.zarya = zarya
-    self.zenyatta = zenyatta
+    self.__dict__.update(kwargs)
