@@ -146,14 +146,18 @@
   margin-bottom: 60px;
 }
 
+.pick-stats-table td {
+  vertical-align: middle;
+}
+
 .pick-stats-table .overwatch-hero-portrait {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 2px;
 }
 
 .pick-stats-table .player-cell {
-  width: 80px;
+  width: 70px;
 }
 
 .pick-stats-table .overwatch-hero-portrait.player {
@@ -167,12 +171,23 @@
 }
 
 .pick-stats-table .overwatch-hero-portrait.pick {
+  width: 30px;
+  height: 30px;
+}
 
+.pick-stats-table .suggestions-1 .overwatch-hero-portrait.pick,
+.pick-stats-table .suggestions-2 .overwatch-hero-portrait.pick,
+.pick-stats-table .suggestions-3 .overwatch-hero-portrait.pick,
+.pick-stats-table .suggestions-4 .overwatch-hero-portrait.pick,
+.pick-stats-table .suggestions-5 .overwatch-hero-portrait.pick,
+.pick-stats-table .suggestions-6 .overwatch-hero-portrait.pick {
+  width: 50px;
+  height: 50px;
 }
 
 .pick-stats-table .blue-team-cell,
 .pick-stats-table .red-team-cell {
-  width: 400px;
+  width: 340px;
 }
 
 .pick-stats-table .blue-team-cell {

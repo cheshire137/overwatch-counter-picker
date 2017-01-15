@@ -51,7 +51,7 @@
                 <img class="overwatch-hero-portrait red-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               {% endfor %}
             </td>
-            <td class="picks-cell">
+            <td class="picks-cell {{ 'suggestions-%d' % pick.num_suggestions() }}">
               {% for hero in pick.heroes() %}
                 <img class="overwatch-hero-portrait pick" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               {% endfor %}
