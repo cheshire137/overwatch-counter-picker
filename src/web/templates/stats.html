@@ -74,6 +74,12 @@
         {% endfor %}
       </tbody>
     </table>
+    {% if page > 1 %}
+      <a href="/stats/page/{{ page - 1 }}">Previous</a>
+    {% endif %}
+    {% if page < num_pages %}
+      <a href="/stats/page/{{ page + 1 }}">Next</a>
+    {% endif %}
   </section>
   <footer class="footer">
     <div class="container">

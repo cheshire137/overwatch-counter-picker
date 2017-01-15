@@ -1,5 +1,6 @@
 import cv2
 import os
+import math
 
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
@@ -16,6 +17,7 @@ from src.db.models.pick import Pick
 from src.db.models.team_composition import TeamComposition
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+STATS_PER_PAGE = 15
 
 app = Flask(__name__)
 dev_db_url = 'postgresql://localhost/overwatch_counter_picker'
@@ -104,6 +106,21 @@ def get_picks_from_screenshot(screenshot_path):
   save_picks_to_database(picks, team_detector)
   return render_result(picks, team_detector)
 
+# Returns a list of Pick instances from the database, ordered most recent first.
+# Paginated based on the given page and STATS_PER_PAGE.
+def get_pick_records(page=1):
+  offset = (page - 1) * STATS_PER_PAGE
+  return Pick.query.options(subqueryload(Pick.blue_team), \
+                            subqueryload(Pick.red_team)).\
+              order_by(Pick.uploaded_at.desc()).\
+              limit(STATS_PER_PAGE).offset(offset).all()
+
+# Returns how many pages there are of pick records, based on STATS_PER_PAGE
+# records shown per page.
+def get_pick_page_count():
+  total_rows = Pick.query.count()
+  return math.ceil(total_rows / float(STATS_PER_PAGE))
+
 
 ###########################################################################
 # Routes ##################################################################
@@ -115,10 +132,14 @@ def index():
 
 @app.route('/stats', methods=['GET'])
 def stats():
-  picks = Pick.query.options(subqueryload(Pick.blue_team), \
-                             subqueryload(Pick.red_team)).\
-               order_by(Pick.uploaded_at.desc()).all()
-  return render_template('stats.html', picks=picks)
+  return render_template('stats.html', picks=get_pick_records(), \
+                         num_pages=get_pick_page_count(), page=1)
+
+@app.route('/stats/page/<page>', methods=['GET'])
+def stats_page(page):
+  page = int(page)
+  return render_template('stats.html', picks=get_pick_records(page=page), \
+                         num_pages=get_pick_page_count(), page=page)
 
 @app.route('/', methods=['POST'])
 def upload():
