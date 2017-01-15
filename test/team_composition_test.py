@@ -16,3 +16,7 @@ class TeamCompositionTest(unittest.TestCase):
     self.assertEqual(1, team_comp.mercy)
     self.assertEqual(1, team_comp.zarya)
     self.assertEqual(None, team_comp.reaper)
+
+  def test_heroes(self):
+    team_comp = TeamComposition(sombra=1, dva=2, lucio=1)
+    self.assertEqual(['dva', 'lucio', 'sombra'], team_comp.heroes())
