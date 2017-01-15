@@ -18,6 +18,11 @@
   border-color: #43c0f9;
 }
 
+.allies-list .overwatch-hero.player {
+  background-color: #fbfbfb;
+  border-color: #ddd;
+}
+
 .overwatch-hero-portrait {
   display: block;
 }
@@ -33,7 +38,7 @@
   height: 100px;
 }
 
-.overwatch-hero.player {
+.player-choice-ok-container .overwatch-hero.player {
   padding: 0;
   border-color: #999;
   border-radius: 2px;
@@ -45,8 +50,9 @@
   border-radius: 2px;
 }
 
-.overwatch-hero-name {
-
+.overwatch-hero-name .subtle {
+  display: block;
+  font-size: 90%;
 }
 
 .allies-container {
