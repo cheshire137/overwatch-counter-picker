@@ -54,6 +54,16 @@ class TeamComposition(db.Model):
       counts[hero] = counts[hero] + 1
     return counts
 
+  # Returns a dictionary of the heroes in this team composition and the number
+  # of each.
+  def counts(self):
+    valid_names = Team.hero_names.keys()
+    result = {}
+    for hero in valid_names:
+      if hero in self.__dict__:
+        result[hero] = self.__dict__[hero]
+    return result
+
   # Returns a list of the names of the heroes picked on this team.
   def heroes(self):
     valid_names = Team.hero_names.keys()

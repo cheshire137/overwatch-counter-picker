@@ -17,3 +17,7 @@ class TeamCompositionTest(unittest.TestCase):
   def test_heroes(self):
     team_comp = TeamComposition(sombra=1, dva=2, lucio=1)
     self.assertEqual(['dva', 'lucio', 'sombra'], team_comp.heroes())
+
+  def test_counts(self):
+    team_comp = TeamComposition(sombra=1, dva=2, lucio=1)
+    self.assertEqual({'sombra': 1, 'dva': 2, 'lucio': 1}, team_comp.counts())
