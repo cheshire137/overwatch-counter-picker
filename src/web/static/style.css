@@ -182,3 +182,13 @@
 .pick-stats-table .red-team-cell {
   background-color: #ea352d;
 }
+
+.stats-link {
+  color: #fff;
+}
+
+.stats-link:hover,
+.stats-link:focus {
+  color: #fff;
+  text-decoration: underline;
+}
