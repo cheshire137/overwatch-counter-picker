@@ -17,7 +17,7 @@ from src.db.models.pick import Pick
 from src.db.models.team_composition import TeamComposition
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-STATS_PER_PAGE = 15
+STATS_PER_PAGE = 10
 
 app = Flask(__name__)
 dev_db_url = 'postgresql://localhost/overwatch_counter_picker'
@@ -119,7 +119,7 @@ def get_pick_records(page=1):
 # records shown per page.
 def get_pick_page_count():
   total_rows = Pick.query.count()
-  return math.ceil(total_rows / float(STATS_PER_PAGE))
+  return int(math.ceil(total_rows / float(STATS_PER_PAGE)))
 
 
 ###########################################################################

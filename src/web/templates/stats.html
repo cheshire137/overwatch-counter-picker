@@ -74,11 +74,20 @@
         {% endfor %}
       </tbody>
     </table>
-    {% if page > 1 %}
-      <a href="/stats/page/{{ page - 1 }}">Previous</a>
-    {% endif %}
-    {% if page < num_pages %}
-      <a href="/stats/page/{{ page + 1 }}">Next</a>
+    {% if num_pages > 1 %}
+      <nav class="pagination">
+        {% if page == 2 %}
+          <a class="pagination-previous" href="/stats">Previous</a>
+        {% elif page > 2 %}
+          <a class="pagination-previous" href="/stats/page/{{ page - 1 }}">Previous</a>
+        {% endif %}
+        {% if page < num_pages %}
+          <a class="pagination-next" href="/stats/page/{{ page + 1 }}">Next</a>
+        {% endif %}
+        <ul class="pagination-list">
+          <li>Page {{ page }} of {{ num_pages }}</li>
+        </ul>
+      </nav>
     {% endif %}
   </section>
   <footer class="footer">
