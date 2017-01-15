@@ -150,9 +150,16 @@ def stats():
 
 @app.route('/stats/page/<page>', methods=['GET'])
 def stats_page(page):
-  page = int(page)
+  page = 1
+  try:
+    page = int(page)
+  except ValueError:
+    return render_template('404.html')
+  num_pages = get_pick_page_count()
+  if page > num_pages or page < 1:
+    return render_template('404.html')
   return render_template('stats.html', picks=get_pick_records(page=page), \
-                         num_pages=get_pick_page_count(), page=page)
+                         num_pages=num_pages, page=page)
 
 @app.route('/', methods=['POST'])
 def upload():
