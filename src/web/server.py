@@ -27,13 +27,15 @@ class Pick(db.Model):
   blue_team = db.Column(db.String(80))
   red_team = db.Column(db.String(80))
   picks = db.Column(db.String(80))
+  upload_time = db.Column(db.DateTime)
 
   def __init__(self, width=None, height=None, blue_team=[], red_team=[], picks=[]):
     self.screenshot_width = width
     self.screenshot_height = height
     self.blue_team = ','.join(blue_team)
     self.red_team = ','.join(red_team)
-    self.picks= ','.join(picks)
+    self.picks = ','.join(picks)
+    self.upload_time = datetime.utcnow()
 
 def allowed_file(filename):
   return '.' in filename and \
