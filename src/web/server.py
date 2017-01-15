@@ -24,23 +24,89 @@ db = SQLAlchemy(app)
 # Database models #########################################################
 ###########################################################################
 
+class Team(db.Model):
+  __tablename__ = 'teams'
+
+  id = db.Column(db.Integer, primary_key=True)
+
+  ana = db.Column(db.Integer, default=0, nullable=False)
+  bastion = db.Column(db.Integer, default=0, nullable=False)
+  dva = db.Column(db.Integer, default=0, nullable=False)
+  genji = db.Column(db.Integer, default=0, nullable=False)
+  hanzo = db.Column(db.Integer, default=0, nullable=False)
+  junkrat = db.Column(db.Integer, default=0, nullable=False)
+  lucio = db.Column(db.Integer, default=0, nullable=False)
+  mccree = db.Column(db.Integer, default=0, nullable=False)
+  mei = db.Column(db.Integer, default=0, nullable=False)
+  mercy = db.Column(db.Integer, default=0, nullable=False)
+  pharah = db.Column(db.Integer, default=0, nullable=False)
+  reaper = db.Column(db.Integer, default=0, nullable=False)
+  reinhardt = db.Column(db.Integer, default=0, nullable=False)
+  roadhog = db.Column(db.Integer, default=0, nullable=False)
+  soldier76 = db.Column(db.Integer, default=0, nullable=False)
+  sombra = db.Column(db.Integer, default=0, nullable=False)
+  symmetra = db.Column(db.Integer, default=0, nullable=False)
+  torbjorn = db.Column(db.Integer, default=0, nullable=False)
+  tracer = db.Column(db.Integer, default=0, nullable=False)
+  widowmaker = db.Column(db.Integer, default=0, nullable=False)
+  winston = db.Column(db.Integer, default=0, nullable=False)
+  zarya = db.Column(db.Integer, default=0, nullable=False)
+  zenyatta = db.Column(db.Integer, default=0, nullable=False)
+
+  def __init__(self, heroes=[]):
+    for hero in heroes:
+      self[hero] = self[hero] + 1
+
 class Pick(db.Model):
   __tablename__ = 'picks'
+
   id = db.Column(db.Integer, primary_key=True)
+
   screenshot_width = db.Column(db.Integer)
   screenshot_height = db.Column(db.Integer)
-  blue_team = db.Column(db.String(80))
-  red_team = db.Column(db.String(80))
-  picks = db.Column(db.String(80))
-  upload_time = db.Column(db.DateTime)
 
-  def __init__(self, width=None, height=None, blue_team=[], red_team=[], picks=[]):
-    self.screenshot_width = width
-    self.screenshot_height = height
-    self.blue_team = ','.join(blue_team)
-    self.red_team = ','.join(red_team)
-    self.picks = ','.join(picks)
-    self.upload_time = datetime.utcnow()
+  blue_team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), index=True)
+  red_team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), index=True)
+
+  player = db.Column(db.String(10))
+
+  ana = db.Column(db.Boolean, default=False, nullable=False)
+  bastion = db.Column(db.Boolean, default=False, nullable=False)
+  dva = db.Column(db.Boolean, default=False, nullable=False)
+  genji = db.Column(db.Boolean, default=False, nullable=False)
+  hanzo = db.Column(db.Boolean, default=False, nullable=False)
+  junkrat = db.Column(db.Boolean, default=False, nullable=False)
+  lucio = db.Column(db.Boolean, default=False, nullable=False)
+  mccree = db.Column(db.Boolean, default=False, nullable=False)
+  mei = db.Column(db.Boolean, default=False, nullable=False)
+  mercy = db.Column(db.Boolean, default=False, nullable=False)
+  pharah = db.Column(db.Boolean, default=False, nullable=False)
+  reaper = db.Column(db.Boolean, default=False, nullable=False)
+  reinhardt = db.Column(db.Boolean, default=False, nullable=False)
+  roadhog = db.Column(db.Boolean, default=False, nullable=False)
+  soldier76 = db.Column(db.Boolean, default=False, nullable=False)
+  sombra = db.Column(db.Boolean, default=False, nullable=False)
+  symmetra = db.Column(db.Boolean, default=False, nullable=False)
+  torbjorn = db.Column(db.Boolean, default=False, nullable=False)
+  tracer = db.Column(db.Boolean, default=False, nullable=False)
+  widowmaker = db.Column(db.Boolean, default=False, nullable=False)
+  winston = db.Column(db.Boolean, default=False, nullable=False)
+  zarya = db.Column(db.Boolean, default=False, nullable=False)
+  zenyatta = db.Column(db.Boolean, default=False, nullable=False)
+  uploaded_at = db.Column(db.DateTime, nullable=False)
+
+  blue_team = db.relationship('Team', foreign_keys=blue_team_id)
+  red_team = db.relationship('Team', foreign_keys=red_team_id)
+
+  def __init__(self, attrs={}):
+    self.screenshot_width = attrs['width']
+    self.screenshot_height = attrs['height']
+    self.blue_team_id = attrs['blue_team_id']
+    self.red_team_id = attrs['red_team_id']
+    self.player = attrs['player']
+    for pick in attrs['picks']:
+      self[pick] = True
+    self.uploaded_at = datetime.utcnow()
 
 
 ###########################################################################
@@ -90,13 +156,24 @@ def render_result(picks, team_detector):
 # Saves a new record to the 'picks' table about the heroes that were detected
 # and the hero suggestion(s) for the user to play.
 def save_pick_record(picks, team_detector):
-  width = team_detector.hero_detector.original_w
-  height = team_detector.hero_detector.original_h
-  blue_heroes = team_detector.blue_team.heroes
-  red_heroes = team_detector.red_team.heroes
+  blue_team_record = Team(team_detector.blue_team.heroes)
+  db.session.add(blue_team_record)
 
-  record = Pick(width, height, blue_heroes, red_heroes, picks)
-  db.session.add(record)
+  red_team_record = Team(team_detector.red_team.heroes)
+  db.session.add(red_team_record)
+
+  db.session.flush()
+
+  pick_attrs = {
+    'width': team_detector.hero_detector.original_w,
+    'height': team_detector.hero_detector.original_h,
+    'picks': picks,
+    'player': team_detector.blue_team.player(),
+    'blue_team_id': blue_team_record.id,
+    'red_team_id': red_team_record.id
+  }
+  db.session.add(Pick(pick_attrs))
+
   db.session.commit()
 
 # Returns a rendered page template showing the results of the hero selection,
