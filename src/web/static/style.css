@@ -235,17 +235,21 @@
   text-decoration: underline;
 }
 
-.content a.permalink:not(.button),
-.content a.disagree-link:not(.button) {
+.subtle-links {
   position: absolute;
-  font-size: 13px;
-  border-bottom: 0;
-}
-
-.content a.disagree-link:not(.button) {
   right: 0;
+  font-size: 13px;
+  z-index: 1;
 }
 
-.content a.permalink:not(.button) {
-  left: 0;
+.subtle-links a {
+  display: inline-block;
+  border-bottom: 0;
+  color: #999;
+  padding-top: 14px;
+}
+
+.subtle-links a:hover,
+.subtle-links a:focus {
+  color: #333;
 }
