@@ -183,6 +183,11 @@
   top: 44px;
 }
 
+.pick-stats-table .report-link,
+.pick-stats-table .report-link .octicon {
+  font-size: 12px;
+}
+
 .pick-stats-table .player-not-ok {
   color: #C13110;
   position: absolute;

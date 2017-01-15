@@ -73,6 +73,15 @@ class Pick(db.Model):
     suggestions.sort()
     return suggestions
 
+  def heroes_str(self):
+    return ','.join(self.heroes())
+
+  def blue_heroes_str(self):
+    return ','.join(self.blue_heroes())
+
+  def red_heroes_str(self):
+    return ','.join(self.red_heroes())
+
   # Returns True if the hero the user was playing is a suggested pick for the
   # known team composition.
   def player_ok(self):
