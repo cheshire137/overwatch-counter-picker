@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overwatch Counter Picker</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="hero is-info">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          <a href="/">Overwatch Counter Picker</a>
+        </h1>
+        <p class="subtitle">
+          Upload a screenshot of your Overwatch team composition to figure
+          out which hero you should play.
+        </p>
+      </div>
+    </div>
+  </header>
+  <section class="section">
+    <table>
+      <thead>
+        <tr>
+          <th>Player</th>
+          <th>Blue Team</th>
+          <th>Red Team</th>
+          <th>Suggested Picks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pick in picks %}
+          <tr>
+            <td>
+              {% if pick.player %}
+                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
+              {% endif %}
+            </td>
+            <td>
+              {% for hero in pick.blue_heroes() %}
+                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+              {% endfor %}
+            </td>
+            <td>
+              {% for hero in pick.red_heroes() %}
+                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+              {% endfor %}
+            </td>
+            <td>
+              {% for hero in pick.heroes() %}
+                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <ul class="list-inline">
+          <li>Built by Sarah</li>
+          <li><a href="https://github.com/cheshire137/overwatch-counter-picker">View source</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

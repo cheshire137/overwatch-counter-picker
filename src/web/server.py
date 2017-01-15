@@ -112,6 +112,11 @@ def get_picks_from_screenshot(screenshot_path):
 def index():
   return render_template('index.html')
 
+@app.route('/stats', methods=['GET'])
+def stats():
+  picks = Pick.query.order_by(Pick.uploaded_at.desc()).all()
+  return render_template('stats.html', picks=picks)
+
 @app.route('/', methods=['POST'])
 def upload():
   if 'file' not in request.files:
