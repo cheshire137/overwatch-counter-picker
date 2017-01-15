@@ -5,6 +5,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import subqueryload
 
 from src.models.hero_picker import HeroPicker
 from src.models.team import Team
@@ -114,7 +115,9 @@ def index():
 
 @app.route('/stats', methods=['GET'])
 def stats():
-  picks = Pick.query.order_by(Pick.uploaded_at.desc()).all()
+  picks = Pick.query.options(subqueryload(Pick.blue_team), \
+                             subqueryload(Pick.red_team)).\
+               order_by(Pick.uploaded_at.desc()).all()
   return render_template('stats.html', picks=picks)
 
 @app.route('/', methods=['POST'])
