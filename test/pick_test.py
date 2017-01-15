@@ -20,3 +20,4 @@ class PickTest(unittest.TestCase):
     self.assertEqual(2, pick.red_team_id)
     self.assertTrue(pick.mercy)
     self.assertTrue(pick.zenyatta)
+    self.assertFalse(pick.sombra)
