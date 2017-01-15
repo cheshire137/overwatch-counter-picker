@@ -21,7 +21,7 @@ db = SQLAlchemy(app)
 
 
 ###########################################################################
-# Database tables #########################################################
+# Database models #########################################################
 ###########################################################################
 
 class Pick(db.Model):
@@ -80,6 +80,15 @@ def render_result(picks, red_team, blue_team):
     any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
     player=player, player_ok=player_ok, any_picks=any_picks)
 
+def save_pick_record(picks, team_detector):
+  width = team_detector.hero_detector.original_w
+  height = team_detector.hero_detector.original_h
+  blue_heroes = team_detector.blue_team.heroes
+  red_heroes = team_detector.red_team.heroes
+
+  record = Pick(width, height, blue_heroes, red_heroes, picks)
+  db.session.add(record)
+  db.session.commit()
 
 ###########################################################################
 # Routes ##################################################################
@@ -98,22 +107,13 @@ def upload():
   if file and file.filename != '' and allowed_file(file.filename):
     screenshot_path = save_upload(file)
     team_detector = get_team_detector(screenshot_path)
-    red_team = team_detector.red_team
-    blue_team = team_detector.blue_team
 
-    hero_picker = HeroPicker(red_team, blue_team)
+    hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
     picks = hero_picker.pick()
 
-    width = team_detector.hero_detector.original_w
-    height = team_detector.hero_detector.original_h
-    blue_heroes = blue_team.heroes
-    red_heroes = red_team.heroes
+    save_pick_record(picks, team_detector)
 
-    pick_record = Pick(width, height, blue_heroes, red_heroes, picks)
-    db.session.add(pick_record)
-    db.session.commit()
-
-    template = render_result(picks, red_team, blue_team)
+    template = render_result(picks, team_detector.red_team, team_detector.blue_team)
     os.remove(screenshot_path)
     return template
 
