@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from src.db.models.shared import db
+from src.db.models.team_composition import TeamComposition
 
 class Pick(db.Model):
   __tablename__ = 'picks'
