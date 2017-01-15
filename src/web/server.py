@@ -71,9 +71,9 @@ def render_result(picks, team_detector):
     any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
     player=player, player_ok=player_ok, any_picks=any_picks)
 
-# Saves a new record to the 'picks' table about the heroes that were detected
-# and the hero suggestion(s) for the user to play.
-def save_pick_record(picks, team_detector):
+# Saves records to the database about the heroes that were detected and the
+# hero suggestion(s) for the user to play.
+def save_picks_to_database(picks, team_detector):
   blue_team_record = TeamComposition.from_list(team_detector.blue_team.heroes)
   db.session.add(blue_team_record)
 
@@ -100,7 +100,7 @@ def get_picks_from_screenshot(screenshot_path):
   team_detector = get_team_detector(screenshot_path)
   hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
   picks = hero_picker.pick()
-  save_pick_record(picks, team_detector)
+  save_picks_to_database(picks, team_detector)
   return render_result(picks, team_detector)
 
 
