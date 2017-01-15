@@ -23,7 +23,7 @@
     </div>
   </header>
   <section class="section">
-    <table>
+    <table class="pick-stats-table table">
       <thead>
         <tr>
           <th>Player</th>
@@ -35,24 +35,24 @@
       <tbody>
         {% for pick in picks %}
           <tr>
-            <td>
+            <td class="player-cell">
               {% if pick.player %}
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
+                <img class="overwatch-hero-portrait player" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
               {% endif %}
             </td>
-            <td>
+            <td class="blue-team-cell">
               {% for hero in pick.blue_heroes() %}
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+                <img class="overwatch-hero-portrait blue-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               {% endfor %}
             </td>
-            <td>
+            <td class="red-team-cell">
               {% for hero in pick.red_heroes() %}
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+                <img class="overwatch-hero-portrait red-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               {% endfor %}
             </td>
-            <td>
+            <td class="picks-cell">
               {% for hero in pick.heroes() %}
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+                <img class="overwatch-hero-portrait pick" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               {% endfor %}
             </td>
           </tr>

@@ -145,3 +145,40 @@
 .upload-form {
   margin-bottom: 60px;
 }
+
+.pick-stats-table .overwatch-hero-portrait {
+  width: 60px;
+  height: 60px;
+  border-radius: 2px;
+}
+
+.pick-stats-table .player-cell {
+  width: 80px;
+}
+
+.pick-stats-table .overwatch-hero-portrait.player {
+
+}
+
+.pick-stats-table .overwatch-hero-portrait.blue-hero,
+.pick-stats-table .overwatch-hero-portrait.red-hero,
+.pick-stats-table .overwatch-hero-portrait.pick {
+  display: inline-block;
+}
+
+.pick-stats-table .overwatch-hero-portrait.pick {
+
+}
+
+.pick-stats-table .blue-team-cell,
+.pick-stats-table .red-team-cell {
+  width: 400px;
+}
+
+.pick-stats-table .blue-team-cell {
+  background-color: #5fbbf9;
+}
+
+.pick-stats-table .red-team-cell {
+  background-color: #ea352d;
+}
