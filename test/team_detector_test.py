@@ -29,12 +29,5 @@ class TeamDetectorTest(unittest.TestCase):
     blue_team = ['mercy', 'zenyatta', 'soldier76', 'junkrat', 'dva', 'tracer']
     self.assertEqual(blue_team, detector.blue_team.heroes)
 
-  def test_detect_if_cards_screen(self):
-    detector = TeamDetector(self.__class__.cards_screen)
-    self.assertTrue(detector.detect_if_cards_screen())
-
-    detector = TeamDetector(self.__class__.smaller_screenshot)
-    self.assertFalse(detector.detect_if_cards_screen())
-
 if __name__ == '__main__':
   unittest.main()

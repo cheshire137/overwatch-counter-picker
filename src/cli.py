@@ -16,18 +16,15 @@ else:
 
 team_detector = TeamDetector(cv2.imread(path))
 team_detector.detect(draw_boxes=True)
-
-if team_detector.is_cards_screen:
-  print 'Screenshot is of game-over screen with voting cards'
-
 hero_detector = team_detector.hero_detector
+
+if hero_detector.is_cards_screen:
+  print 'Screenshot is of game-over screen with voting cards'
 
 if hero_detector.resized:
   print 'Resized original image from', str(hero_detector.original_w) + 'x' + \
-    str(hero_detector.original_h), 'to 2560 wide'
-
-if team_detector.is_cards_screen or hero_detector.resized:
-  print ''
+    str(hero_detector.original_h), 'to', str(hero_detector.resized_w) + 'px', \
+    'wide\n'
 
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team

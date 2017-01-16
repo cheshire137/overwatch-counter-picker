@@ -9,6 +9,7 @@ class HeroDetectorTest(unittest.TestCase):
     cls.full_teams = cv2.imread('sample-screenshots/full-teams.jpg')
     cls.fire_and_death = cv2.imread('sample-screenshots/fire-and-death.jpg')
     cls.eichenwalde_full = cv2.imread('sample-screenshots/eichenwalde-full.jpg')
+    cls.cards_screen = cv2.imread('sample-screenshots/cards-screen.jpg')
 
   def test_constructor_detects_dimensions(self):
     detector = HeroDetector(self.__class__.full_teams)
@@ -145,6 +146,13 @@ class HeroDetectorTest(unittest.TestCase):
     expected = [(1630, 760), (1630, 350)]
     actual = HeroDetector.combine_points(points)
     self.assertEqual(expected, actual)
+
+  def test_detect_if_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    self.assertTrue(detector.is_cards_screen)
+
+    detector = HeroDetector(self.__class__.full_teams)
+    self.assertFalse(detector.is_cards_screen)
 
 if __name__ == '__main__':
   unittest.main()

@@ -21,18 +21,17 @@ class TeamDetector:
 
   # Look in the original image for each Overwatch hero.
   def detect(self, draw_boxes=False):
-    self.is_cards_screen = self.detect_if_cards_screen()
     for hero in self.__class__.heroes:
       self.detect_hero(hero, draw_boxes=draw_boxes)
 
   # Returns an image template for finding the given hero within a larger image.
-  def get_template_by_name(self, name):
-    path = os.path.abspath('src/templates/' + name + '.png')
+  def get_hero_template(self, hero):
+    path = os.path.abspath('src/templates/' + hero + '.png')
     return cv2.imread(path)
 
   # Look for the given hero in the original image.
   def detect_hero(self, hero, draw_boxes=False):
-    template = self.get_template_by_name(hero)
+    template = self.get_hero_template(hero)
     (height, width) = template.shape[:2]
     points = self.hero_detector.detect(template)
 
@@ -66,13 +65,6 @@ class TeamDetector:
 
     self.seen_positions.append(point)
     return False
-
-  # Returns True if the screenshot is of the game-over screen where hero cards
-  # are shown.
-  def detect_if_cards_screen(self):
-    template = self.get_template_by_name('rate-match')
-    points = self.hero_detector.detect(template)
-    return points is not None
 
   # Returns true if the given point represents a valid location where we expect
   # a hero portrait to be in the team composition screen.

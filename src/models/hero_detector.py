@@ -1,28 +1,38 @@
 import cv2
+import os
 import numpy as np
 import imutils
 import math
 
-SCREENSHOT_WIDTH = 2560
-
 class HeroDetector:
-  def __init__(self, original):
+  def __init__(self, original, is_cards_screen=False):
     self.original = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
     (self.original_h, self.original_w) = self.original.shape[:2]
-
-    self.resized = False
-    if self.original_w != SCREENSHOT_WIDTH:
-      self.resized = True
-      self.original = imutils.resize(self.original, width=SCREENSHOT_WIDTH)
-
     self.mid_height = self.original_h / 2
     self.threshold = 0.8
+    self.is_cards_screen = False
+
+    self.resized = False
+    if self.original_w != 2560:
+      self.resized = True
+      self.resized_w = 2560
+      self.original = imutils.resize(self.original, width=self.resized_w)
+
+    self.is_cards_screen = self.detect_if_cards_screen()
 
   # Returns a unique list of tuples with x,y coordinates for the top left of
   # where the given template appears in the original image. Returns None if the
   # template was not detected.
   def detect(self, template):
     template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
+
+    # Scale template down if we're on the game-over screen since the hero
+    # portraits are smaller than during the game.
+    if self.is_cards_screen:
+      (tpl_h, tpl_w) = template.shape[:2]
+      new_width = int(math.ceil(tpl_w * 0.79))
+      template = imutils.resize(template, width=new_width)
+
     result = cv2.matchTemplate(self.original, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(result >= self.threshold)
     points = zip(*loc[::-1])
@@ -75,6 +85,14 @@ class HeroDetector:
         result.append(avg_point)
 
     return result
+
+  # Returns True if the screenshot is of the game-over screen where hero cards
+  # are shown.
+  def detect_if_cards_screen(self):
+    path = os.path.abspath('src/templates/rate-match.png')
+    template = cv2.imread(path)
+    points = self.detect(template)
+    return points is not None
 
   # Rounds a point so we don't detect the same hero because we matched the template
   # starting at several different-but-very-similar top-left points.
