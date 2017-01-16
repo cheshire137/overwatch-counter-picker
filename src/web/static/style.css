@@ -191,6 +191,10 @@
   vertical-align: middle;
 }
 
+.pick-stats-table .date-cell {
+  white-space: nowrap;
+}
+
 .pick-stats-table .date-cell a,
 .pick-stats-table .date-cell a .octicon {
   font-size: 12px;
