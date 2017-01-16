@@ -182,13 +182,6 @@
   background-color: #6cbef6;
 }
 
-.pick-stats-table .player-ok {
-  color: #2AC110;
-  position: absolute;
-  left: 55px;
-  top: 44px;
-}
-
 .octicon {
   vertical-align: middle;
 }
@@ -223,8 +216,8 @@
   margin-top: 1em;
 }
 
+.pick-stats-table .player-ok,
 .pick-stats-table .player-not-ok {
-  color: #C13110;
   position: absolute;
   left: 55px;
   top: 44px;

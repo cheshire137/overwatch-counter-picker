@@ -28,9 +28,9 @@
             {% if pick.player %}
               <img class="overwatch-hero-portrait player" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
               {% if pick.player_ok() %}
-                <span title="Good pick" class="player-ok octicon octicon-check"></span>
+                <span title="Good pick" class="player-ok green-text octicon octicon-check"></span>
               {% else %}
-                <span title="Bad pick" class="player-not-ok octicon octicon-x"></span>
+                <span title="Bad pick" class="player-not-ok red-text octicon octicon-x"></span>
               {% endif %}
             {% endif %}
           </td>
