@@ -21,6 +21,7 @@ class TeamDetectorTest(unittest.TestCase):
 
   def test_detects_heroes_on_cards_screen(self):
     detector = TeamDetector(self.__class__.cards_screen)
+    detector.detect()
 
     red_team = ['zarya', 'genji', 'mei', 'widowmaker', 'ana', 'zenyatta']
     self.assertEqual(red_team, detector.red_team.heroes)
