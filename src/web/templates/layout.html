@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{% endblock %}Overwatch Counter Picker</title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
   {% block css %}{% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -31,7 +32,10 @@
     <div class="container">
       <div class="content has-text-centered">
         <ul class="list-inline">
-          <li>Built by Sarah</li>
+          <li>
+            <span class="octicon octicon-heart"></span>
+            Built by Sarah
+          </li>
           <li><a href="https://github.com/cheshire137/overwatch-counter-picker">View source</a></li>
         </ul>
       </div>
