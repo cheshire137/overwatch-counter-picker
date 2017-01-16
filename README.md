@@ -20,9 +20,8 @@ python -m src.db.create # create database tables
 
 ### Server
 
-The server will run at [127.0.0.1:5000](http://127.0.0.1:5000/) and let you
-upload an Overwatch screenshot for determining which hero to pick. Run with
-`FLASK_DEBUG=1 FLASK_APP=src/web/server.py flask run`.
+The server will run at [127.0.0.1:5000](http://127.0.0.1:5000/). Run with
+`./server.sh`.
 
 ### Command-Line Script
 
