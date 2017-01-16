@@ -253,3 +253,9 @@
 .subtle-links a:focus {
   color: #333;
 }
+
+@media (min-width: 900px) {
+  .sample-screenshot {
+    max-width: 800px;
+  }
+}
