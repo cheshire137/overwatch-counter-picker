@@ -16,6 +16,11 @@ else:
 
 team_detector = TeamDetector(cv2.imread(path))
 team_detector.detect(draw_boxes=True)
+hero_detector = team_detector.hero_detector
+
+if hero_detector.resized:
+  print 'Resized original image from', str(hero_detector.original_w) + 'x' + \
+    str(hero_detector.original_h), 'to 2560 wide'
 
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
