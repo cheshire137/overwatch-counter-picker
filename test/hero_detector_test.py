@@ -37,6 +37,12 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
 
+    detector = HeroDetector(self.__class__.cards_screen2)
+    template = cv2.imread('src/templates/ana.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
   def test_detect_finds_winston_when_present(self):
     detector = HeroDetector(self.__class__.fire_and_death)
     template = cv2.imread('src/templates/winston.png')
