@@ -149,6 +149,10 @@ def stats():
   return render_template('stats.html', picks=get_pick_records(), \
                          num_pages=get_pick_page_count(), page=1)
 
+@app.route('/bad-screenshot', methods=['GET'])
+def bad_screenshot():
+  return render_template('bad_screenshot.html')
+
 @app.route('/stats/page/<page>', methods=['GET'])
 def stats_page(page):
   page = 1
@@ -174,6 +178,6 @@ def upload():
     os.remove(screenshot_path)
     if pick_record:
       return redirect('/pick/' + pick_record.slug())
-    return render_template('bad_screenshot.html')
+    return redirect('/bad-screenshot')
 
   return redirect(request.url)
