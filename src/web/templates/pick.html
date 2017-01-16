@@ -1,144 +1,107 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hero Suggestion - Overwatch Counter Picker</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <header class="hero is-info">
-    <div class="hero-body">
-      <div class="container">
-        <a class="stats-link is-pulled-right" href="/stats">
-          View stats
-        </a>
-        <h1 class="title">
-          <a href="/">&larr; Overwatch Counter Picker</a> /
-          <span class="page-title">Hero Suggestion</span>
-        </h1>
-        <p class="subtitle">
-          Upload a screenshot of your Overwatch team composition to figure
-          out which hero you should play.
+{% extends "layout.html" %}
+{% block title %}Hero Suggestion - {% endblock %}
+{% block page_title %}/ <span class="page-title">Hero Suggestion</span>{% endblock %}
+{% block content %}
+  <div class="container">
+    {% if player_ok %}
+      <div class="player-choice-ok-container has-text-centered content">
+        <div class="overwatch-hero player {{ player }}">
+          <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=player + '.png') }}" alt="{{ player }}">
+        </div>
+        <p class="instruction subtitle">
+          Your choice of <strong>{{ hero_names[player] }}</strong> is
+          {% if any_picks %}
+            fine.
+          {% else %}
+            great!
+          {% endif %}
         </p>
       </div>
+    {% endif %}
+
+    <div class="subtle-links">
+      <a href="https://github.com/cheshire137/overwatch-counter-picker/issues/new?title=Bad%20picks&amp;body=-%20Date:%20{{ pick.uploaded_at.strftime('%Y-%m-%d') }}%0A-%20Player:%20{{ pick.player }}%0A-%20Picks:%20{{ pick.heroes_str() }}%0A-%20Blue%20team:%20{{ pick.blue_heroes_str() }}%0A-%20Red%20team:%20{{ pick.red_heroes_str() }}%0A-%20ID:%20{{ pick.id }}" title="Bad suggestions? Please file an issue!">
+        Disagree with this?
+      </a>
     </div>
-  </header>
-  <section class="section">
-    <div class="container">
+
+    {% if any_picks %}
       {% if player_ok %}
-        <div class="player-choice-ok-container has-text-centered content">
-          <div class="overwatch-hero player {{ player }}">
-            <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=player + '.png') }}" alt="{{ player }}">
-          </div>
-          <p class="instruction subtitle">
-            Your choice of <strong>{{ hero_names[player] }}</strong> is
-            {% if any_picks %}
-              fine.
+        <hr>
+      {% endif %}
+
+      <div class="picks-container has-text-centered content">
+        <p class="instruction">
+          {% if player_ok %}
+            {% if num_picks == 1 %}
+              You could also play
             {% else %}
-              great!
+              You could also play one of
             {% endif %}
-          </p>
-        </div>
-      {% endif %}
-
-      <div class="subtle-links">
-        <a href="https://github.com/cheshire137/overwatch-counter-picker/issues/new?title=Bad%20picks&amp;body=-%20Date:%20{{ pick.uploaded_at.strftime('%Y-%m-%d') }}%0A-%20Player:%20{{ pick.player }}%0A-%20Picks:%20{{ pick.heroes_str() }}%0A-%20Blue%20team:%20{{ pick.blue_heroes_str() }}%0A-%20Red%20team:%20{{ pick.red_heroes_str() }}%0A-%20ID:%20{{ pick.id }}" title="Bad suggestions? Please file an issue!">
-          Disagree with this?
-        </a>
-      </div>
-
-      {% if any_picks %}
-        {% if player_ok %}
-          <hr>
-        {% endif %}
-
-        <div class="picks-container has-text-centered content">
-          <p class="instruction">
-            {% if player_ok %}
-              {% if num_picks == 1 %}
-                You could also play
-              {% else %}
-                You could also play one of
-              {% endif %}
+          {% else %}
+            {% if num_picks == 1 %}
+              You should switch to
             {% else %}
-              {% if num_picks == 1 %}
-                You should switch to
-              {% else %}
-                You should switch to one of
-              {% endif %}
+              You should switch to one of
             {% endif %}
-          </p>
+          {% endif %}
+        </p>
 
-          <ul class="picks-list">
-            {% for hero in picks %}
-              <li class="overwatch-hero pick {{ hero }}">
-                <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-
-      {% if any_allies %}
-        {% if any_picks or player_ok %}
-          <hr>
-        {% endif %}
-
-        <div class="allies-container has-text-centered content">
-          <p class="team-intro">Your team currently has</p>
-
-          <ul class="allies-list">
-            {% if player %}
-              <li class="overwatch-hero player {{ player }}">
-                <h3 class="overwatch-hero-name subtitle">
-                  <span class="subtle">You</span>
-                </h3>
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=player + '.png') }}" alt="{{ player }}">
-              </li>
-            {% endif %}
-            {% for hero in allies %}
-              <li class="overwatch-hero ally {{ hero }}">
-                <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-
-      {% if any_enemies %}
-        {% if any_picks or player_ok or any_allies %}
-          <hr>
-        {% endif %}
-
-        <div class="enemies-container has-text-centered content">
-          <p>The red team has</p>
-
-          <ul class="enemies-list">
-            {% for hero in enemies %}
-              <li class="overwatch-hero enemy {{ hero }}">
-                <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
-                <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-    </div>
-  </section>
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <ul class="list-inline">
-          <li>Built by Sarah</li>
-          <li><a href="https://github.com/cheshire137/overwatch-counter-picker">View source</a></li>
+        <ul class="picks-list">
+          {% for hero in picks %}
+            <li class="overwatch-hero pick {{ hero }}">
+              <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
+              <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+            </li>
+          {% endfor %}
         </ul>
       </div>
-    </div>
-  </footer>
-</body>
-</html>
+    {% endif %}
+
+    {% if any_allies %}
+      {% if any_picks or player_ok %}
+        <hr>
+      {% endif %}
+
+      <div class="allies-container has-text-centered content">
+        <p class="team-intro">Your team currently has</p>
+
+        <ul class="allies-list">
+          {% if player %}
+            <li class="overwatch-hero player {{ player }}">
+              <h3 class="overwatch-hero-name subtitle">
+                <span class="subtle">You</span>
+              </h3>
+              <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=player + '.png') }}" alt="{{ player }}">
+            </li>
+          {% endif %}
+          {% for hero in allies %}
+            <li class="overwatch-hero ally {{ hero }}">
+              <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
+              <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if any_enemies %}
+      {% if any_picks or player_ok or any_allies %}
+        <hr>
+      {% endif %}
+
+      <div class="enemies-container has-text-centered content">
+        <p>The red team has</p>
+
+        <ul class="enemies-list">
+          {% for hero in enemies %}
+            <li class="overwatch-hero enemy {{ hero }}">
+              <h3 class="overwatch-hero-name subtitle">{{ hero_names[hero] }}</h3>
+              <img class="overwatch-hero-portrait" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
