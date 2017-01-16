@@ -52,28 +52,6 @@ def save_upload(file):
   file.save(path)
   return path
 
-# Render the result.html template with information about the heroes that were
-# detected and the hero(es) the user should play in this team composition.
-def render_result(picks, pick_record, team_detector):
-  blue_team = team_detector.blue_team
-  red_team = team_detector.red_team
-
-  allies = blue_team.allies()
-  enemies = red_team.heroes
-
-  player = blue_team.player()
-  player_ok = False
-  if player is not None:
-    player_ok = player in picks
-    if player_ok:
-      picks.remove(player)
-
-  return render_template('result.html', picks=picks, num_picks=len(picks), \
-    allies=allies, enemies=enemies, any_allies=len(allies) > 0, \
-    any_enemies=not red_team.empty(), hero_names=Team.hero_names, \
-    player=player, player_ok=player_ok, any_picks=len(picks) > 0, \
-    pick=pick_record)
-
 # Saves records to the database about the heroes that were detected and the
 # hero suggestion(s) for the user to play.
 def save_picks_to_database(picks, team_detector):
