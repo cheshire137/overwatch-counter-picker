@@ -29,6 +29,13 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
 
+  def test_detect_finds_ana_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/ana.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
   def test_detect_finds_winston_when_present(self):
     detector = HeroDetector(self.__class__.fire_and_death)
     template = cv2.imread('src/templates/winston.png')
@@ -45,6 +52,13 @@ class HeroDetectorTest(unittest.TestCase):
 
   def test_detect_finds_mercy_when_present(self):
     detector = HeroDetector(self.__class__.fire_and_death)
+    template = cv2.imread('src/templates/mercy.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
+  def test_detect_finds_mercy_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
     template = cv2.imread('src/templates/mercy.png')
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
@@ -71,8 +85,22 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
 
+  def test_detect_finds_tracer_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/tracer.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
   def test_detect_finds_soldier_76_when_present(self):
     detector = HeroDetector(self.__class__.fire_and_death)
+    template = cv2.imread('src/templates/soldier76.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
+  def test_detect_finds_soldier_76_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
     template = cv2.imread('src/templates/soldier76.png')
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
@@ -99,6 +127,16 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
 
+  def test_detect_finds_zenyatta_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/zenyatta.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    red_zenyatta = points[0]
+    blue_zenyatta = points[1]
+    self.assertTrue(detector.is_red_team(red_zenyatta[1]), 'should be on red team')
+    self.assertFalse(detector.is_red_team(blue_zenyatta[1]), 'should be on blue team')
+
   def test_detect_finds_zarya_when_present(self):
     detector = HeroDetector(self.__class__.full_teams)
     template = cv2.imread('src/templates/zarya.png')
@@ -106,8 +144,22 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
 
+  def test_detect_finds_zarya_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/zarya.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
   def test_detect_finds_genji_when_present(self):
     detector = HeroDetector(self.__class__.full_teams)
+    template = cv2.imread('src/templates/genji.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
+  def test_detect_finds_genji_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
     template = cv2.imread('src/templates/genji.png')
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
@@ -123,6 +175,34 @@ class HeroDetectorTest(unittest.TestCase):
   def test_detect_finds_mei_when_present(self):
     detector = HeroDetector(self.__class__.eichenwalde_full)
     template = cv2.imread('src/templates/mei.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
+  def test_detect_finds_mei_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/mei.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
+  def test_detect_finds_widowmaker_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/widowmaker.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
+  def test_detect_finds_junkrat_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/junkrat.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
+  def test_detect_finds_dva_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen)
+    template = cv2.imread('src/templates/dva.png')
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
     self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
