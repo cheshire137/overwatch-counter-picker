@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="index-page">
   <header class="hero is-info">
     <div class="hero-body">
       <div class="container">
@@ -48,11 +48,11 @@
       </div>
       <div id="sample-screenshot-container">
         <p>Upload a screenshot like this:</p>
-        <img class="sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
+        <img class="screenshot sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
       </div>
       <div id="screenshot-preview-container" style="display: none">
         <p>Your screenshot:</p>
-        <img src="" id="screenshot-preview" alt="">
+        <img src="" class="screenshot" id="screenshot-preview" alt="">
       </div>
     </div>
   </section>
