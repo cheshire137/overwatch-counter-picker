@@ -38,6 +38,10 @@ class TeamComposition(db.Model):
   @classmethod
   def find_with_counts(cls, counts):
     counts.pop('unknown', None)
+    valid_names = Team.hero_names.keys()
+    for hero in valid_names:
+      if hero not in counts:
+        counts[hero] = 0
     row = TeamComposition.query.filter_by(**counts).limit(1).first()
     if row:
       return row
