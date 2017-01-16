@@ -5,16 +5,15 @@ import os
 from src.models.hero_picker import HeroPicker
 from src.models.team_detector import TeamDetector
 
-file_name = 'full-teams.jpg'
+path = os.path.abspath('sample-screenshots/full-teams.jpg')
 if len(sys.argv) > 1:
-  file_name = sys.argv[1]
-  print 'Using screenshot', file_name, '\n'
+  path = sys.argv[1]
+  print 'Using screenshot', path, '\n'
 else:
   print 'You can pass a file name from sample-screenshots/'
   print 'Example: python', sys.argv[0], 'sample_screenshot.jpg\n'
-  print 'Using default screenshot', file_name, '\n'
+  print 'Using default screenshot', path, '\n'
 
-path = os.path.abspath('sample-screenshots/' + file_name)
 team_detector = TeamDetector(cv2.imread(path))
 team_detector.detect(draw_boxes=True)
 
