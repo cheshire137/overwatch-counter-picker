@@ -8,6 +8,9 @@
   const allowedExtensions = ['jpg', 'jpeg', 'gif', 'png']
   const fileTypeWarning = document.getElementById('file-type-warning')
   const form = document.getElementById('screenshot-upload-form')
+  const nextScrButton = document.getElementById('next-screenshot-button')
+  const prevScrButton = document.getElementById('prev-screenshot-button')
+  const scrList = document.getElementById('sample-screenshots')
 
   function isFileTypeValid(fileName) {
     const fileNameParts = fileName.split('.')
@@ -94,4 +97,34 @@
   document.body.addEventListener('dragleave', dragHandler)
   document.body.addEventListener('dragover', dragHandler)
   document.body.addEventListener('drop', dragHandler)
+
+  function changeActiveScreenshot(nextModifier) {
+    const active = scrList.querySelector('.active.screenshot')
+    active.classList.remove('active')
+    active.style.display = 'none'
+    const screenshots = Array.from(scrList.querySelectorAll('.screenshot'))
+    const numScreenshots = screenshots.length
+    const index = screenshots.indexOf(active)
+    const nextIndex = (index + nextModifier) % numScreenshots
+    const newActive = screenshots[nextIndex]
+    newActive.classList.add('active')
+    newActive.style.display = 'inline'
+    if (nextIndex === 0) {
+      prevScrButton.style.display = 'none'
+      nextScrButton.style.display = 'inline-flex'
+    } else if (nextIndex === numScreenshots - 1) {
+      prevScrButton.style.display = 'inline-flex'
+      nextScrButton.style.display = 'none'
+    } else {
+      prevScrButton.style.display = 'inline-flex'
+      nextScrButton.style.display = 'inline-flex'
+    }
+  }
+
+  nextScrButton.addEventListener('click', function() {
+    changeActiveScreenshot(1)
+  })
+  prevScrButton.addEventListener('click', function() {
+    changeActiveScreenshot(-1)
+  })
 })()

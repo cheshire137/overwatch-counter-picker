@@ -149,7 +149,7 @@
 }
 
 .upload-form {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 
 .pick-stats-table td {
@@ -285,4 +285,14 @@
 .title .page-title {
   color: #c9fbfa;
   font-size: 90%;
+}
+
+.button.is-link {
+  text-decoration: none;
+}
+
+.button.is-link:focus,
+.button.is-link:hover {
+  text-decoration: underline;
+  background-color: transparent;
 }

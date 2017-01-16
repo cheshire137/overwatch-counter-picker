@@ -26,8 +26,25 @@
       </div>
     </div>
     <div id="sample-screenshot-container">
-      <p>Upload a screenshot like this:</p>
-      <img class="screenshot sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
+      <p>
+        Upload a screenshot like one of these:<br>
+        <button type="button" class="button is-link" id="prev-screenshot-button" style="display: none">
+          <span class="icon is-small">
+            <span class="octicon octicon-chevron-left"></span>
+          </span>
+          Previous
+        </button>
+        <button type="button" class="button is-link" id="next-screenshot-button">
+          Next
+          <span class="icon is-small">
+            <span class="octicon octicon-chevron-right"></span>
+          </span>
+        </button>
+      </p>
+      <div id="sample-screenshots">
+        <img class="active screenshot sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
+        <img class="screenshot sample-screenshot" style="display: none" src="{{ url_for('static', filename='sample-cards-screen.jpg') }}" alt="Sample game over screenshot">
+      </div>
     </div>
     <div id="screenshot-preview-container" style="display: none">
       <p>Your screenshot:</p>
