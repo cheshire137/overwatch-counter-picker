@@ -48,7 +48,7 @@ class HeroDetector:
   # portraits are smaller there than during the game.
   def scale_template_for_cards_screen(self, template):
     (height, width) = template.shape[:2]
-    new_width = int(math.ceil(width * 0.79))
+    new_width = int(math.ceil(width * 0.78))
     return imutils.resize(template, width=new_width)
 
   # Returns true if the given y-axis position represents a hero on the red team.
