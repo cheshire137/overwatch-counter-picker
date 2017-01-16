@@ -26,6 +26,9 @@ if hero_detector.resized:
   print 'Resized original image from', str(hero_detector.original_w) + 'x' + \
     str(hero_detector.original_h), 'to 2560 wide'
 
+if team_detector.is_cards_screen or hero_detector.resized:
+  print ''
+
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
 
