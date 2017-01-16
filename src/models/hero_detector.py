@@ -40,4 +40,4 @@ class HeroDetector:
   # Rounds a point so we don't detect the same hero because we matched the template
   # starting at several different-but-very-similar top-left points.
   def round(self, num):
-    return int(math.ceil(num / 40.0)) * 40
+    return int(math.floor(num / 40.0)) * 40
