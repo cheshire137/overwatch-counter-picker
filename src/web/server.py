@@ -155,7 +155,6 @@ def bad_screenshot():
 
 @app.route('/stats/page/<page>', methods=['GET'])
 def stats_page(page):
-  page = 1
   try:
     page = int(page)
   except ValueError:
