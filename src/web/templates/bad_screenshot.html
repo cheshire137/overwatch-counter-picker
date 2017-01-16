@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hero Suggestion - Overwatch Counter Picker</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="hero is-info">
+    <div class="hero-body">
+      <div class="container">
+        <a class="stats-link is-pulled-right" href="/stats">
+          View stats
+        </a>
+        <h1 class="title">
+          <a href="/">&larr; Overwatch Counter Picker</a>
+        </h1>
+        <p class="subtitle">
+          Upload a screenshot of your Overwatch team composition to figure
+          out which hero you should play.
+        </p>
+      </div>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container content has-text-centered">
+      <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+          <h1>
+            Hmm, the file you uploaded doesn't seem
+            to be the right kind of screenshot.
+          </h1>
+          <p>Maybe try uploading a different file?</p>
+          <p>Sorry, photos of your TV won't work, console players. :(</p>
+          <div id="sample-screenshot-container">
+            <p>Upload a screenshot like this:</p>
+            <img class="sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <ul class="list-inline">
+          <li>Built by Sarah</li>
+          <li><a href="https://github.com/cheshire137/overwatch-counter-picker">View source</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

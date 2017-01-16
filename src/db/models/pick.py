@@ -97,7 +97,11 @@ class Pick(db.Model):
 
   # Returns a string to be used to uniquely represent this Pick in a URL.
   def slug(self):
-    return self.player + '.' + str(self.id) + '.' + self.uploaded_at.strftime('%Y%m%d')
+    date = self.uploaded_at.strftime('%Y%m%d')
+    if self.player:
+      return self.player + '.' + str(self.id) + '.' + date
+    else:
+      return 'unknown.' + str(self.id) + '.' + date
 
   # Given a slug like ana.1.20170115, this will return the Pick record that matches,
   # or None if it does not exist.
@@ -110,7 +114,7 @@ class Pick(db.Model):
     id = int(parts[1])
     date_str = parts[2]
     row = Pick.query.filter_by(id=id).limit(1).first()
-    if row and row.player == player:
+    if row and (row.player == player or row.player is None and player == 'unknown'):
       expected_date_str = row.uploaded_at.strftime('%Y%m%d')
       if date_str == expected_date_str:
         return row

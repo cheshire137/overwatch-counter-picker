@@ -55,6 +55,11 @@ def save_upload(file):
 # Saves records to the database about the heroes that were detected and the
 # hero suggestion(s) for the user to play.
 def save_picks_to_database(picks, team_detector):
+  player = team_detector.blue_team.player()
+
+  if not player:
+    return None
+
   blue_counts = TeamComposition.counts_from_list(team_detector.blue_team.heroes)
   blue_team_record = TeamComposition.find_with_counts(blue_counts)
   if blue_team_record is None:
@@ -72,7 +77,7 @@ def save_picks_to_database(picks, team_detector):
   pick_attrs = {
     'screenshot_width': team_detector.hero_detector.original_w,
     'screenshot_height': team_detector.hero_detector.original_h,
-    'player': team_detector.blue_team.player(),
+    'player': player,
     'blue_team_id': blue_team_record.id,
     'red_team_id': red_team_record.id
   }
@@ -167,6 +172,8 @@ def upload():
     screenshot_path = save_upload(file)
     pick_record = get_pick_record_from_screenshot(screenshot_path)
     os.remove(screenshot_path)
-    return redirect('/pick/' + pick_record.slug())
+    if pick_record:
+      return redirect('/pick/' + pick_record.slug())
+    return render_template('bad_screenshot.html')
 
   return redirect(request.url)
