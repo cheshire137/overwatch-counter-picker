@@ -149,7 +149,12 @@
 }
 
 .upload-form {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+}
+
+.sample-screenshot-container {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
 }
 
 .pick-stats-table td {
