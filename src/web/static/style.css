@@ -189,8 +189,8 @@
   top: 44px;
 }
 
-.pick-stats-table .report-link,
-.pick-stats-table .report-link .octicon {
+.pick-stats-table .date-cell a,
+.pick-stats-table .date-cell a .octicon {
   font-size: 12px;
 }
 
@@ -222,7 +222,7 @@
 
 .pick-stats-table .blue-team-cell,
 .pick-stats-table .red-team-cell {
-  max-width: 345px;
+  max-width: 350px;
 }
 
 .stats-link {

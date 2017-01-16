@@ -71,11 +71,15 @@
                 <img class="overwatch-hero-portrait pick" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
               {% endfor %}
             </td>
-            <td class="date-cell">
+            <td class="date-cell has-text-centered">
               {{ pick.uploaded_at.strftime('%x') }}<br>
-              <a class="report-link" href="https://github.com/cheshire137/overwatch-counter-picker/issues/new?title=Bad%20picks&amp;body=-%20Date:%20{{ pick.uploaded_at.strftime('%Y-%m-%d') }}%0A-%20Player:%20{{ pick.player }}%0A-%20Picks:%20{{ pick.heroes_str() }}%0A-%20Blue%20team:%20{{ pick.blue_heroes_str() }}%0A-%20Red%20team:%20{{ pick.red_heroes_str() }}%0A-%20ID:%20{{ pick.id }}" title="Bad suggestions? Please file an issue!">
+              <a href="https://github.com/cheshire137/overwatch-counter-picker/issues/new?title=Bad%20picks&amp;body=-%20Date:%20{{ pick.uploaded_at.strftime('%Y-%m-%d') }}%0A-%20Player:%20{{ pick.player }}%0A-%20Picks:%20{{ pick.heroes_str() }}%0A-%20Blue%20team:%20{{ pick.blue_heroes_str() }}%0A-%20Red%20team:%20{{ pick.red_heroes_str() }}%0A-%20ID:%20{{ pick.id }}" title="Bad suggestions? Please file an issue!">
                 <span class="octicon octicon-megaphone"></span>
                 Report
+              </a><br>
+              <a href="/pick/{{ pick.slug() }}" title="Permalink">
+                <span class="octicon octicon-link"></span>
+                Link
               </a>
             </td>
           </tr>
