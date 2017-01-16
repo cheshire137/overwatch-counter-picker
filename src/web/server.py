@@ -109,14 +109,13 @@ def save_picks_to_database(picks, team_detector):
 
   return pick_record
 
-# Returns a rendered page template showing the results of the hero selection,
+# Returns a Pick database record for the results of the hero selection,
 # based on the given Overwatch screenshot file path.
-def get_picks_from_screenshot(screenshot_path):
+def get_pick_record_from_screenshot(screenshot_path):
   team_detector = get_team_detector(screenshot_path)
   hero_picker = HeroPicker(team_detector.red_team, team_detector.blue_team)
   picks = hero_picker.pick()
-  pick_record = save_picks_to_database(picks, team_detector)
-  return render_result(picks, pick_record, team_detector)
+  return save_picks_to_database(picks, team_detector)
 
 # Returns a list of Pick instances from the database, ordered most recent first.
 # Paginated based on the given page and STATS_PER_PAGE.
@@ -188,8 +187,8 @@ def upload():
   file = request.files['file']
   if file and file.filename != '' and allowed_file(file.filename):
     screenshot_path = save_upload(file)
-    template = get_picks_from_screenshot(screenshot_path)
+    pick_record = get_pick_record_from_screenshot(screenshot_path)
     os.remove(screenshot_path)
-    return template
+    return redirect('/pick/' + pick_record.slug())
 
   return redirect(request.url)
