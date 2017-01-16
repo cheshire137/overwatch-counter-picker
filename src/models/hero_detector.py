@@ -80,4 +80,4 @@ class HeroDetector:
   # starting at several different-but-very-similar top-left points.
   @classmethod
   def round(cls, num):
-    return int(math.floor(num / 40.0)) * 40
+    return int(math.floor(num / 20.0)) * 20

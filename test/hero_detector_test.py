@@ -142,7 +142,7 @@ class HeroDetectorTest(unittest.TestCase):
       (1636, 765), (1637, 765), (1638, 765), (1639, 765), (1640, 765), \
       (1636, 766), (1637, 766), (1638, 766), (1639, 766), (1640, 766), \
       (1638, 767), (1639, 767)]
-    expected = [(1620, 340), (1620, 760)]
+    expected = [(1630, 760), (1630, 350)]
     actual = HeroDetector.combine_points(points)
     self.assertEqual(expected, actual)
 
