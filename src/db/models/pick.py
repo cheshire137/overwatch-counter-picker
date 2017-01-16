@@ -117,9 +117,14 @@ class Pick(db.Model):
     return None
 
   @classmethod
-  def find_on_date_with_attrs(cls, date, attrs):
+  def find_today_with_attrs(cls, attrs):
+    valid_names = Team.hero_names.keys()
+    for hero in valid_names:
+      if hero not in attrs:
+        attrs[hero] = False
+    today = datetime.utcnow().date()
     row = Pick.query.filter_by(**attrs).\
-      filter(cast(Pick.uploaded_at, Date) == date).limit(1).first()
+      filter(cast(Pick.uploaded_at, Date) == today).limit(1).first()
     if row:
       return row
     return None

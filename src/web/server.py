@@ -78,7 +78,7 @@ def save_picks_to_database(picks, team_detector):
   }
   pick_attrs.update({hero: True for hero in picks})
 
-  pick_record = Pick.find_on_date_with_attrs(date.today(), pick_attrs)
+  pick_record = Pick.find_today_with_attrs(pick_attrs)
   if pick_record is None:
     pick_record = Pick(**pick_attrs)
     db.session.add(pick_record)
