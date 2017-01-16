@@ -35,7 +35,7 @@ the command-line script for debugging what it "sees." Run with
 
 ### How to Install OpenCV
 
-Here's how I did it in macOS Sierra using Homebrew. Basically follow
+Here's how I installed OpenCV in macOS Sierra using Homebrew. Basically follow
 [this macOS OpenCV installation guide](http://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/),
 namely:
 
@@ -60,7 +60,7 @@ pip install coverage
 
 Tests will be run and a test coverage report will appear afterward.
 
-You can run an individual test using its class and method name, like so:
+You can run an individual test using its class and method name like so:
 
 ```bash
 python -m test.hero_detector_test HeroDetectorTest.test_detect_finds_lucio_when_present
@@ -80,4 +80,4 @@ heroku run python -m src.db.create # create tables
 ## Thanks
 
 Thanks to Blizzard for Overwatch. The hero portraits and names are all theirs,
-I'm just a fan.
+I'm just a fan. :heart:
