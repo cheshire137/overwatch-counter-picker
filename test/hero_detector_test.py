@@ -134,5 +134,17 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertNotEqual(points[0][1], points[1][1], \
                         'D.Va should be found once on each team')
 
+  def test_combine_points(self):
+    points = [(1637, 357), (1638, 357), (1636, 358), (1637, 358), (1638, 358), \
+      (1639, 358), (1640, 358), (1636, 359), (1637, 359), (1638, 359), \
+      (1639, 359), (1640, 359), (1637, 360), (1638, 360), (1639, 360), \
+      (1640, 360), (1636, 764), (1637, 764), (1638, 764), (1639, 764), \
+      (1636, 765), (1637, 765), (1638, 765), (1639, 765), (1640, 765), \
+      (1636, 766), (1637, 766), (1638, 766), (1639, 766), (1640, 766), \
+      (1638, 767), (1639, 767)]
+    expected = [(1620, 340), (1620, 760)]
+    actual = HeroDetector.combine_points(points)
+    self.assertEqual(expected, actual)
+
 if __name__ == '__main__':
   unittest.main()
