@@ -21,10 +21,10 @@ hero_detector = team_detector.hero_detector
 if hero_detector.is_cards_screen:
   print 'Screenshot is of game-over screen with voting cards'
 
-if hero_detector.resized:
+if hero_detector.resized_w != hero_detector.original_w:
   print 'Resized original image from', str(hero_detector.original_w) + 'x' + \
-    str(hero_detector.original_h), 'to', str(hero_detector.resized_w) + 'px', \
-    'wide\n'
+    str(hero_detector.original_h), 'to', str(hero_detector.resized_w) + 'x' + \
+    str(hero_detector.resized_h), '\n'
 
 print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
