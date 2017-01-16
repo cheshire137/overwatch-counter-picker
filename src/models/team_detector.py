@@ -24,10 +24,14 @@ class TeamDetector:
     for hero in self.__class__.heroes:
       self.detect_hero(hero, draw_boxes=draw_boxes)
 
+  # Returns an image template for finding the given hero within a larger image.
+  def get_hero_template(self, hero):
+    path = os.path.abspath('src/heroes/' + hero + '.png')
+    return cv2.imread(path)
+
   # Look for the given hero in the original image.
   def detect_hero(self, hero, draw_boxes=False):
-    path = os.path.abspath('src/heroes/' + hero + '.png')
-    template = cv2.imread(path)
+    template = self.get_hero_template(hero)
     (height, width) = template.shape[:2]
     points = self.hero_detector.detect(template)
 
