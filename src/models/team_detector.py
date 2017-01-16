@@ -26,7 +26,7 @@ class TeamDetector:
 
   # Returns an image template for finding the given hero within a larger image.
   def get_hero_template(self, hero):
-    path = os.path.abspath('src/heroes/' + hero + '.png')
+    path = os.path.abspath('src/templates/' + hero + '.png')
     return cv2.imread(path)
 
   # Look for the given hero in the original image.
