@@ -30,7 +30,9 @@ print 'Red team:', team_detector.red_team
 print 'Blue team:', team_detector.blue_team
 
 player = team_detector.blue_team.player()
-if player is not None:
+if player is None:
+  print 'Player not detected!'
+else:
   print 'Player is', player
 
 output_path = 'res.png'
