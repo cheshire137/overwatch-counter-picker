@@ -259,3 +259,8 @@
     max-width: 800px;
   }
 }
+
+.title .page-title {
+  color: #c9fbfa;
+  font-size: 90%;
+}
