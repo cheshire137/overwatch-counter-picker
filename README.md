@@ -26,8 +26,11 @@ The server will run at [127.0.0.1:5000](http://127.0.0.1:5000/). Run with
 ### Command-Line Script
 
 The command-line script will allow you to pass an Overwatch screenshot and
-determine which hero you should pick. Run with `python -m src.cli`. You can pass
-it the path to an image, e.g.,
+determine which hero you should pick. It's useful because it produces an image
+with boxes showing exactly which heroes were detected where. So if an upload to
+the web app doesn't find all the players on a team, run the same image through
+the command-line script for debugging what it "sees." Run with
+`python -m src.cli`. You can pass it the path to an image, e.g.,
 `python -m src.cli sample-screenshots/hero-selection-not-full.jpg`.
 
 ### How to Install OpenCV
