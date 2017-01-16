@@ -5,37 +5,35 @@
   </a>
 {% endblock %}
 {% block content %}
-  <section class="section">
-    <div class="container has-text-centered content">
-      <div class="columns">
-        <div class="column is-half is-offset-one-quarter">
-          <form method="post" class="upload-form" id="screenshot-upload-form" enctype="multipart/form-data">
-            <div class="control has-addons">
-              <input type="file" class="file-input" id="file" name="file">
-              <label for="file" id="file-input-label" class="has-text-centered label is-large is-expanded">
-                Choose an Overwatch screenshot
-              </label>
-              <button type="submit" id="submit-button" class="is-large button is-primary">
-                Upload
-              </button>
-            </div>
-            <span class="help">You can drag and drop a screenshot.</span>
-            <span class="help is-danger" id="file-type-warning" style="display: none">
-              Choose a .jpg, .jpeg, .png, or .gif
-            </span>
-          </form>
-        </div>
-      </div>
-      <div id="sample-screenshot-container">
-        <p>Upload a screenshot like this:</p>
-        <img class="screenshot sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
-      </div>
-      <div id="screenshot-preview-container" style="display: none">
-        <p>Your screenshot:</p>
-        <img src="" class="screenshot" id="screenshot-preview" alt="">
+  <div class="container has-text-centered content">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <form method="post" class="upload-form" id="screenshot-upload-form" enctype="multipart/form-data">
+          <div class="control has-addons">
+            <input type="file" class="file-input" id="file" name="file">
+            <label for="file" id="file-input-label" class="has-text-centered label is-large is-expanded">
+              Choose an Overwatch screenshot
+            </label>
+            <button type="submit" id="submit-button" class="is-large button is-primary">
+              Upload
+            </button>
+          </div>
+          <span class="help">You can drag and drop a screenshot.</span>
+          <span class="help is-danger" id="file-type-warning" style="display: none">
+            Choose a .jpg, .jpeg, .png, or .gif
+          </span>
+        </form>
       </div>
     </div>
-  </section>
+    <div id="sample-screenshot-container">
+      <p>Upload a screenshot like this:</p>
+      <img class="screenshot sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
+    </div>
+    <div id="screenshot-preview-container" style="display: none">
+      <p>Your screenshot:</p>
+      <img src="" class="screenshot" id="screenshot-preview" alt="">
+    </div>
+  </div>
 {% endblock %}
 {% block script %}
   <script src="{{ url_for('static', filename='index.js') }}"></script>

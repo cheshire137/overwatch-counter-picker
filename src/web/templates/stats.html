@@ -1,117 +1,85 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Usage Stats - Overwatch Counter Picker</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+{% extends "layout.html" %}
+{% block title %}Usage Stats - {% endblock %}
+{% block css %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <header class="hero is-info">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          <a href="/">&larr; Overwatch Counter Picker</a> /
-          <span class="page-title">Usage Stats</span>
-        </h1>
-        <p class="subtitle">
-          Upload a screenshot of your Overwatch team composition to figure
-          out which hero you should play.
-        </p>
-      </div>
+{% endblock %}
+{% block page_title %}/ <span class="page-title">Usage Stats</span>{% endblock %}
+{% block content %}
+  <div class="columns content">
+    <div class="column is-half">
+      <p>
+        These represent the screenshots people have uploaded of their Overwatch
+        games. If you see a suggestion that doesn't make sense for the given team
+        composition, please report it via the link in each row; thanks!
+      </p>
     </div>
-  </header>
-  <section class="section">
-    <div class="columns content">
-      <div class="column is-half">
-        <p>
-          These represent the screenshots people have uploaded of their Overwatch
-          games. If you see a suggestion that doesn't make sense for the given team
-          composition, please report it via the link in each row; thanks!
-        </p>
-      </div>
-    </div>
-    <table class="pick-stats-table table">
-      <thead>
+  </div>
+  <table class="pick-stats-table table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Blue Team</th>
+        <th>Red Team</th>
+        <th>Suggested Picks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pick in picks %}
         <tr>
-          <th>Player</th>
-          <th>Blue Team</th>
-          <th>Red Team</th>
-          <th>Suggested Picks</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for pick in picks %}
-          <tr>
-            <td class="player-cell">
-              {% if pick.player %}
-                <img class="overwatch-hero-portrait player" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
-                {% if pick.player_ok() %}
-                  <span title="Good pick" class="player-ok octicon octicon-check"></span>
-                {% else %}
-                  <span title="Bad pick" class="player-not-ok octicon octicon-x"></span>
-                {% endif %}
+          <td class="player-cell">
+            {% if pick.player %}
+              <img class="overwatch-hero-portrait player" src="{{ url_for('static', filename=pick.player + '.png') }}" alt="{{ pick.player }}">
+              {% if pick.player_ok() %}
+                <span title="Good pick" class="player-ok octicon octicon-check"></span>
+              {% else %}
+                <span title="Bad pick" class="player-not-ok octicon octicon-x"></span>
               {% endif %}
-            </td>
-            <td class="blue-team-cell">
-              {% for hero in pick.blue_heroes() %}
-                <img class="overwatch-hero-portrait blue-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
-              {% endfor %}
-            </td>
-            <td class="red-team-cell">
-              {% for hero in pick.red_heroes() %}
-                <img class="overwatch-hero-portrait red-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
-              {% endfor %}
-            </td>
-            <td class="picks-cell {{ 'suggestions-%d' % pick.num_suggestions() }}">
-              {% for hero in pick.heroes() %}
-                <img class="overwatch-hero-portrait pick" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
-              {% endfor %}
-            </td>
-            <td class="date-cell has-text-centered">
-              {{ pick.uploaded_at.strftime('%x') }}<br>
-              <a href="https://github.com/cheshire137/overwatch-counter-picker/issues/new?title=Bad%20picks&amp;body=-%20Date:%20{{ pick.uploaded_at.strftime('%Y-%m-%d') }}%0A-%20Player:%20{{ pick.player }}%0A-%20Picks:%20{{ pick.heroes_str() }}%0A-%20Blue%20team:%20{{ pick.blue_heroes_str() }}%0A-%20Red%20team:%20{{ pick.red_heroes_str() }}%0A-%20ID:%20{{ pick.id }}" title="Bad suggestions? Please file an issue!">
-                <span class="octicon octicon-megaphone"></span>
-                Report
-              </a><br>
-              <a href="/pick/{{ pick.slug() }}" title="Permalink">
-                <span class="octicon octicon-link"></span>
-                Link
-              </a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% if num_pages > 1 %}
-      <nav class="pagination">
-        {% if page == 2 %}
-          <a class="pagination-previous" href="/stats">Previous</a>
-        {% elif page > 2 %}
-          <a class="pagination-previous" href="/stats/page/{{ page - 1 }}">Previous</a>
-        {% endif %}
-        {% if page < num_pages %}
-          <a class="pagination-next" href="/stats/page/{{ page + 1 }}">Next</a>
-        {% endif %}
-        <ul class="pagination-list">
-          <li>Page {{ page }} of {{ num_pages }}</li>
-        </ul>
-      </nav>
-    {% endif %}
-  </section>
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <ul class="list-inline">
-          <li>Built by Sarah</li>
-          <li><a href="https://github.com/cheshire137/overwatch-counter-picker">View source</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+            {% endif %}
+          </td>
+          <td class="blue-team-cell">
+            {% for hero in pick.blue_heroes() %}
+              <img class="overwatch-hero-portrait blue-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+            {% endfor %}
+          </td>
+          <td class="red-team-cell">
+            {% for hero in pick.red_heroes() %}
+              <img class="overwatch-hero-portrait red-hero" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+            {% endfor %}
+          </td>
+          <td class="picks-cell {{ 'suggestions-%d' % pick.num_suggestions() }}">
+            {% for hero in pick.heroes() %}
+              <img class="overwatch-hero-portrait pick" src="{{ url_for('static', filename=hero + '.png') }}" alt="{{ hero }}">
+            {% endfor %}
+          </td>
+          <td class="date-cell has-text-centered">
+            {{ pick.uploaded_at.strftime('%x') }}<br>
+            <a href="https://github.com/cheshire137/overwatch-counter-picker/issues/new?title=Bad%20picks&amp;body=-%20Date:%20{{ pick.uploaded_at.strftime('%Y-%m-%d') }}%0A-%20Player:%20{{ pick.player }}%0A-%20Picks:%20{{ pick.heroes_str() }}%0A-%20Blue%20team:%20{{ pick.blue_heroes_str() }}%0A-%20Red%20team:%20{{ pick.red_heroes_str() }}%0A-%20ID:%20{{ pick.id }}" title="Bad suggestions? Please file an issue!">
+              <span class="octicon octicon-megaphone"></span>
+              Report
+            </a><br>
+            <a href="/pick/{{ pick.slug() }}" title="Permalink">
+              <span class="octicon octicon-link"></span>
+              Link
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if num_pages > 1 %}
+    <nav class="pagination">
+      {% if page == 2 %}
+        <a class="pagination-previous" href="/stats">Previous</a>
+      {% elif page > 2 %}
+        <a class="pagination-previous" href="/stats/page/{{ page - 1 }}">Previous</a>
+      {% endif %}
+      {% if page < num_pages %}
+        <a class="pagination-next" href="/stats/page/{{ page + 1 }}">Next</a>
+      {% endif %}
+      <ul class="pagination-list">
+        <li>Page {{ page }} of {{ num_pages }}</li>
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}

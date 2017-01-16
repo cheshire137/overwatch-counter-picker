@@ -15,8 +15,7 @@
       <div class="container">
         {% block header %}{% endblock %}
         <h1 class="title">
-          <a href="/">Overwatch Counter Picker</a>
-          {% block page_title %}{% endblock %}
+          <a href="/">Overwatch Counter Picker</a> {% block page_title %}{% endblock %}
         </h1>
         <p class="subtitle">
           Upload a screenshot of your Overwatch team composition to figure
@@ -25,7 +24,9 @@
       </div>
     </div>
   </header>
-  {% block content %}{% endblock %}
+  <section class="section">
+    {% block content %}{% endblock %}
+  </section>
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
