@@ -10,6 +10,7 @@ class HeroDetectorTest(unittest.TestCase):
     cls.fire_and_death = cv2.imread('sample-screenshots/fire-and-death.jpg')
     cls.eichenwalde_full = cv2.imread('sample-screenshots/eichenwalde-full.jpg')
     cls.cards_screen = cv2.imread('sample-screenshots/cards-screen.jpg')
+    cls.cards_screen2 = cv2.imread('sample-screenshots/cards-screen2.jpg')
 
   def test_constructor_detects_dimensions(self):
     detector = HeroDetector(self.__class__.full_teams)
@@ -49,6 +50,16 @@ class HeroDetectorTest(unittest.TestCase):
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
     self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
+  def test_detect_finds_pharah_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen2)
+    template = cv2.imread('src/templates/pharah.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    red_pharah = points[0]
+    blue_pharah = points[1]
+    self.assertTrue(detector.is_red_team(red_pharah[1]), 'should be on red team')
+    self.assertFalse(detector.is_red_team(blue_pharah[1]), 'should be on blue team')
 
   def test_detect_finds_mercy_when_present(self):
     detector = HeroDetector(self.__class__.fire_and_death)
@@ -113,8 +124,29 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertTrue(points, 'points should not be None')
     self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
 
+  def test_detect_finds_roadhog_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen2)
+    template = cv2.imread('src/templates/roadhog.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
+  def test_detect_finds_reinhardt_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen2)
+    template = cv2.imread('src/templates/reinhardt.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertTrue(detector.is_red_team(points[0][1]), 'should be on red team')
+
   def test_detect_finds_reaper_when_present(self):
     detector = HeroDetector(self.__class__.full_teams)
+    template = cv2.imread('src/templates/reaper.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
+
+  def test_detect_finds_reaper_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen2)
     template = cv2.imread('src/templates/reaper.png')
     points = detector.detect(template)
     self.assertTrue(points, 'points should not be None')
@@ -214,6 +246,13 @@ class HeroDetectorTest(unittest.TestCase):
     self.assertEqual(2, len(points))
     self.assertNotEqual(points[0][1], points[1][1], \
                         'D.Va should be found once on each team')
+
+  def test_detect_finds_hanzo_on_cards_screen(self):
+    detector = HeroDetector(self.__class__.cards_screen2)
+    template = cv2.imread('src/templates/hanzo.png')
+    points = detector.detect(template)
+    self.assertTrue(points, 'points should not be None')
+    self.assertFalse(detector.is_red_team(points[0][1]), 'should be on blue team')
 
   def test_combine_points(self):
     points = [(1637, 357), (1638, 357), (1636, 358), (1637, 358), (1638, 358), \
