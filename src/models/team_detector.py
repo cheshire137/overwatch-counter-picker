@@ -21,6 +21,7 @@ class TeamDetector:
 
   # Look in the original image for each Overwatch hero.
   def detect(self, draw_boxes=False):
+    self.is_cards_screen = self.detect_if_cards_screen()
     for hero in self.__class__.heroes:
       self.detect_hero(hero, draw_boxes=draw_boxes)
 
