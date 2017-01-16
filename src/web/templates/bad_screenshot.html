@@ -14,12 +14,21 @@
           Hmm, the file you uploaded doesn't seem
           to be the right kind of screenshot.
         </h1>
-        <p>Maybe try uploading a different file?</p>
-        <p>Sorry, photos of your TV won't work, console players. :(</p>
-        <div id="sample-screenshot-container">
-          <p>Upload a screenshot like this:</p>
-          <img class="sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
-        </div>
+        <ul class="upload-tips-list">
+          <li>
+            <span class="octicon octicon-x red-text"></span>
+            Photos of your TV won't work, console players. :(
+          </li>
+          <li>
+            <span class="octicon octicon-x red-text"></span>
+            Old screenshots with the black player level won't work.
+          </li>
+          <li>
+            <span class="octicon octicon-check green-text"></span>
+            Upload a screenshot like this:
+            <img class="sample-screenshot" src="{{ url_for('static', filename='sample-screenshot.jpg') }}" alt="Sample screenshot">
+          </li>
+        </ul>
       </div>
     </div>
   </div>

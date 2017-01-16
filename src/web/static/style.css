@@ -198,6 +198,31 @@
   font-size: 12px;
 }
 
+.red-text {
+  color: #C13110;
+}
+
+.green-text {
+  color: #2AC110;
+}
+
+.content .upload-tips-list li {
+  list-style: none;
+}
+
+.content h1 {
+  line-height: 1.25;
+}
+
+.content .upload-tips-list li + li {
+  margin-top: 1em;
+}
+
+.upload-tips-list .sample-screenshot {
+  display: block;
+  margin-top: 1em;
+}
+
 .pick-stats-table .player-not-ok {
   color: #C13110;
   position: absolute;
