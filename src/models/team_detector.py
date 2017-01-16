@@ -43,15 +43,21 @@ class TeamDetector:
       if self.have_seen_position(top_left_point):
         return
 
-      if self.hero_detector.is_red_team(top_left_point[1]):
-        self.red_team.add(hero, top_left_point[0])
-      else:
-        self.blue_team.add(hero, top_left_point[0])
+      self.add_hero_to_team(hero, top_left_point)
 
       if draw_boxes:
         bottom_right_point = (top_left_point[0] + width, top_left_point[1] + height)
         cv2.rectangle(self.hero_detector.original, top_left_point, \
                       bottom_right_point, self.color, self.thickness)
+
+  # Adds the given hero to the appropriate team based on the given point that is
+  # the top-left point where the hero's template was found in the larger image.
+  def add_hero_to_team(self, hero, top_left_point):
+    (x, y) = top_left_point
+    if self.hero_detector.is_red_team(y):
+      self.red_team.add(hero, x)
+    else:
+      self.blue_team.add(hero, x)
 
   def have_seen_position(self, point):
     if point in self.seen_positions:
