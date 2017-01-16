@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Overwatch Counter Picker</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="index-page">
-  <header class="hero is-info">
-    <div class="hero-body">
-      <div class="container">
-        <a class="stats-link is-pulled-right" href="/stats">
-          View stats
-        </a>
-        <h1 class="title">
-          <a href="/">Overwatch Counter Picker</a>
-        </h1>
-        <p class="subtitle">
-          Upload a screenshot of your Overwatch team composition to figure
-          out which hero you should play.
-        </p>
-      </div>
-    </div>
-  </header>
+{% extends "layout.html" %}
+{% block header %}
+  <a class="stats-link is-pulled-right" href="/stats">
+    View stats
+  </a>
+{% endblock %}
+{% block content %}
   <section class="section">
     <div class="container has-text-centered content">
       <div class="columns">
@@ -56,16 +36,7 @@
       </div>
     </div>
   </section>
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <ul class="list-inline">
-          <li>Built by Sarah</li>
-          <li><a href="https://github.com/cheshire137/overwatch-counter-picker">View source</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+{% endblock %}
+{% block script %}
   <script src="{{ url_for('static', filename='index.js') }}"></script>
-</body>
-</html>
+{% endblock %}
